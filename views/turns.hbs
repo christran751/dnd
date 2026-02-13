@@ -1,0 +1,97 @@
+<h1>{{title}}</h1>
+
+<!-- Turns Table -->
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Character</th>
+      <th>Encounter</th>
+      <th>Action Taken</th>
+      <th>Round</th>
+      <th>Action Order</th>
+      <th>Remove</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#if turns}}
+      {{#each turns}}
+        <tr>
+          <td>{{idTurns}}</td>
+          <td>{{displayName}}</td>
+          <td>{{nameOfLocation}}</td>
+          <td>{{actionTaken}}</td>
+          <td>{{roundNumber}}</td>
+          <td>{{actionOrderInRound}}</td>
+          <td>
+            <form method="POST" action="/delete-turn">
+              <input type="hidden" name="idTurns" value="{{idTurns}}">
+              <button type="submit" onclick="return false;">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {{/each}}
+    {{else}}
+      <tr>
+        <td colspan="7">No Turns recorded.</td>
+      </tr>
+    {{/if}}
+  </tbody>
+</table>
+
+<!-- Add New Turn -->
+<h2>Add New Turn</h2>
+<form method="POST" action="/add-turn">
+
+  Character Encounter:
+  <select name="idCharacterEncounter">
+    {{#each charEncounters}}
+      <option value="{{idCharacterEncounter}}">
+        {{displayName}} ({{nameOfLocation}})
+      </option>
+    {{/each}}
+  </select>
+  <br>
+
+  Round Number:
+  <input type="text" name="roundNumber"><br>
+
+  Action Order:
+  <input type="text" name="actionOrderInRound"><br>
+
+  Action Taken:
+  <input type="text" name="actionTaken"><br>
+
+  <button type="submit" onclick="return false;">Add Turn</button>
+</form>
+
+<!-- Update Turn -->
+<h2>Update Turn</h2>
+<form method="POST" action="/update-turn">
+
+  Select Turn:
+  <select name="idTurns">
+    {{#each turns}}
+      <option value="{{idTurns}}">
+        {{idTurns}} - {{displayName}} ({{nameOfLocation}})
+      </option>
+    {{/each}}
+  </select>
+  <br><br>
+
+  Character Encounter:
+  <select name="idCharacterEncounter">
+    {{#each charEncounters}}
+      <option value="{{idCharacterEncounter}}">
+        {{displayName}} ({{nameOfLocation}})
+      </option>
+    {{/each}}
+  </select>
+  <br>
+
+  Action Taken: <input type="text" name="actionTaken"><br>
+  Round Number: <input type="text" name="roundNumber"><br>
+  Action Order: <input type="text" name="actionOrderInRound"><br>
+
+  <button type="submit" onclick="return false;">Update Turn</button>
+</form>

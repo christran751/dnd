@@ -1,0 +1,58 @@
+<h1>{{title}}</h1>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Location Name</th>
+      <th>Location</th>
+      <th>Remove</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#if encounters.length}}
+      {{#each encounters}}
+        <tr>
+          <td>{{idEncounters}}</td>
+          <td>{{nameOfLocation}}</td>
+          <td>{{location}}</td>
+          <td>
+            <form method="POST" action="/delete-encounter">
+              <input type="hidden" name="idEncounters" value="{{idEncounters}}">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {{/each}}
+    {{else}}
+      <tr>
+        <td colspan="4">No Encounters found.</td>
+      </tr>
+    {{/if}}
+  </tbody>
+</table>
+
+<h2>Add New Encounter</h2>
+<form method="POST" action="/add-encounter">
+  Location Name: <input type="text" name="nameOfLocation" required><br>
+  Location Description: <input type="text" name="location" required><br>
+  <button type="submit">Add Encounter</button>
+</form>
+
+<h2>Update Encounter</h2>
+<form method="POST" action="/update-encounter">
+  Encounter ID:
+  <select name="idEncounters">
+    {{#each encounters}}
+      <option value="{{idEncounters}}">
+        {{idEncounters}} - {{nameOfLocation}}
+      </option>
+    {{/each}}
+  </select>
+  <br><br>
+
+  Location Name: <input type="text" name="nameOfLocation"><br>
+  Location Description: <input type="text" name="location"><br>
+
+  <button type="submit">Update Encounter</button>
+</form>

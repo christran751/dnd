@@ -1,0 +1,71 @@
+<h1>{{title}}</h1>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Character</th>
+      <th>Encounter</th>
+      <th>HP Change</th>
+      <th>Source</th>
+      <th>Remove</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#if health_logs.length}}
+      {{#each health_logs}}
+        <tr>
+          <td>{{displayName}}</td>
+          <td>{{nameOfLocation}}</td>
+          <td style="color: {{color}};">{{hitPointChange}}</td>
+          <td>{{hitPointChangeSource}}</td>
+          <td>
+            <form method="POST" action="/health_logs/delete">
+              <input type="hidden" name="idHealthChangeLogs" value="{{idHealthChangeLogs}}">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {{/each}}
+    {{else}}
+      <tr>
+        <td colspan="5">No Health Logs available.</td>
+      </tr>
+    {{/if}}
+  </tbody>
+</table>
+
+<h2>Add New Health Log</h2>
+<form method="POST" action="/health_logs/add">
+    Select Log:
+  <select name="idTurns" required>
+    <option value="" disabled selected>Select Character Encounter</option>
+    {{#each charEncounters}}
+      <option value="{{idTurns}}">
+        {{displayName}} - {{nameOfLocation}}
+      </option>
+    {{/each}}
+  </select>
+  <br><br>
+
+  HP Change: <input type="number" name="hitPointChange" required><br>
+  Source: <input type="text" name="hitPointChangeSource" required><br>
+  <button type="submit">Add Health Log</button>
+</form>
+
+<h2>Update Health Log</h2>
+<form method="POST" action="/health_logs/update">
+  Select Log:
+  <select name="idTurns" required>
+    <option value="" disabled selected>Select Character Encounter</option>
+    {{#each charEncounters}}
+      <option value="{{idTurns}}">
+        {{displayName}} - {{nameOfLocation}}
+      </option>
+    {{/each}}
+  </select>
+  <br><br>
+
+  HP Change: <input type="number" name="hitPointChange" required><br>
+  Source: <input type="text" name="hitPointChangeSource" required><br>
+  <button type="submit">Update Health Log</button>
+</form>

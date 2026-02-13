@@ -1,0 +1,81 @@
+<h1>{{title}}</h1>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Character</th>
+      <th>Encounter</th>
+      <th>Initiative Order</th>
+      <th>Initiative Roll</th>
+      <th>Current HP</th>
+      <th>Remove</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#if characters_encounters.length}}
+      {{#each characters_encounters}}
+        <tr>
+          <td>{{displayName}}</td>
+          <td>{{nameOfLocation}}</td>
+          <td>{{initiativeOrder}}</td>
+          <td>{{initiativeRoll}}</td>
+          <td>{{currentHitPoint}}</td>
+          <td>
+            <form method="POST" action="/delete-character-encounter">
+              <input type="hidden" name="idCharacterEncounter" value="{{idCharacterEncounter}}">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {{/each}}
+    {{else}}
+      <tr>
+        <td colspan="6">No Character Encounters found.</td>
+      </tr>
+    {{/if}}
+  </tbody>
+</table>
+
+<h2>Add New Character Encounter</h2>
+<form method="POST" action="/add-character-encounter">
+  Character ID:
+  <select name="idCharacters" required>
+    {{#each characters_encounters}}
+      <option value="{{idCharacters}}">{{displayName}}</option>
+    {{/each}}
+  </select>
+  <br><br>
+
+  Encounter ID:
+  <select name="idEncounters" required>
+    {{#each characters_encounters}}
+      <option value="{{idEncounters}}">{{nameOfLocation}}</option>
+    {{/each}}
+  </select>
+  <br><br>
+
+  Initiative Order: <input type="number" name="initiativeOrder" required><br>
+  Initiative Roll: <input type="number" name="initiativeRoll" required><br>
+  Current HP: <input type="number" name="currentHitPoint" required><br>
+
+  <button type="submit">Add Character Encounter</button>
+</form>
+
+<h2>Update Character Encounter</h2>
+<form method="POST" action="/update-character-encounter">
+  Character Encounter ID:
+  <select name="idCharacterEncounter" required>
+    {{#each characters_encounters}}
+      <option value="{{idCharacterEncounter}}">
+        {{idCharacterEncounter}} - {{displayName}} @ {{nameOfLocation}}
+      </option>
+    {{/each}}
+  </select>
+  <br><br>
+
+  Initiative Order: <input type="number" name="initiativeOrder"><br>
+  Initiative Roll: <input type="number" name="initiativeRoll"><br>
+  Current HP: <input type="number" name="currentHitPoint"><br>
+
+  <button type="submit">Update Character Encounter</button>
+</form>

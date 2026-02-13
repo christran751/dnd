@@ -1,0 +1,37 @@
+<h1>{{title}}</h1>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Character</th>
+      <th>Encounter</th>
+      <th>Condition</th>
+      <th>Duration</th>
+      <th>Effect Amount</th>
+      <th>Remove</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#if status_effects.length}}
+      {{#each status_effects}}
+        <tr>
+          <td>{{displayName}}</td>
+          <td>{{nameOfLocation}}</td>
+          <td>{{conditionStatus}}</td>
+          <td>{{duration}}</td>
+          <td>{{effectAmount}}</td>
+          <td>
+            <form method="POST" action="/delete-character">
+              <input type="hidden" name="idCharacters" value="{{idCharacters}}">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {{/each}}
+    {{else}}
+      <tr>
+        <td colspan="5">No Status Effects recorded.</td>
+      </tr>
+    {{/if}}
+  </tbody>
+</table>
