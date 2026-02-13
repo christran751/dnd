@@ -1,9 +1,21 @@
+
+/*
+Citation for the following app.js starter code:
+Date: 02/09/2026
+Copied from / Adapted from: Starter Code for app.js provided by the course
+Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
+Type: Starter code / application
+Author: Oregon State University
+Notes:
+- This file is mainly copied (the Express, Handlebars, and Database setup portions were copied word-for-word), with minor adaptations for project structure and port configuration.
+- The read routes and other route handling logic are primarily our own work, using the starter code as a basis.
+- Original work (custom routes, logic, database queries) is clearly documented inline.
+*/
 // ########################################
 // ########## SETUP
 
 // Express
 const express = require('express');
-const path = require('path');
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -22,7 +34,9 @@ app.set('view engine', '.hbs'); // Use handlebars engine for *.hbs files.
 // ########################################
 // ########## ROUTE HANDLERS
 
-// ---------------- HOME ----------------
+
+// EVERYHTING ELSE BELOW IS OF OUR OWN WORK
+// HOMEPAGE
 app.get('/', async function (req, res) {
     try {
         res.render('index', { title: 'D&D Dashboard' });
@@ -32,6 +46,7 @@ app.get('/', async function (req, res) {
     }
 });
 
+// CHRACTER PAGE
 app.get('/characters', async function (req, res) {
     try {
         const [characters] = await db.query('SELECT * FROM Characters');
@@ -42,7 +57,7 @@ app.get('/characters', async function (req, res) {
     }
 });
 
-// ---------------- ENCOUNTERS ----------------
+// ENCOUNTER PAGE
 app.get('/encounters', async function (req, res) {
     try {
         const [encounters] = await db.query('SELECT * FROM Encounters');
@@ -53,7 +68,7 @@ app.get('/encounters', async function (req, res) {
     }
 });
 
-// ---------------- CHARACTERS_ENCOUNTERS ----------------
+// CHARACTERS_ENCOUNTERS PAGE
 app.get('/characters_encounters', async function (req, res) {
     try {
         const [data] = await db.query(`
@@ -79,7 +94,7 @@ app.get('/characters_encounters', async function (req, res) {
     }
 });
 
-// ---------------- TURNS ----------------
+// TURNS PAGE
 app.get('/turns', async function (req, res) {
     try {
         const [turns] = await db.query(`
@@ -115,7 +130,7 @@ app.get('/turns', async function (req, res) {
     }
 });
 
-// ---------------- HEALTH LOGS ----------------
+// HEALTH LOGS PAGE
 app.get('/health_logs', async function (req, res) {
     try {
         // Fetch all health logs
@@ -135,12 +150,8 @@ app.get('/health_logs', async function (req, res) {
             ORDER BY HealthChangeLogs.idHealthChangeLogs
         `);
 
-        // Add color for frontend
-        health_logs.forEach(log => {
-            log.color = log.hitPointChange < 0 ? 'red' : 'green';
-        });
 
-        // Fetch all character-encounter combos for dropdowns
+        // THE DROP DOWN
         const [charEncounters] = await db.query(`
             SELECT
                 Characters_Encounters.idCharacterEncounter,
@@ -166,7 +177,7 @@ app.get('/health_logs', async function (req, res) {
     }
 });
 
-// ---------------- STATUS EFFECTS ----------------
+// STATUS EFFECTS PAGE
 app.get('/status_effects', async function (req, res) {
     try {
         const [effects] = await db.query(`
@@ -191,6 +202,8 @@ app.get('/status_effects', async function (req, res) {
     }
 });
 
+
+// COPIED AND PASTE FROM COURSE MATERIAL
 // ########################################
 // ########## LISTENER
 app.listen(PORT, function () {
