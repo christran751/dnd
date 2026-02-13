@@ -7,9 +7,10 @@ Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web
 Type: Starter code / application
 Author: Oregon State University
 Notes:
-- This file is mainly copied (the Express, Handlebars, and Database setup portions were copied word-for-word), with minor adaptations for project structure and port configuration.
+- This file is mainly copied (the Express, Handlebars, Database, and Listener setup portions were copied word-for-word), with minor adaptations for project structure and port configuration.
 - The read routes and other route handling logic are primarily our own work, using the starter code as a basis.
 - Original work (custom routes, logic, database queries) is clearly documented inline.
+- Had to google on how to use const query1 . . . but still created the route handle on our own.
 */
 // ########################################
 // ########## SETUP
@@ -45,7 +46,7 @@ app.get('/', async function (req, res) {
         res.status(500).send('Error loading Home page.');
     }
 });
-
+// Our own work
 // CHRACTER PAGE
 app.get('/characters', async function (req, res) {
     try {
@@ -57,6 +58,7 @@ app.get('/characters', async function (req, res) {
     }
 });
 
+// Our own work
 // ENCOUNTER PAGE
 app.get('/encounters', async function (req, res) {
     try {
@@ -67,7 +69,7 @@ app.get('/encounters', async function (req, res) {
         res.status(500).send('Error loading Encounters page.');
     }
 });
-
+// Our own work
 // CHARACTERS_ENCOUNTERS PAGE
 app.get('/characters_encounters', async function (req, res) {
     try {
@@ -94,6 +96,7 @@ app.get('/characters_encounters', async function (req, res) {
     }
 });
 
+// Our own work
 // TURNS PAGE
 app.get('/turns', async function (req, res) {
     try {
@@ -129,7 +132,7 @@ app.get('/turns', async function (req, res) {
         res.status(500).send('Error loading Turns page.');
     }
 });
-
+// Our own work
 // HEALTH LOGS PAGE
 app.get('/health_logs', async function (req, res) {
     try {
@@ -150,14 +153,14 @@ app.get('/health_logs', async function (req, res) {
             ORDER BY HealthChangeLogs.idHealthChangeLogs
         `);
 
-
-        // THE DROP DOWN
+        // Our Own work
+        // THE DROP BOX based off of our DML file for character encounter 
         const [charEncounters] = await db.query(`
             SELECT
-                Characters_Encounters.idCharacterEncounter,
-                Characters.displayName,
-                Encounters.nameOfLocation,
-                Turns.idTurns
+            Characters_Encounters.idCharacterEncounter,
+            Characters.displayName,
+            Encounters.nameOfLocation,
+            Turns.idTurns
             FROM Characters_Encounters
             JOIN Characters ON Characters_Encounters.idCharacters = Characters.idCharacters
             JOIN Encounters ON Characters_Encounters.idEncounters = Encounters.idEncounters
@@ -176,7 +179,7 @@ app.get('/health_logs', async function (req, res) {
         res.status(500).send('Error loading Health Logs page.');
     }
 });
-
+// Own work
 // STATUS EFFECTS PAGE
 app.get('/status_effects', async function (req, res) {
     try {
