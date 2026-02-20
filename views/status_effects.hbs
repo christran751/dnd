@@ -5,7 +5,7 @@
     <tr>
       <th>Character</th>
       <th>Encounter</th>
-      <th>Condition</th>
+      <th>Condition Status</th>
       <th>Duration</th>
       <th>Effect Amount</th>
       <th>Remove</th>
@@ -21,8 +21,8 @@
           <td>{{duration}}</td>
           <td>{{effectAmount}}</td>
           <td>
-            <form method="POST" action="/delete-character">
-              <input type="hidden" name="idCharacters" value="{{idCharacters}}">
+            <form method="POST" action="/status_effects/delete">
+              <input type="hidden" name="idStatusEffect" value="{{idStatusEffect}}">
               <button type="submit">Delete</button>
             </form>
           </td>
@@ -30,8 +30,46 @@
       {{/each}}
     {{else}}
       <tr>
-        <td colspan="5">No Status Effects recorded.</td>
+        <td colspan="7">No Status Effects available.</td>
       </tr>
     {{/if}}
   </tbody>
 </table>
+
+<h2>Add New Status Effect</h2>
+<form method="POST" action="/status_effects/add">
+  Select Turn:
+  <select name="idTurns" required>
+    <option value="" disabled selected>Select Turn</option>
+    {{#each turnsForDropdown}}
+      <option value="{{idTurns}}">
+        {{displayName}} - {{nameOfLocation}} (Turn ID: {{idTurns}})
+      </option>
+    {{/each}}
+  </select>
+  <br><br>
+
+  Condition Status: <input type="text" name="conditionStatus" required><br>
+  Duration: <input type="number" name="duration" required><br>
+  Effect Amount: <input type="number" name="effectAmount" required><br>
+  <button type="submit">Add Status Effect</button>
+</form>
+
+<h2>Update Status Effect</h2>
+<form method="POST" action="/status_effects/update">
+  Select Status Effect:
+  <select name="idStatusEffect" required>
+    <option value="" disabled selected>Select Status Effect</option>
+    {{#each status_effects}}
+      <option value="{{idStatusEffect}}">
+        {{displayName}} - {{nameOfLocation}} (Status Effect ID: {{idStatusEffect}})
+      </option>
+    {{/each}}
+  </select>
+  <br><br>
+
+  Condition Status: <input type="text" name="conditionStatus" required><br>
+  Duration: <input type="number" name="duration" required><br>
+  Effect Amount: <input type="number" name="effectAmount" required><br>
+  <button type="submit">Update Status Effect</button>
+</form>
