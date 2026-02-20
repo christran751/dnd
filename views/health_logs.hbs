@@ -16,7 +16,7 @@
         <tr>
           <td>{{displayName}}</td>
           <td>{{nameOfLocation}}</td>
-          <td style="color: {{color}};">{{hitPointChange}}</td>
+          <td>{{hitPointChange}}</td>
           <td>{{hitPointChangeSource}}</td>
           <td>
             <form method="POST" action="/health_logs/delete">
@@ -36,12 +36,12 @@
 
 <h2>Add New Health Log</h2>
 <form method="POST" action="/health_logs/add">
-    Select Log:
+  Select Turn:
   <select name="idTurns" required>
-    <option value="" disabled selected>Select Character Encounter</option>
-    {{#each charEncounters}}
-      <option value="{{idTurns}}">
-        {{displayName}} - {{nameOfLocation}}
+    <option value="" disabled selected>Select Health Log</option>
+    {{#each health_logs}}
+      <option value="{{idHealthChangeLogs}}">
+        {{displayName}} - {{nameOfLocation}} (Health Log ID: {{idHealthChangeLogs}})
       </option>
     {{/each}}
   </select>
@@ -55,11 +55,11 @@
 <h2>Update Health Log</h2>
 <form method="POST" action="/health_logs/update">
   Select Log:
-  <select name="idTurns" required>
-    <option value="" disabled selected>Select Character Encounter</option>
-    {{#each charEncounters}}
-      <option value="{{idTurns}}">
-        {{displayName}} - {{nameOfLocation}}
+  <select name="idHealthChangeLogs" required>
+    <option value="" disabled selected>Select Health Log</option>
+    {{#each health_logs}}
+      <option value="{{idHealthChangeLogs}}">
+        {{displayName}} - {{nameOfLocation}} (Health Log ID: {{idHealthChangeLogs}})
       </option>
     {{/each}}
   </select>
