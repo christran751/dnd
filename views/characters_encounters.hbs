@@ -21,10 +21,10 @@
           <td>{{initiativeRoll}}</td>
           <td>{{currentHitPoint}}</td>
           <td>
-            <form method="POST" action="/delete-character-encounter">
-              <input type="hidden" name="idCharacterEncounter" value="{{idCharacterEncounter}}">
-              <button type="submit">Delete</button>
-            </form>
+          <form method="POST" action="/delete-character-encounter">
+            <input type="hidden" name="idCharacterEncounter" value="{{idCharacterEncounter}}">
+            <button type="submit">Delete</button>
+          </form>
           </td>
         </tr>
       {{/each}}
@@ -38,18 +38,12 @@
 
 <h2>Add New Character Encounter</h2>
 <form method="POST" action="/add-character-encounter">
-  Character ID:
-  <select name="idCharacters" required>
+   Character Encounter ID:
+  <select name="idCharacterEncounter" required>
     {{#each characters_encounters}}
-      <option value="{{idCharacters}}">{{displayName}}</option>
-    {{/each}}
-  </select>
-  <br><br>
-
-  Encounter ID:
-  <select name="idEncounters" required>
-    {{#each characters_encounters}}
-      <option value="{{idEncounters}}">{{nameOfLocation}}</option>
+      <option value="{{idCharacterEncounter}}">
+        {{idCharacterEncounter}} - {{displayName}} at {{nameOfLocation}}
+      </option>
     {{/each}}
   </select>
   <br><br>
@@ -67,7 +61,7 @@
   <select name="idCharacterEncounter" required>
     {{#each characters_encounters}}
       <option value="{{idCharacterEncounter}}">
-        {{idCharacterEncounter}} - {{displayName}} @ {{nameOfLocation}}
+        {{idCharacterEncounter}} - {{displayName}} at {{nameOfLocation}}
       </option>
     {{/each}}
   </select>
@@ -79,3 +73,4 @@
 
   <button type="submit">Update Character Encounter</button>
 </form>
+
