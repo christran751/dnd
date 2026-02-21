@@ -115,23 +115,25 @@ VALUES
 INSERT INTO Turns
 (idCharacterEncounter, actionOrderInRound, roundNumber, actionTaken)
 VALUES
-(2, 1, 1, 'Aragorn strikes Gandalf with Andúril'),
-(1, 2, 1, 'Gandalf casts Fireball on Orcs'),
-(3, 1, 1, 'Ahri casts Orb of Deception on Yasuo'),
-(4, 2, 1, 'Yasuo performs Steel Tempest on Ahri'),
-(5, 1, 1, 'Mikasa lunges at Goblin with dual blades'),
-(6, 3, 1, 'Soraka casts Healing Word on Mikasa');
+(1, 1, 1, 'Hit by Aragorn’s Sword Slash'),       
+(2, 2, 1, 'Hit by Gandalf’s Fireball'),          
+(4, 1, 1, 'Hit by Yasuo’s Wind-Infused Blade'), 
+(3, 2, 1, 'Hit by Ahri’s Orb of Deception'),     
+(5, 1, 1, 'Hit by Goblin Counterattack'),       
+(5, 2, 1, 'Healed by Soraka’s Healing Word'),   
+(2, 3, 1, 'Drinking Potion');
 
 -- HealthChangeLogs
 INSERT INTO HealthChangeLogs
 (idTurns, hitPointChange, hitPointChangeSource)
 VALUES
-(1, -10, 'Sword slash from Aragorn'),
-(2, -14, 'Fireball explosion'),
-(3, -8, 'Magic orb impact'),
-(4, -7, 'Wind-infused blade'),
-(5, -12, 'Counterattack wound'),
-(6, +15, 'Healing Word');
+(1, -10, 'Sword slash from Aragorn'),  
+(2, -14, 'Fireball explosion'),         
+(3, -7, 'Wind-infused blade'),          
+(4, -8, 'Orb of Deception'),           
+(5, -12, 'Counterattack wound'),      
+(6, +15, 'Healing Word'),              
+(7, +10, 'Drinking Potion');
 
 -- Status Effect
 INSERT INTO StatusEffects
