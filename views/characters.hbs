@@ -1,5 +1,5 @@
+{{!Adapted from the provided bsg-people.hbs starter code}}
 <h1>{{title}}</h1>
-
 <table border="1" cellpadding="5" cellspacing="0">
   <thead>
     <tr>
@@ -11,11 +11,11 @@
       <th>Max HP</th>
       <th>AC</th>
       <th>Initiative Bonus</th>
+     {{!Our Own Work}}
       <th>Remove</th>
     </tr>
   </thead>
   <tbody>
-    {{#if characters.length}}
       {{#each characters}}
         <tr>
           <td>{{displayName}}</td>
@@ -34,14 +34,10 @@
           </td>
         </tr>
       {{/each}}
-    {{else}}
-      <tr>
-        <td colspan="9">No Characters found.</td>
-      </tr>
-    {{/if}}
   </tbody>
 </table>
 
+{{!Our Own Work}}
 <h2>Add New Character</h2>
 <form method="POST" action="/add-character">
   Name: <input type="text" name="displayName" required><br>
@@ -55,6 +51,7 @@
   <button type="submit">Add Character</button>
 </form>
 
+{{!Our Own Work}}
 <h2>Update Character</h2>
 <form method="POST" action="/update-character">
   Character ID:
@@ -74,7 +71,6 @@
   Max HP: <input type="number" name="maxHitPoint"><br>
   AC: <input type="number" name="armorClass"><br>
   Initiative Bonus: <input type="number" name="initiativeBonus"><br>
-
   <button type="submit">Update Character</button>
 </form>
 
