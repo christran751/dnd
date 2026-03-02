@@ -1,3 +1,4 @@
+
 -- Turns Stored Procedure ----------------------------------------------------------------------------------------------------------------------------------------------
 
 -- Citation for use of AI Tools:
@@ -117,6 +118,23 @@ END //
 DELIMITER ;
 
 -- Stored Procedure to ADD Chracter_Encounters
+/* Citation for use of AI Tools:
+Date: 2/24/2026
+Prompted Used: How do I make it so that update or adding new log to The Character_Encounters table will also automatically update or affect the Turns table
+From there, it simply suggested that I either used a Trigger, or to insert or update related rows in Turns in a stored procedure.
+Copied from /OR/ Adapted from /OR/ Based on (Explain degree of originality)
+It gave me the following code template (to which I used entirely):
+	SET newCharacterEncounterID = LAST_INSERT_ID();
+		INSERT INTO Turns (idCharacterEncounter, actionOrderInRound, roundNumber, actionTaken)
+		VALUES (
+			newCharacterEncounterID,
+			initiativeOrderInput,
+			1,
+			'No action yet'
+		);
+From there, I had to play around with it to see where to put it. It worked best when I put it into the same stored procedure as the character_encounter add and update; as opposed to making a separate store procedure (in which I initially tried doing but with no luck).
+Source URL: https://copilot.microsoft.com/chats/VUesq1DBGfUqM7muhFjjE
+*/
 DROP PROCEDURE IF EXISTS addCharacterEncounter;
 DELIMITER //
 CREATE PROCEDURE addCharacterEncounter(
@@ -133,12 +151,12 @@ BEGIN
         SELECT 'Error! Character Encounters not added' AS Message;
     END;
     START TRANSACTION;
+    
     -- Since we are inserting into different TWO tables, we need to use a transaction
     INSERT INTO Characters_Encounters
         (idCharacters, idEncounters, initiativeOrder, initiativeRoll)
     VALUES
         (idCharacterInput, idEncounterInput, initiativeOrderInput, initiativeRollInput);
-	-- Got from CoPilot (Full citation on README)
     SET newCharacterEncounterID = LAST_INSERT_ID();
     INSERT INTO Turns (idCharacterEncounter, actionOrderInRound, roundNumber, actionTaken)
     VALUES (
