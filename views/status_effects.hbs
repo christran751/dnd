@@ -1,5 +1,5 @@
+{{!Adapted from the provided bsg-people.hbs starter code}}
 <h1>{{title}}</h1>
-
 <table border="1" cellpadding="5" cellspacing="0">
   <thead>
     <tr>
@@ -8,11 +8,11 @@
       <th>Condition Status</th>
       <th>Duration</th>
       <th>Effect Amount</th>
+      {{!Our Own Work}}
       <th>Remove</th>
     </tr>
   </thead>
   <tbody>
-    {{#if status_effects.length}}
       {{#each status_effects}}
         <tr>
           <td>{{displayName}}</td>
@@ -28,14 +28,10 @@
           </td>
         </tr>
       {{/each}}
-    {{else}}
-      <tr>
-        <td colspan="7">No Status Effects available.</td>
-      </tr>
-    {{/if}}
   </tbody>
 </table>
 
+{{!Our own Work}}
 <h2>Add New Status Effect</h2>
 <form method="POST" action="/status_effects/add">
   Select Turn:
@@ -55,6 +51,7 @@
   <button type="submit">Add Status Effect</button>
 </form>
 
+{{!Our own Work}}
 <h2>Update Status Effect</h2>
 <form method="POST" action="/status_effects/update">
   Select Status Effect:
