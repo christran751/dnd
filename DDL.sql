@@ -1,13 +1,37 @@
--- This section is used to temporarily disables foreign key checks so that we could delete table. For testing purposes.
-SET FOREIGN_KEY_CHECKS = 0;
-SET AUTOCOMMIT = 0;
+USE `cs340_tranchri`;
 
-DROP TABLE IF EXISTS Characters;
-DROP TABLE IF EXISTS Encounters;
-DROP TABLE IF EXISTS Characters_Encounters;
-DROP TABLE IF EXISTS Turns;
-DROP TABLE IF EXISTS HealthChangeLogs;
+-- Stored Procedure to RESET DDL
+-- Citation for use of AI Tools:
+-- Date: 3/01/2026
+-- Prompt Used to Generated Code:
+-- Given my DDL I just pasted, for my DDL and Stored Procedure, is my order of drop tables correct, since I have some parent and child table.
+-- The correct order it gave me is this:
+-- 1. StatusEffects
+-- 2. HealthChangeLogs
+-- 3. Turns
+-- 4. Characters_Encounters
+-- 5. Encounters
+-- 6. Characters
+-- This order respects all foreign‑key dependencies.
+-- I also didn't ask, but it recommend that I entire reset in a transaction before disabling FK checks.
+-- START TRANSACTION; SET FOREIGN_KEY_CHECKS = 0;
+-- Source URL: https://copilot.microsoft.com/chats/R3jE5zFxMR1atYZKcZagW
+
+DROP PROCEDURE IF EXISTS resetDatabaseDND;
+DELIMITER //
+
+CREATE PROCEDURE resetDatabaseDND()
+BEGIN
+
+START TRANSACTION;
+SET FOREIGN_KEY_CHECKS = 0;
+
 DROP TABLE IF EXISTS StatusEffects;
+DROP TABLE IF EXISTS HealthChangeLogs;
+DROP TABLE IF EXISTS Turns;
+DROP TABLE IF EXISTS Characters_Encounters;
+DROP TABLE IF EXISTS Encounters;
+DROP TABLE IF EXISTS Characters;
 
 -- Create Table --
 
@@ -24,7 +48,6 @@ CREATE TABLE Characters (
 	PRIMARY KEY (idCharacters)
 );
 
-
 CREATE TABLE Encounters (
 	idEncounters INT NOT NULL AUTO_INCREMENT,
 	nameOfLocation VARCHAR(50) NOT NULL,
@@ -38,7 +61,6 @@ CREATE TABLE Characters_Encounters (
     idEncounters INT NOT NULL,
     initiativeOrder INT NOT NULL,
     initiativeRoll INT NOT NULL,
-    currentHitPoint INT NOT NULL,
     PRIMARY KEY (idCharacterEncounter),
     UNIQUE (idCharacters, idEncounters),
     FOREIGN KEY (idCharacters) REFERENCES Characters(idCharacters) ON DELETE CASCADE,
@@ -101,14 +123,14 @@ VALUES
 
 -- Characters_Encounters
 INSERT INTO Characters_Encounters
-(idCharacters, idEncounters, initiativeOrder, initiativeRoll, currentHitPoint)
+(idCharacters, idEncounters, initiativeOrder, initiativeRoll)
 VALUES
-(1, 1, 3, 14, 68),  
-(2, 1, 2, 16, 75),  
-(3, 2, 1, 19, 52), 
-(4, 2, 2, 17, 65),  
-(5, 3, 1, 20, 60),  
-(6, 2, 3, 12, 55);
+(1, 1, 3, 14),  
+(2, 1, 2, 16),  
+(3, 2, 1, 19), 
+(4, 2, 2, 17),  
+(5, 3, 1, 20),  
+(6, 2, 3, 12);
 
 -- Turns
 
@@ -117,8 +139,8 @@ INSERT INTO Turns
 VALUES
 (1, 1, 1, 'Hit by Aragorn’s Sword Slash'),       
 (2, 2, 1, 'Hit by Gandalf’s Fireball'),          
-(4, 1, 1, 'Hit by Yasuo’s Wind-Infused Blade'), 
-(3, 2, 1, 'Hit by Ahri’s Orb of Deception'),     
+(4, 1, 1, 'Hit by Ahri’s Orb of Deception'), 
+(3, 2, 1, 'Hit by Yasuo’s Wind-Infused Blade'),     
 (5, 1, 1, 'Hit by Goblin Counterattack'),       
 (5, 2, 1, 'Healed by Soraka’s Healing Word'),   
 (2, 3, 1, 'Drinking Potion');
@@ -129,8 +151,8 @@ INSERT INTO HealthChangeLogs
 VALUES
 (1, -10, 'Sword slash from Aragorn'),  
 (2, -14, 'Fireball explosion'),         
-(3, -7, 'Wind-infused blade'),          
-(4, -8, 'Orb of Deception'),           
+(3, -8, 'Orb of Deception'),          
+(4, -7, 'Wind-infused blade'),           
 (5, -12, 'Counterattack wound'),      
 (6, +15, 'Healing Word'),              
 (7, +10, 'Drinking Potion');
@@ -149,5 +171,7 @@ VALUES
 SET FOREIGN_KEY_CHECKS = 1;
 COMMIT;
 
+END //
+DELIMITER ;
 
 
