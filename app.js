@@ -4,7 +4,7 @@ Date: 02/09/2026
 Copied from / Adapted from: Starter Code for app.js provided by the course
 Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
 Type: Starter code / application
-Author: Oregon State University
+Author: Oregon State University and Dr. Michael Curry
 Notes:
 - This file is mainly copied (the Express, Handlebars, and Database setup portions were copied word-for-word), with minor adaptations for project structure and port configuration.
 - The read routes and other route handling logic are primarily our own work, using the starter code as a basis.
@@ -54,7 +54,7 @@ Date: 03/01/2026
 Copied and Adapted from:
 Source URL: https://canvas.oregonstate.edu/courses/2031764/assignments/10323339?module_item_id=26243440
 Type: Starter code / application
-Author: Oregon State University
+Author: Oregon State University and Dr. Michael Curry
 Notes:
 - Used as a reference for implementing a route that calls a PL/SQL stored procedure to reset the database.
 - Adapted for this D&D project to reset all tables and sample data.
@@ -93,6 +93,17 @@ app.get('/encounters', async function (req, res) {
     }
 });
 
+/*
+Citation for the following app.get CHARACTERS_ENCOUNTERS code:
+Date: 2/24/2026
+Copied and Adapted from: Project Step 4 Draft Version: Add RESET stored procedure (SP)
+Source URL: https://canvas.oregonstate.edu/courses/2031764/assignments/10323339?module_item_id=26243440
+Type: Starter code / application
+Author: Oregon State University and Dr. Michael Curry
+Notes:
+- Added const [characters] and const [encounters] to fetch the data that will populate the dropdowns
+- Used Node.js with Express, and res.render() to take a template file, fill it with data from our DND server.
+*/
 
 // CHARACTERS_ENCOUNTERS PAGE
 app.get('/characters_encounters', async function (req, res) {
@@ -116,14 +127,14 @@ app.get('/characters_encounters', async function (req, res) {
     }
 });
 
+
 // DELETE CHARACTER-ENCOUNTER
 app.post('/delete-character-encounter', async (req, res) => {
     try {
         const { idCharacterEncounter } = req.body;
 
-        // Call the stored procedure instead of inline DELETE
+        // Call the stored procedure
         await db.query(`CALL deleteCharacterEncounter(?)`, [idCharacterEncounter]);
-
         res.redirect('/characters_encounters');
     } catch (err) {
         console.error('Error deleting Character Encounter:', err);
