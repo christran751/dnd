@@ -231,12 +231,9 @@ app.get('/health_logs', async (req, res) => {
         Characters.displayName,
         Encounters.nameOfLocation
       FROM Turns
-      JOIN Characters_Encounters
-        ON Turns.idCharacterEncounter = Characters_Encounters.idCharacterEncounter
-      JOIN Characters
-        ON Characters_Encounters.idCharacters = Characters.idCharacters
-      JOIN Encounters
-        ON Characters_Encounters.idEncounters = Encounters.idEncounters
+      JOIN Characters_Encounters ON Turns.idCharacterEncounter = Characters_Encounters.idCharacterEncounter
+      JOIN Characters ON Characters_Encounters.idCharacters = Characters.idCharacters
+      JOIN Encounters ON Characters_Encounters.idEncounters = Encounters.idEncounters
       ORDER BY Turns.idTurns
     `);
 
