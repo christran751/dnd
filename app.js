@@ -178,42 +178,81 @@ app.post('/characters_encounters/update', async (req, res) => {
         res.status(500).send('Error updating Character Encounter.');
     }
 });
+// Used both AI and Provided Course Material to Learn on how to set up Stored Procedure and set it up and call it in app.js
 
+/*
+Citation for the following app.get Turns code:
+Date: 2/22/2026
+Copied and Adapted from: Project Step 4 Draft Version: Add RESET stored procedure (SP)
+Source URL: https://canvas.oregonstate.edu/courses/2031764/assignments/10323339?module_item_id=26243440
+Type: Starter code / application
+Author: Oregon State University and Dr. Michael Curry
+Notes:
+- Added const [charEncounters] to fetch the data that will populate the dropdowns
+- Used Node.js with Express, and res.render() to take a template file, fill it with data from our DND server.
+*/
 
-// TURNS PAGE
+/*
+-- Citation for use of AI Tools:
+-- Date: 02/22/2026
+-- Summary of prompts used to generate PL/SQL
+-- How to convert my old app.get (that is commented below) for Turns into a Stored Procedure and then later call it in app.js?
+-- AI Source URL: https://copilot.microsoft.com/
+-- From there it provided a basic template for the getTurns Stored Procedure
+*/
 app.get('/turns', async function (req, res) {
     try {
-        const [turns] = await db.query(`
-            SELECT
-            Turns.idTurns,
-            Turns.actionTaken,
-            Turns.actionOrderInRound,
-            Characters.displayName,
-            Encounters.nameOfLocation
-            FROM Turns
-            JOIN Characters_Encounters ON Turns.idCharacterEncounter = Characters_Encounters.idCharacterEncounter
-            JOIN Characters ON Characters_Encounters.idCharacters = Characters.idCharacters
-            JOIN Encounters ON Characters_Encounters.idEncounters = Encounters.idEncounters
-            ORDER BY Turns.idTurns
-        `);
+        // Call the stored procedure
+        const [turns] = await db.query("CALL getTurns()");
+        // For DROP DOWN
+        const [charEncounters] = await db.query("CALL getCharacterEncounters()");
+        res.render('turns', {
+            title: 'Turns',
+            turns: turns[0],
+            charEncounters: charEncounters[0]
+        });
 
-        const [charEncounters] = await db.query(`
-            SELECT
-            Characters_Encounters.idCharacterEncounter,
-            Characters.displayName,
-            Encounters.nameOfLocation
-            FROM Characters_Encounters
-            JOIN Characters ON Characters_Encounters.idCharacters = Characters.idCharacters
-            JOIN Encounters ON Characters_Encounters.idEncounters = Encounters.idEncounters
-            ORDER BY Characters_Encounters.idCharacterEncounter
-        `);
-
-        res.render('turns', { title: 'Turns', turns, charEncounters });
     } catch (error) {
         console.error('Error loading Turns page:', error);
         res.status(500).send('Error loading Turns page.');
     }
 });
+
+// OLD TURN W.OUT USING SP -- KEEPING FOR REFERENCE
+// // TURNS PAGE
+// app.get('/turns', async function (req, res) {
+//     try {
+//         const [turns] = await db.query(`
+//             SELECT
+//             Turns.idTurns,
+//             Turns.actionTaken,
+//             Turns.actionOrderInRound,
+//             Characters.displayName,
+//             Encounters.nameOfLocation
+//             FROM Turns
+//             JOIN Characters_Encounters ON Turns.idCharacterEncounter = Characters_Encounters.idCharacterEncounter
+//             JOIN Characters ON Characters_Encounters.idCharacters = Characters.idCharacters
+//             JOIN Encounters ON Characters_Encounters.idEncounters = Encounters.idEncounters
+//             ORDER BY Turns.idTurns
+//         `);
+
+//         const [charEncounters] = await db.query(`
+//             SELECT
+//             Characters_Encounters.idCharacterEncounter,
+//             Characters.displayName,
+//             Encounters.nameOfLocation
+//             FROM Characters_Encounters
+//             JOIN Characters ON Characters_Encounters.idCharacters = Characters.idCharacters
+//             JOIN Encounters ON Characters_Encounters.idEncounters = Encounters.idEncounters
+//             ORDER BY Characters_Encounters.idCharacterEncounter
+//         `);
+
+//         res.render('turns', { title: 'Turns', turns, charEncounters });
+//     } catch (error) {
+//         console.error('Error loading Turns page:', error);
+//         res.status(500).send('Error loading Turns page.');
+//     }
+// });
 
 //HEALTHLOG
 app.get('/health_logs', async (req, res) => {
@@ -352,3 +391,4 @@ app.listen(PORT, function () {
         'Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.'
     );
 });
+
