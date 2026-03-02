@@ -1,19 +1,17 @@
+{{!Adapted from the provided bsg-people.hbs starter code}}
 <h1>{{title}}</h1>
-
 <table border="1" cellpadding="5" cellspacing="0">
   <thead>
     <tr>
-      <th>ID</th>
       <th>Location Name</th>
       <th>Location</th>
+      {{!Our Own Work}}
       <th>Remove</th>
     </tr>
   </thead>
   <tbody>
-    {{#if encounters.length}}
       {{#each encounters}}
         <tr>
-          <td>{{idEncounters}}</td>
           <td>{{nameOfLocation}}</td>
           <td>{{location}}</td>
           <td>
@@ -24,14 +22,10 @@
           </td>
         </tr>
       {{/each}}
-    {{else}}
-      <tr>
-        <td colspan="4">No Encounters found.</td>
-      </tr>
-    {{/if}}
   </tbody>
 </table>
 
+{{!Our Own Work}}
 <h2>Add New Encounter</h2>
 <form method="POST" action="/add-encounter">
   Location Name: <input type="text" name="nameOfLocation" required><br>
@@ -39,6 +33,7 @@
   <button type="submit">Add Encounter</button>
 </form>
 
+{{!Our Own Work}}
 <h2>Update Encounter</h2>
 <form method="POST" action="/update-encounter">
   Encounter ID:
@@ -50,9 +45,7 @@
     {{/each}}
   </select>
   <br><br>
-
   Location Name: <input type="text" name="nameOfLocation"><br>
   Location Description: <input type="text" name="location"><br>
-
   <button type="submit">Update Encounter</button>
 </form>
