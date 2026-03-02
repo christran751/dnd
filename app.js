@@ -1,4 +1,3 @@
-
 /*
 Citation for the following app.js starter code:
 Date: 02/09/2026
@@ -13,6 +12,8 @@ Notes:
 */
 // ########################################
 // ########## SETUP
+
+// Adapted from the provided app.js
 
 // Express
 const express = require('express');
@@ -46,6 +47,30 @@ app.get('/', async function (req, res) {
     }
 });
 
+// RESET DND DATABASE
+/*
+Citation for the following app.get RESET-DATABASE starter code:
+Date: 03/01/2026
+Copied and Adapted from:
+Source URL: https://canvas.oregonstate.edu/courses/2031764/assignments/10323339?module_item_id=26243440
+Type: Starter code / application
+Author: Oregon State University
+Notes:
+- Used as a reference for implementing a route that calls a PL/SQL stored procedure to reset the database.
+- Adapted for this D&D project to reset all tables and sample data.
+- The only changed made was instead of using two lines to call the query, I just skip the variable and do await db.query('CALL DeleteGaiusBaltar();'); directly
+*/
+
+app.post('/reset-database', async (req, res) => {
+    try {
+        await db.query('CALL resetDatabaseDND();');
+        res.redirect('/'); // go back to homepage after reset
+    } catch (error) {
+        console.error("Error executing PL/SQL:", error);
+        res.status(500).send("An error occurred while executing the PL/SQL.");
+    }
+});
+
 // CHRACTER PAGE
 app.get('/characters', async function (req, res) {
     try {
@@ -68,42 +93,79 @@ app.get('/encounters', async function (req, res) {
     }
 });
 
+
 // CHARACTERS_ENCOUNTERS PAGE
 app.get('/characters_encounters', async function (req, res) {
     try {
-        const [data] = await db.query(`
-            SELECT
-            Characters_Encounters.idCharacterEncounter,
-            Characters.displayName,
-            Encounters.nameOfLocation,
-            Characters_Encounters.initiativeOrder,
-            Characters_Encounters.initiativeRoll,
-            Characters_Encounters.currentHitPoint
-            FROM Characters_Encounters
-            JOIN Characters ON Characters_Encounters.idCharacters = Characters.idCharacters
-            JOIN Encounters ON Characters_Encounters.idEncounters = Encounters.idEncounters
-            ORDER BY Characters_Encounters.initiativeOrder
-        `);
+        // Call the stored procedure
+        const [characters_encounters] = await db.query(`CALL getCharacterEncounters()`);
+
+        const [characters] = await db.query(`SELECT idCharacters, displayName FROM Characters`);
+        const [encounters] = await db.query(`SELECT idEncounters, nameOfLocation FROM Encounters`);
+
         res.render('characters_encounters', {
             title: 'Character Encounters',
-            characters_encounters: data,
+            characters_encounters: characters_encounters[0],
+            characters,
+            encounters
         });
+
     } catch (error) {
         console.error('Error loading Character Encounters page:', error);
         res.status(500).send('Error loading Character Encounters page.');
     }
 });
 
+// DELETE CHARACTER-ENCOUNTER
 app.post('/delete-character-encounter', async (req, res) => {
-  console.log("DELETE HIT!", req.body); // debugging
-  const { idCharacterEncounter } = req.body;
+    try {
+        const { idCharacterEncounter } = req.body;
 
-  await db.query(
-    `DELETE FROM Characters_Encounters WHERE idCharacterEncounter = ?`,
-    [idCharacterEncounter]
-  );
+        // Call the stored procedure instead of inline DELETE
+        await db.query(`CALL deleteCharacterEncounter(?)`, [idCharacterEncounter]);
 
-  res.redirect('/characters_encounters');
+        res.redirect('/characters_encounters');
+    } catch (err) {
+        console.error('Error deleting Character Encounter:', err);
+        res.status(500).send('Error deleting Character Encounter.');
+    }
+});
+
+// ADD CHARACTER_ENCOUNTERS
+app.post('/characters_encounters/add', async (req, res) => {
+    try {
+        const { idCharacter, idEncounter, initiativeOrder, initiativeRoll } = req.body;
+
+        // Call the stored procedure
+        await db.query(
+            `CALL addCharacterEncounter(?, ?, ?, ?)`,
+            [idCharacter, idEncounter, initiativeOrder, initiativeRoll]
+        );
+
+        res.redirect('/characters_encounters');
+    } catch (err) {
+        console.error('Error adding Character Encounter:', err);
+        res.status(500).send('Error adding Character Encounter.');
+    }
+});
+
+//UPDATE CHARACTER_ENCOUNTERS
+app.post('/characters_encounters/update', async (req, res) => {
+    try {
+        const { idCharacterEncounter, initiativeOrder, initiativeRoll } = req.body;
+
+        // Calling stored procedure
+        await db.query(
+            'CALL updateCharacterEncounter(?, ?, ?)',
+            [idCharacterEncounter, initiativeOrder, initiativeRoll]
+        );
+
+        res.redirect('/characters_encounters');
+
+    } catch (err) {
+        console.error('Error updating Character Encounter:', err);
+        res.status(500).send('Error updating Character Encounter.');
+    }
 });
 
 
@@ -114,7 +176,6 @@ app.get('/turns', async function (req, res) {
             SELECT
             Turns.idTurns,
             Turns.actionTaken,
-            Turns.roundNumber,
             Turns.actionOrderInRound,
             Characters.displayName,
             Encounters.nameOfLocation
@@ -143,14 +204,16 @@ app.get('/turns', async function (req, res) {
     }
 });
 
+//HEALTHLOG
 app.get('/health_logs', async (req, res) => {
   try {
-    // Fetch all health logs with character and encounter info
+
     const [health_logs] = await db.query(`
       SELECT
         HealthChangeLogs.idHealthChangeLogs,
         Characters.displayName,
         Encounters.nameOfLocation,
+        Turns.roundNumber AS roundNumber,
         HealthChangeLogs.hitPointChange,
         HealthChangeLogs.hitPointChangeSource
       FROM HealthChangeLogs
@@ -160,35 +223,57 @@ app.get('/health_logs', async (req, res) => {
       JOIN Encounters ON Characters_Encounters.idEncounters = Encounters.idEncounters
       ORDER BY HealthChangeLogs.idHealthChangeLogs
     `);
+    // DROP DOWN USED FROM DML
+
+    const [charEncounters] = await db.query(`
+      SELECT
+        Turns.idTurns,
+        Characters.displayName,
+        Encounters.nameOfLocation
+      FROM Turns
+      JOIN Characters_Encounters
+        ON Turns.idCharacterEncounter = Characters_Encounters.idCharacterEncounter
+      JOIN Characters
+        ON Characters_Encounters.idCharacters = Characters.idCharacters
+      JOIN Encounters
+        ON Characters_Encounters.idEncounters = Encounters.idEncounters
+      ORDER BY Turns.idTurns
+    `);
 
     res.render('health_logs', {
       title: 'Health Logs',
-      health_logs
+      health_logs,
+      charEncounters
     });
+
   } catch (err) {
     console.error(err);
     res.status(500).send('Error loading Health Logs page');
   }
 });
 
-// ADD Health Log
+// ADD HEALTH LOG
+
 app.post('/health_logs/add', async (req, res) => {
   try {
     const { idTurns, hitPointChange, hitPointChangeSource } = req.body;
 
     await db.query(`
-      INSERT INTO HealthChangeLogs (idTurns, hitPointChange, hitPointChangeSource)
+      INSERT INTO HealthChangeLogs
+      (idTurns, hitPointChange, hitPointChangeSource)
       VALUES (?, ?, ?)
     `, [idTurns, hitPointChange, hitPointChangeSource]);
 
     res.redirect('/health_logs');
+
   } catch (err) {
     console.error(err);
     res.status(500).send('Error adding Health Log');
   }
 });
 
-// UPDATE Health Log
+// UPDATE HEALTH LOG
+
 app.post('/health_logs/update', async (req, res) => {
   try {
     const { idHealthChangeLogs, hitPointChange, hitPointChangeSource } = req.body;
@@ -200,13 +285,14 @@ app.post('/health_logs/update', async (req, res) => {
     `, [hitPointChange, hitPointChangeSource, idHealthChangeLogs]);
 
     res.redirect('/health_logs');
+
   } catch (err) {
     console.error(err);
     res.status(500).send('Error updating Health Log');
   }
 });
 
-// DELETE Health Log
+// DELETE HEALTH LOG
 app.post('/health_logs/delete', async (req, res) => {
   try {
     const { idHealthChangeLogs } = req.body;
@@ -217,6 +303,7 @@ app.post('/health_logs/delete', async (req, res) => {
     `, [idHealthChangeLogs]);
 
     res.redirect('/health_logs');
+
   } catch (err) {
     console.error(err);
     res.status(500).send('Error deleting Health Log');
@@ -257,4 +344,3 @@ app.listen(PORT, function () {
         'Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.'
     );
 });
-
