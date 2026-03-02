@@ -1,4 +1,33 @@
-USE `cs340_tranchri`;
+- Citation for use of AI Tools:
+-- Date: 02/22/2026
+-- Summary of prompts used to generate PL/SQL
+-- How to convert my old app.get (that is commented below) for Turns into a Stored Procedure and then later call it in app.js?
+-- AI Source URL: https://copilot.microsoft.com/
+-- From there it provided a basic template for the getTurns Stored Procedure
+
+DROP PROCEDURE IF EXISTS getTurns;
+DELIMITER // 
+CREATE PROCEDURE getTurns()
+BEGIN
+    SELECT
+        Turns.idTurns,
+        Turns.actionTaken,
+        Turns.actionOrderInRound,
+        Characters.displayName,
+        Encounters.nameOfLocation
+    FROM Turns
+    JOIN Characters_Encounters 
+        ON Turns.idCharacterEncounter = Characters_Encounters.idCharacterEncounter
+    JOIN Characters 
+        ON Characters_Encounters.idCharacters = Characters.idCharacters
+    JOIN Encounters 
+        ON Characters_Encounters.idEncounters = Encounters.idEncounters
+    ORDER BY Turns.idTurns;
+END //
+
+DELIMITER ;
+
+
 
 -- ------------------------------------------------------------------------------------------------------------------------------------------------
 -- Character_Encounter Stored Procedure 
@@ -102,7 +131,7 @@ BEGIN
         SELECT 'Error! Character Encounters not added' AS Message;
     END;
     START TRANSACTION;
-    -- Since we are inserting into different tables, we need to use a transaction
+    -- Since we are inserting into different TWO tables, we need to use a transaction
     INSERT INTO Characters_Encounters
         (idCharacters, idEncounters, initiativeOrder, initiativeRoll)
     VALUES
@@ -137,3 +166,5 @@ BEGIN
     WHERE idCharacterEncounter = idCharacterEncounterInput;
 END //
 DELIMITER ;
+-- -------------------------------------------------------------------------------------------------------------------------------------------------------------
+
