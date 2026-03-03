@@ -1,5 +1,5 @@
 {{!
-Citation for the 7 main handlebar starter code:
+Citation for the handlebar starter code:
 Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
 Type: Starter code / application
 Author: Oregon State University
@@ -13,7 +13,6 @@ The table structure and form structure for read/create/update/delete were adapte
 <table border="1" cellpadding="5" cellspacing="0">
   <thead>
     <tr>
-      <th>Turn ID</th>
       <th>Character</th>
       <th>Encounter</th>
       <th>Action Taken</th>
@@ -26,7 +25,6 @@ The table structure and form structure for read/create/update/delete were adapte
   <tbody>
       {{#each turns}}
         <tr>
-          <td>{{idTurns}}</td>
           <td>{{displayName}}</td>
           <td>{{nameOfLocation}}</td>
           <td>{{actionTaken}}</td>
