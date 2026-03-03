@@ -1,5 +1,3 @@
-USE `cs340_tranchri`;
-
 -- Stored Procedure to RESET DDL
 -- Citation for use of AI Tools:
 -- Date: 3/01/2026
