@@ -71,28 +71,185 @@ app.post('/reset-database', async (req, res) => {
     }
 });
 
+
+/*
+-- Citation for use of AI Tools:
+-- Date: 02/22/2026
+-- Summary of prompts used to generate route for SELECT or READ
+-- To route in app.js for READ or SELECT operation do I need to capture and then render
+-- AI Source URL: https://claude.ai/chat/69a43844-fd5b-484a-bb44-8be2776eae5d
+-- From there, it tells me
+Yes! For any READ/SELECT operation the pattern is always:
+app.get('/entity', async function (req, res) {
+    try {
+        const [rows] = await db.query('CALL get_entity()');  // 1. capture
+        const entity = rows[0];                               // 2. unwrap
+        res.render('entity', { title: 'Entity', entity });   // 3. render
+*/
+
+/*
+-- Citation for use of AI Tools:
+-- Date: 03/08/2026
+-- Summary of prompts used to generate app.post for the entire UPDATE, ADD, and DELETE.
+-- For app.post, do I need to capture anything, or is the syntax similiar to app.get
+-- AI Source URL: https://claude.ai/chat/69a43844-fd5b-484a-bb44-8be2776eae5d
+-- From there it tells me:
+-- For app.post the syntax is similar but simpler — the only thing you need to capture is req.body:
+    app.post('/your-route', async function (req, res) {
+        try {
+            const { field1, field2 } = req.body;  // grab form data
+
+            await db.query(`CALL yourStoredProcedure(?, ?)`, [field1, field2]); // call Stored Procedure
+
+            res.redirect('/your-route');
+        } catch (error) {
+            console.error('Error:', error);
+            res.status(500).send('Error executing request.');
+        }
+    });
+*/
+
 // CHRACTER PAGE
 app.get('/characters', async function (req, res) {
     try {
-        const [characters] = await db.query('SELECT * FROM Characters');
+        const [rows] = await db.query('CALL get_characters()');
+
+        // Stored procedures return results inside rows[0]
+        const characters = rows[0];
+
         res.render('characters', { title: 'Characters', characters });
+
     } catch (error) {
         console.error('Error loading Characters page:', error);
         res.status(500).send('Error loading Characters page.');
     }
 });
 
-// ENCOUNTER PAGE
-app.get('/encounters', async function (req, res) {
+// ADD CHARACTERS
+app.post('/characters/add', async (req, res) => {
     try {
-        const [encounters] = await db.query('SELECT * FROM Encounters');
-        res.render('encounters', { title: 'Encounters', encounters });
-    } catch (error) {
-        console.error('Error loading Encounters page:', error);
-        res.status(500).send('Error loading Encounters page.');
+        const {displayNameInput, raceInput, characterClassInput, characterRoleInput, characterLevelInput,
+            maxHitPointInput, armorClassInput, initiativeBonusInput } = req.body;
+
+        await db.query(
+            `CALL add_character(?, ?, ?, ?, ?, ?, ?, ?)`,
+            [ displayNameInput, raceInput, characterClassInput, characterRoleInput, characterLevelInput,
+            maxHitPointInput, armorClassInput, initiativeBonusInput]
+        );
+
+        res.redirect('/characters');
+
+    } catch (err) {
+        console.error('Error adding Character:', err);
+        res.status(500).send('Error adding Character.');
     }
 });
 
+//UPDATE CHARACTERS
+app.post('/characters/update', async (req, res) => {
+    try {
+        const {
+            idCharactersInput, displayNameInput, raceInput, characterClassInput, characterRoleInput,
+            characterLevelInput, maxHitPointInput, armorClassInput, initiativeBonusInput
+        } = req.body;
+
+        await db.query(
+            'CALL update_character(?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [idCharactersInput, displayNameInput, raceInput, characterClassInput, characterRoleInput,
+            characterLevelInput, maxHitPointInput, armorClassInput, initiativeBonusInput]
+        );
+
+        res.redirect('/characters');
+    } catch (err) {
+        console.error('Error updating Character:', err);
+        res.status(500).send('Error updating Character.');
+    }
+});
+
+// DELETE CHARACTERS
+app.post('/characters/delete', async (req, res) => {
+    try {
+        const { idCharactersInput } = req.body;
+        await db.query('CALL delete_character(?)', [idCharactersInput]);
+        res.redirect('/characters');
+    } catch (err) {
+        console.error('Error deleting Character:', err);
+        res.status(500).send('Error deleting Character.');
+    }
+});
+
+// Encounter Page
+
+// Get
+app.get('/encounters', async (req, res) => {
+    try {
+        const [encounters] = await db.query('CALL get_encounters()');
+        res.render('encounters', { title: 'Encounters', encounters: encounters[0] });
+    } catch (err) {
+        console.error('Error loading encounters:', err);
+        res.status(500).send('Error loading encounters.');
+    }
+});
+
+
+// ADD Encounter
+app.post('/encounters/add', async (req, res) => {
+    try {
+
+        const { nameOfLocationInput, locationInput } = req.body;
+
+        await db.query(
+            'CALL add_encounter(?, ?)',
+            [nameOfLocationInput, locationInput]
+        );
+
+        res.redirect('/encounters');
+
+    } catch (err) {
+        console.error('Error adding encounter:', err);
+        res.status(500).send('Error adding encounter.');
+    }
+});
+
+
+// UPDATE Encounter
+app.post('/encounters/update', async (req, res) => {
+    try {
+
+        const { idEncountersInput, nameOfLocationInput, locationInput } = req.body;
+
+        await db.query(
+            'CALL update_encounter(?, ?, ?)',
+            [idEncountersInput, nameOfLocationInput, locationInput]
+        );
+
+        res.redirect('/encounters');
+
+    } catch (err) {
+        console.error('Error updating encounter:', err);
+        res.status(500).send('Error updating encounter.');
+    }
+});
+
+
+// DELETE Encounter
+app.post('/encounters/delete', async (req, res) => {
+    try {
+
+        const { idEncountersInput } = req.body;
+
+        await db.query(
+            'CALL delete_encounter(?)',
+            [idEncountersInput]
+        );
+
+        res.redirect('/encounters');
+
+    } catch (err) {
+        console.error('Error deleting encounter:', err);
+        res.status(500).send('Error deleting encounter.');
+    }
+});
 /*
 Citation for the following app.get CHARACTERS_ENCOUNTERS code:
 Date: 2/24/2026
@@ -110,7 +267,6 @@ app.get('/characters_encounters', async function (req, res) {
     try {
         // Call the stored procedure
         const [characters_encounters] = await db.query(`CALL getCharacterEncounters()`);
-
         const [characters] = await db.query(`SELECT idCharacters, displayName FROM Characters`);
         const [encounters] = await db.query(`SELECT idEncounters, nameOfLocation FROM Encounters`);
 
@@ -254,38 +410,66 @@ app.get('/turns', async function (req, res) {
 //     }
 // });
 
-//HEALTHLOG
+
+
+
+
+// ADD TURNS
+app.post('/turns/add', async (req, res) => {
+  try {
+    const { idCharacterEncounter, actionTaken, roundNumber, actionOrderInRound } = req.body;
+
+    await db.query(
+      'CALL addTurn(?, ?, ?, ?);',
+      [idCharacterEncounter, actionTaken, roundNumber, actionOrderInRound]
+    );
+
+    res.redirect('/turns');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error adding turn.");
+  }
+});
+
+// UPDATE TURNS
+app.post('/turns/update', async (req, res) => {
+    const { idTurns, actionTaken, roundNumber, actionOrderInRound } = req.body;
+
+    try {
+        await db.query(
+            "CALL updateTurn(?, ?, ?, ?);",
+            [idTurns, actionTaken, roundNumber, actionOrderInRound]
+        );
+        res.redirect('/turns');
+    } catch (err) {
+        console.error("Error updating turn:", err);
+        res.status(500).send("Error updating turn.");
+    }
+});
+
+// DELETE TURNS
+app.post('/turns/delete', async (req, res) => {
+    const { idTurns } = req.body;
+
+    try {
+        await db.query(
+            "CALL deleteTurn(?);",
+            [idTurns]
+        );
+        res.redirect('/turns');
+    } catch (err) {
+        console.error("Error deleting turn:", err);
+        res.status(500).send("Error deleting turn.");
+    }
+});
+
+
 app.get('/health_logs', async (req, res) => {
   try {
-
-    const [health_logs] = await db.query(`
-      SELECT
-        HealthChangeLogs.idHealthChangeLogs,
-        Characters.displayName,
-        Encounters.nameOfLocation,
-        Turns.roundNumber AS roundNumber,
-        HealthChangeLogs.hitPointChange,
-        HealthChangeLogs.hitPointChangeSource
-      FROM HealthChangeLogs
-      JOIN Turns ON HealthChangeLogs.idTurns = Turns.idTurns
-      JOIN Characters_Encounters ON Turns.idCharacterEncounter = Characters_Encounters.idCharacterEncounter
-      JOIN Characters ON Characters_Encounters.idCharacters = Characters.idCharacters
-      JOIN Encounters ON Characters_Encounters.idEncounters = Encounters.idEncounters
-      ORDER BY HealthChangeLogs.idHealthChangeLogs
-    `);
-    // DROP DOWN USED FROM DML
-
-    const [charEncounters] = await db.query(`
-      SELECT
-        Turns.idTurns,
-        Characters.displayName,
-        Encounters.nameOfLocation
-      FROM Turns
-      JOIN Characters_Encounters ON Turns.idCharacterEncounter = Characters_Encounters.idCharacterEncounter
-      JOIN Characters ON Characters_Encounters.idCharacters = Characters.idCharacters
-      JOIN Encounters ON Characters_Encounters.idEncounters = Encounters.idEncounters
-      ORDER BY Turns.idTurns
-    `);
+    const [results] = await db.query('CALL get_health_logs()');
+    // MySQL returns multiple result sets as results[0], results[1], etc.
+    const health_logs = results[0];
+    const charEncounters = results[1];
 
     res.render('health_logs', {
       title: 'Health Logs',
@@ -304,20 +488,16 @@ app.get('/health_logs', async (req, res) => {
 app.post('/health_logs/add', async (req, res) => {
   try {
     const { idTurns, hitPointChange, hitPointChangeSource } = req.body;
-
-    await db.query(`
-      INSERT INTO HealthChangeLogs
-      (idTurns, hitPointChange, hitPointChangeSource)
-      VALUES (?, ?, ?)
-    `, [idTurns, hitPointChange, hitPointChangeSource]);
+    await db.query('CALL add_health_log(?, ?, ?)',
+      [idTurns, hitPointChange, hitPointChangeSource]);
 
     res.redirect('/health_logs');
-
   } catch (err) {
     console.error(err);
     res.status(500).send('Error adding Health Log');
   }
 });
+
 
 // UPDATE HEALTH LOG
 
@@ -325,11 +505,8 @@ app.post('/health_logs/update', async (req, res) => {
   try {
     const { idHealthChangeLogs, hitPointChange, hitPointChangeSource } = req.body;
 
-    await db.query(`
-      UPDATE HealthChangeLogs
-      SET hitPointChange = ?, hitPointChangeSource = ?
-      WHERE idHealthChangeLogs = ?
-    `, [hitPointChange, hitPointChangeSource, idHealthChangeLogs]);
+    await db.query('CALL update_health_log(?, ?, ?)',
+      [idHealthChangeLogs, hitPointChange, hitPointChangeSource]);
 
     res.redirect('/health_logs');
 
@@ -339,48 +516,89 @@ app.post('/health_logs/update', async (req, res) => {
   }
 });
 
+
 // DELETE HEALTH LOG
 app.post('/health_logs/delete', async (req, res) => {
   try {
     const { idHealthChangeLogs } = req.body;
-
-    await db.query(`
-      DELETE FROM HealthChangeLogs
-      WHERE idHealthChangeLogs = ?
-    `, [idHealthChangeLogs]);
-
+    await db.query('CALL delete_health_log(?)',
+      [idHealthChangeLogs]);
     res.redirect('/health_logs');
-
   } catch (err) {
     console.error(err);
     res.status(500).send('Error deleting Health Log');
   }
 });
 
-// STATUS EFFECTS PAGE
+// Status Effect
+
 app.get('/status_effects', async function (req, res) {
     try {
-        const [effects] = await db.query(`
-            SELECT
-            StatusEffects.idStatusEffect,
-            StatusEffects.conditionStatus,
-            StatusEffects.duration,
-            StatusEffects.effectAmount,
-            Characters.displayName,
-            Encounters.nameOfLocation
-            FROM StatusEffects
-            JOIN Turns ON StatusEffects.idTurns = Turns.idTurns
+        const [rows] = await db.query('CALL get_status_effects()');
+        const status_effects = rows[0];
+
+        const [turnRows] = await db.query(`
+            SELECT Turns.idTurns, Characters.displayName, Encounters.nameOfLocation
+            FROM Turns
             JOIN Characters_Encounters ON Turns.idCharacterEncounter = Characters_Encounters.idCharacterEncounter
             JOIN Characters ON Characters_Encounters.idCharacters = Characters.idCharacters
             JOIN Encounters ON Characters_Encounters.idEncounters = Encounters.idEncounters
-            ORDER BY StatusEffects.idStatusEffect
+            ORDER BY Turns.idTurns
         `);
-        res.render('status_effects', { title: 'Status Effects', status_effects: effects || [] });
+
+        res.render('status_effects', {
+            title: 'Status Effects',
+            status_effects: status_effects || [],
+            turnsForDropdown: turnRows  // this is what the dropdown needs
+        });
+
     } catch (error) {
         console.error('Error loading Status Effects page:', error);
         res.status(500).send('Error loading Status Effects page.');
     }
 });
+
+// ADD STATUS EFFECT
+app.post('/status_effects/add', async function (req, res) {
+    try {
+        const { idTurns, conditionStatus, duration, effectAmount } = req.body;
+        await db.query('CALL add_status_effect(?, ?, ?, ?)',
+            [idTurns, conditionStatus, duration, effectAmount]
+        );
+        res.redirect('/status_effects');
+    } catch (error) {
+        console.error('Error adding Status Effect:', error);
+        res.status(500).send('Error adding Status Effect.');
+    }
+});
+
+// UPDATE STATUS EFFECT
+app.post('/status_effects/update', async function (req, res) {
+    try {
+        const { idStatusEffect, conditionStatus, duration, effectAmount } = req.body;
+        await db.query('CALL update_status_effect(?, ?, ?, ?)',
+            [idStatusEffect, conditionStatus, duration, effectAmount]
+        );
+        res.redirect('/status_effects');
+    } catch (error) {
+        console.error('Error updating Status Effect:', error);
+        res.status(500).send('Error updating Status Effect.');
+    }
+});
+
+// DELETE STATUS EFFECT
+app.post('/status_effects/delete', async function (req, res) {
+    try {
+        const { idStatusEffect } = req.body;
+        await db.query('CALL delete_status_effect(?)', [idStatusEffect]);
+        res.redirect('/status_effects');
+    } catch (error) {
+        console.error('Error deleting Status Effect:', error);
+        res.status(500).send('Error deleting Status Effect.');
+    }
+});
+
+
 
 
 // COPIED AND PASTE FROM COURSE MATERIAL

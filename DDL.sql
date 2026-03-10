@@ -67,7 +67,7 @@ CREATE TABLE Characters_Encounters (
 
 CREATE TABLE Turns (
 	idTurns INT NOT NULL AUTO_INCREMENT,
-    idCharacterEncounter INT NOT NULL,  
+    idCharacterEncounter INT NOT NULL,
 	actionOrderInRound INT NOT NULL,
 	roundNumber INT DEFAULT 1,
 	actionTaken VARCHAR(100) NOT NULL,
@@ -80,8 +80,8 @@ CREATE TABLE StatusEffects (
     idStatusEffect INT NOT NULL AUTO_INCREMENT,
     idTurns INT NOT NULL,
     conditionStatus ENUM('Healthy', 'Buffed', 'Poisoned', 'Stunned', 'Dead') DEFAULT 'Healthy',
-    duration INT DEFAULT 1,           
-    effectAmount INT DEFAULT 0,     
+    duration INT DEFAULT 1,
+    effectAmount INT DEFAULT 0,
     PRIMARY KEY (idStatusEffect),
     FOREIGN KEY (idTurns) REFERENCES Turns(idTurns) ON DELETE CASCADE
 );
@@ -96,7 +96,7 @@ CREATE TABLE HealthChangeLogs (
 );
 
 -- Citation for use of AI Tools:
--- Use to help tweak sample data because before Players, i.e., Aaragorn and Gandalf were attacking each other. 
+-- Use to help tweak sample data because before Players, i.e., Aaragorn and Gandalf were attacking each other.
 -- Date: 3/06/2026
 -- Prompt Used to Generated Code:
 -- Can you update my INSERT schema only to make my data feel more DnD-inspired by adding a few monster NPCs, and make sure players can only attack NPCs, not each other.
@@ -123,13 +123,13 @@ VALUES
 -- CHARACTER_ENCOUNTER
 INSERT INTO Characters_Encounters (idCharacters, idEncounters, initiativeOrder, initiativeRoll)
 VALUES
-(1, 1, 2, 14),  
-(2, 1, 3, 16),  
-(4, 1, 1, 10), 
-(3, 2, 2, 19),  
-(5, 2, 1, 15), 
-(2, 3, 2, 17),  
-(6, 3, 1, 12);  
+(1, 1, 2, 14),
+(2, 1, 3, 16),
+(4, 1, 1, 10),
+(3, 2, 2, 19),
+(5, 2, 1, 15),
+(2, 3, 2, 17),
+(6, 3, 1, 12);
 
 -- TURNS
 INSERT INTO Turns (idCharacterEncounter, actionOrderInRound, roundNumber, actionTaken)

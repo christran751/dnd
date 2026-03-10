@@ -8,13 +8,13 @@ We used this template for reference
 The table structure and form structure for read/create/update/delete were adapted to best match our database, i.e., the delete functionality was adapted to appear as a row-level button within the table instead of a separate form
 }}
 
-{{!Adapted from the provided bsg-people.hbs starter code}}<h1>{{title}}</h1>
+{{!Adapted from the provided bsg-people.hbs starter code}}
+<h1>{{title}}</h1>
 <table border="1" cellpadding="5" cellspacing="0">
   <thead>
     <tr>
       <th>Location Name</th>
       <th>Location</th>
-      {{!Our Own Work}}
       <th>Remove</th>
     </tr>
   </thead>
@@ -24,8 +24,8 @@ The table structure and form structure for read/create/update/delete were adapte
           <td>{{nameOfLocation}}</td>
           <td>{{location}}</td>
           <td>
-            <form method="POST" action="/delete-encounter">
-              <input type="hidden" name="idEncounters" value="{{idEncounters}}">
+            <form method="POST" action="/encounters/delete" onsubmit="return confirm('Are you sure you want to delete this encounter?')">
+              <input type="hidden" name="idEncountersInput" value="{{idEncounters}}">
               <button type="submit">Delete</button>
             </form>
           </td>
@@ -34,27 +34,40 @@ The table structure and form structure for read/create/update/delete were adapte
   </tbody>
 </table>
 
+
 {{!Our Own Work}}
 <h2>Add New Encounter</h2>
-<form method="POST" action="/add-encounter">
-  Location Name: <input type="text" name="nameOfLocation" required><br>
-  Location Description: <input type="text" name="location" required><br>
+<form method="POST" action="/encounters/add">
+  Name of Encounter:
+  <input type="text" name="nameOfLocationInput" required><br>
+
+  Location:
+  <input type="text" name="locationInput" required><br>
+
   <button type="submit">Add Encounter</button>
 </form>
 
+
 {{!Our Own Work}}
 <h2>Update Encounter</h2>
-<form method="POST" action="/update-encounter">
-  Encounter ID:
-  <select name="idEncounters">
+<form method="POST" action="/encounters/update">
+
+  Name of Encounter:
+  <select name="idEncountersInput">
     {{#each encounters}}
       <option value="{{idEncounters}}">
         {{idEncounters}} - {{nameOfLocation}}
       </option>
     {{/each}}
   </select>
+
   <br><br>
-  Location Name: <input type="text" name="nameOfLocation"><br>
-  Location Description: <input type="text" name="location"><br>
+  New Encounter Name:
+  <input type="text" name="nameOfLocationInput"><br>
+
+  New Location Name:
+  <input type="text" name="locationInput"><br>
+
   <button type="submit">Update Encounter</button>
+
 </form>

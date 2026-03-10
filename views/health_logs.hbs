@@ -8,7 +8,8 @@ We used this template for reference
 The table structure and form structure for read/create/update/delete were adapted to best match our database, i.e., the delete functionality was adapted to appear as a row-level button within the table instead of a separate form
 }}
 
-{{!Adapted from the provided bsg-people.hbs starter code}}<h1>{{title}}</h1>
+{{!Adapted from the provided bsg-people.hbs starter code}}
+<h1>{{title}}</h1>
 <table border="1" cellpadding="5" cellspacing="0">
   <thead>
     <tr>
@@ -28,7 +29,7 @@ The table structure and form structure for read/create/update/delete were adapte
           <td>{{hitPointChange}}</td>
           <td>{{hitPointChangeSource}}</td>
           <td>
-            <form method="POST" action="/health_logs/delete">
+            <form method="POST" action="/health_logs/delete" onsubmit="return confirm('Are you sure you want to delete this health log entry?')">
               <input type="hidden" name="idHealthChangeLogs" value="{{idHealthChangeLogs}}">
               <button type="submit">Delete</button>
             </form>

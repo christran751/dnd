@@ -1,11 +1,10 @@
-
 -- Citation for use of AI Tools:
 -- Date: 02/22/2026
 -- Summary of prompts used to help build a stored procedure
 -- What is the general syntax of a stored procedure
 -- AI Source URL: https://claude.ai/chat/8e1f2ef6-3168-4bb4-b182-5e0e633eaa5b
 
--- Characters Stored Procedure 
+-- Characters Stored Procedure
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 DROP PROCEDURE IF EXISTS get_characters;
 DELIMITER //
@@ -77,7 +76,7 @@ DELIMITER ;
 -- ------------------------------------------------------------------------------------------------------------------------------------------------
 
 
--- Encounters Stored Procedure 
+-- Encounters Stored Procedure
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 DROP PROCEDURE IF EXISTS get_encounters;
@@ -118,7 +117,140 @@ BEGIN
 END //
 DELIMITER ;
 
- 
+
+DROP PROCEDURE IF EXISTS delete_encounter;
+DELIMITER //
+CREATE PROCEDURE delete_encounter(
+    IN idEncountersInput INT
+)
+BEGIN
+    DELETE FROM Encounters
+    WHERE idEncounters = idEncountersInput;
+END //
+DELIMITER ;
+
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- Citation for use of AI Tools:
+-- Date: 02/22/2026
+-- Summary of prompts used to help build a stored procedure
+-- What is the general syntax of a stored procedure
+-- AI Source URL: https://claude.ai/chat/8e1f2ef6-3168-4bb4-b182-5e0e633eaa5b
+
+-- Characters Stored Procedure
+-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DROP PROCEDURE IF EXISTS get_characters;
+DELIMITER //
+CREATE PROCEDURE get_characters()
+BEGIN
+    SELECT * FROM Characters
+    ORDER BY idCharacters ASC;
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS add_character;
+DELIMITER //
+CREATE PROCEDURE add_character(
+    IN displayNameInput VARCHAR(100),
+    IN raceInput VARCHAR(100),
+    IN characterClassInput VARCHAR(100),
+    IN characterRoleInput VARCHAR(100),
+    IN characterLevelInput INT,
+    IN maxHitPointInput INT,
+    IN armorClassInput INT,
+    IN initiativeBonusInput INT
+)
+BEGIN
+    INSERT INTO Characters
+    (displayName, race, characterClass, characterRole, characterLevel, maxHitPoint, armorClass, initiativeBonus)
+    VALUES
+    (displayNameInput, raceInput, characterClassInput, characterRoleInput, characterLevelInput, maxHitPointInput, armorClassInput, initiativeBonusInput);
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS update_character;
+DELIMITER //
+CREATE PROCEDURE update_character(
+    IN idCharactersInput INT,
+    IN displayNameInput VARCHAR(100),
+    IN raceInput VARCHAR(100),
+    IN characterClassInput VARCHAR(100),
+    IN characterRoleInput VARCHAR(100),
+    IN characterLevelInput INT,
+    IN maxHitPointInput INT,
+    IN armorClassInput INT,
+    IN initiativeBonusInput INT
+)
+BEGIN
+    UPDATE Characters
+    SET
+        displayName = displayNameInput,
+        race = raceInput,
+        characterClass = characterClassInput,
+        characterRole = characterRoleInput,
+        characterLevel = characterLevelInput,
+        maxHitPoint = maxHitPointInput,
+        armorClass = armorClassInput,
+        initiativeBonus = initiativeBonusInput
+    WHERE idCharacters = idCharactersInput;
+END //
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS delete_character;
+DELIMITER //
+CREATE PROCEDURE delete_character(
+    IN idCharactersInput INT
+)
+DELETE FROM Characters
+WHERE idCharacters = idCharactersInput;
+//
+DELIMITER ;
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- Encounters Stored Procedure
+-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+DROP PROCEDURE IF EXISTS get_encounters;
+DELIMITER //
+CREATE PROCEDURE get_encounters()
+BEGIN
+    SELECT *
+    FROM Encounters
+    ORDER BY idEncounters ASC;
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS add_encounter;
+DELIMITER //
+CREATE PROCEDURE add_encounter(
+    IN nameOfLocationInput VARCHAR(100),
+    IN locationInput VARCHAR(255)
+)
+BEGIN
+    INSERT INTO Encounters (nameOfLocation, location)
+    VALUES (nameOfLocationInput, locationInput);
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS update_encounter;
+DELIMITER //
+CREATE PROCEDURE update_encounter(
+    IN idEncountersInput INT,
+    IN nameOfLocationInput VARCHAR(100),
+    IN locationInput VARCHAR(255)
+)
+BEGIN
+    UPDATE Encounters
+    SET
+        nameOfLocation = nameOfLocationInput,
+        location = locationInput
+    WHERE idEncounters = idEncountersInput;
+END //
+DELIMITER ;
+
+
 DROP PROCEDURE IF EXISTS delete_encounter;
 DELIMITER //
 CREATE PROCEDURE delete_encounter(
@@ -373,7 +505,7 @@ BEGIN
 END //
 DELIMITER ;
 
--- StatusEffects Stored Procedure 
+-- StatusEffects Stored Procedure
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 DROP PROCEDURE IF EXISTS get_status_effects;
 DELIMITER //
@@ -440,7 +572,7 @@ END //
 DELIMITER ;
 
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- HealthLog Stored Procedure 
+-- HealthLog Stored Procedure
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- Citation for use of AI Tools:
@@ -522,3 +654,127 @@ END //
 DELIMITER ;
 
 
+DROP PROCEDURE IF EXISTS add_status_effect;
+DELIMITER //
+CREATE PROCEDURE add_status_effect(
+    IN p_idTurns INT,
+    IN p_conditionStatus VARCHAR(255),
+    IN p_duration INT,
+    IN p_effectAmount INT
+)
+BEGIN
+    INSERT INTO StatusEffects (idTurns, conditionStatus, duration, effectAmount)
+    VALUES (p_idTurns, p_conditionStatus, p_duration, p_effectAmount);
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS update_status_effect;
+DELIMITER //
+CREATE PROCEDURE update_status_effect(
+    IN p_idStatusEffect INT,
+    IN p_conditionStatus VARCHAR(255),
+    IN p_duration INT,
+    IN p_effectAmount INT
+)
+BEGIN
+    UPDATE StatusEffects
+    SET
+        conditionStatus = p_conditionStatus,
+        duration = p_duration,
+        effectAmount = p_effectAmount
+    WHERE idStatusEffect = p_idStatusEffect;
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS delete_status_effect;
+DELIMITER //
+CREATE PROCEDURE delete_status_effect(
+    IN p_idStatusEffect INT
+)
+BEGIN
+    DELETE FROM StatusEffects
+    WHERE idStatusEffect = p_idStatusEffect;
+END //
+DELIMITER ;
+
+-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- HealthLog Stored Procedure
+-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- Citation for use of AI Tools:
+-- Date: 03/09/2026
+-- Summary of prompts used to help build a stored procedure for get health log entry
+-- For HealthLog is it better to have a separate dropdown STORED PROCEDURE or have it in get_health_logs?
+-- AI Source URL: https://claude.ai/chat/8e1f2ef6-3168-4bb4-b182-5e0e633eaa5b
+
+DROP PROCEDURE IF EXISTS get_health_logs;
+DELIMITER //
+
+CREATE PROCEDURE get_health_logs()
+BEGIN
+  SELECT
+    HealthChangeLogs.idHealthChangeLogs,
+    Characters.displayName,
+    Encounters.nameOfLocation,
+    Turns.actionTaken,
+    Turns.roundNumber,
+    HealthChangeLogs.hitPointChange,
+    HealthChangeLogs.hitPointChangeSource
+  FROM HealthChangeLogs
+  JOIN Turns ON HealthChangeLogs.idTurns = Turns.idTurns
+  JOIN Characters_Encounters ON Turns.idCharacterEncounter = Characters_Encounters.idCharacterEncounter
+  JOIN Characters ON Characters_Encounters.idCharacters = Characters.idCharacters
+  JOIN Encounters ON Characters_Encounters.idEncounters = Encounters.idEncounters
+  ORDER BY HealthChangeLogs.idHealthChangeLogs;
+
+  SELECT
+    Turns.idTurns,
+    Characters.displayName,
+    Encounters.nameOfLocation
+  FROM Turns
+  JOIN Characters_Encounters ON Turns.idCharacterEncounter = Characters_Encounters.idCharacterEncounter
+  JOIN Characters ON Characters_Encounters.idCharacters = Characters.idCharacters
+  JOIN Encounters ON Characters_Encounters.idEncounters = Encounters.idEncounters
+  ORDER BY Turns.idTurns;
+END //
+
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS add_health_log;
+DELIMITER //
+CREATE PROCEDURE add_health_log(
+  IN idTurnsInput INT,
+  IN hitPointChangeInput INT,
+  IN hitPointChangeSourceInput VARCHAR(255)
+)
+BEGIN
+  INSERT INTO HealthChangeLogs (idTurns, hitPointChange, hitPointChangeSource)
+  VALUES (idTurnsInput, hitPointChangeInput, hitPointChangeSourceInput);
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS update_health_log;
+DELIMITER //
+CREATE PROCEDURE update_health_log(
+  IN idHealthChangeLogsInput INT,
+  IN hitPointChangeInput INT,
+  IN hitPointChangeSourceInput VARCHAR(255)
+)
+BEGIN
+  UPDATE HealthChangeLogs
+  SET hitPointChange = hitPointChangeInput,
+      hitPointChangeSource = hitPointChangeSourceInput
+  WHERE idHealthChangeLogs = idHealthChangeLogsInput;
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS delete_health_log;
+DELIMITER //
+CREATE PROCEDURE delete_health_log(
+  IN idHealthChangeLogsInput INT
+)
+BEGIN
+  DELETE FROM HealthChangeLogs
+  WHERE idHealthChangeLogs = idHealthChangeLogsInput;
+END //
+DELIMITER ;
