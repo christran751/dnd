@@ -95,81 +95,78 @@ CREATE TABLE HealthChangeLogs (
     FOREIGN KEY (idTurns) REFERENCES Turns(idTurns) ON DELETE CASCADE
 );
 
+-- Citation for use of AI Tools:
+-- Use to help tweak sample data because before Players, i.e., Aaragorn and Gandalf were attacking each other. 
+-- Date: 3/06/2026
+-- Prompt Used to Generated Code:
+-- Can you update my INSERT schema only to make my data feel more DnD-inspired by adding a few monster NPCs, and make sure players can only attack NPCs, not each other.
+-- Source URL: https://claude.ai/chat/97cc5a49-2ab4-4117-8ab4-fd0fb407fa9c
 
 -- Example Inserted Table Data --
 -- Characters
-INSERT INTO Characters
-(displayName, race, characterClass, characterRole, characterLevel, maxHitPoint, armorClass, initiativeBonus)
+INSERT INTO Characters (displayName, race, characterClass, characterRole, characterLevel, maxHitPoint, armorClass, initiativeBonus)
 VALUES
-('Gandalf the Grey', 'Maia', 'Wizard', 'PC', 10, 68, 15, 2),
+('Gandalf', 'Maia', 'Wizard', 'PC', 10, 68, 15, 2),
 ('Aragorn', 'Human', 'Ranger', 'PC', 8, 75, 17, 3),
 ('Ahri', 'Vastaya', 'Sorcerer', 'PC', 7, 52, 14, 4),
-('Yasuo', 'Human', 'Fighter', 'PC', 7, 65, 16, 5),
-('Mikasa Ackerman', 'Human', 'Fighter', 'PC', 6, 60, 16, 4),
-('Soraka', 'Celestial', 'Cleric', 'PC', 7, 55, 13, 1);
+('Orc Warrior', 'Orc', 'Fighter', 'NPC', 5, 40, 13, 1),
+('Balrog', 'Demon', 'Fire Elemental', 'NPC', 12, 120, 18, 0),
+('Goblin', 'Goblin', 'Rogue', 'NPC', 3, 25, 12, 2);
 
 -- Encounters
-INSERT INTO Encounters
-(nameOfLocation, location)
+INSERT INTO Encounters (nameOfLocation, location)
 VALUES
 ('Battle of Helm’s Deep', 'Rohan'),
 ('Skirmish at Summoner’s Rift', 'Valoran'),
-('Siege of Shiganshina', 'Wall Maria'),
-('Goblin Cave Assault', 'Sword Coast'),
-('Forest Ambush', 'Fangorn Forest'),
-('Ruined Shrine Defense', 'Ionia');
+('Siege of Shiganshina', 'Wall Maria');
 
--- Characters_Encounters
-INSERT INTO Characters_Encounters
-(idCharacters, idEncounters, initiativeOrder, initiativeRoll)
+-- CHARACTER_ENCOUNTER
+INSERT INTO Characters_Encounters (idCharacters, idEncounters, initiativeOrder, initiativeRoll)
 VALUES
-(1, 1, 3, 14),  
-(2, 1, 2, 16),  
-(3, 2, 1, 19), 
-(4, 2, 2, 17),  
-(5, 3, 1, 20),  
-(6, 2, 3, 12);
+(1, 1, 2, 14),  
+(2, 1, 3, 16),  
+(4, 1, 1, 10), 
+(3, 2, 2, 19),  
+(5, 2, 1, 15), 
+(2, 3, 2, 17),  
+(6, 3, 1, 12);  
 
--- Turns
-
-INSERT INTO Turns
-(idCharacterEncounter, actionOrderInRound, roundNumber, actionTaken)
+-- TURNS
+INSERT INTO Turns (idCharacterEncounter, actionOrderInRound, roundNumber, actionTaken)
 VALUES
-(1, 1, 1, 'Hit by Aragorn’s Sword Slash'),       
-(2, 2, 1, 'Hit by Gandalf’s Fireball'),          
-(4, 1, 1, 'Hit by Ahri’s Orb of Deception'), 
-(3, 2, 1, 'Hit by Yasuo’s Wind-Infused Blade'),     
-(5, 1, 1, 'Hit by Goblin Counterattack'),       
-(5, 2, 1, 'Healed by Soraka’s Healing Word'),   
-(2, 3, 1, 'Drinking Potion');
+(3, 1, 1, 'Orc Warrior attacks Gandalf for 8 damage'),
+(1, 2, 1, 'Gandalf casts Fireball on Orc Warrior for 25 damage'),
+(2, 3, 1, 'Aragorn strikes Orc Warrior for 12 damage'),
+(5, 1, 1, 'Balrog attacks Ahri for 18 damage'),
+(4, 2, 1, 'Ahri casts Orb of Deception on Balrog for 10 damage'),
+(6, 1, 1, 'Goblin attacks Aragorn for 6 damage'),
+(7, 2, 1, 'Aragorn strikes Goblin for 14 damage');
 
--- HealthChangeLogs
-INSERT INTO HealthChangeLogs
-(idTurns, hitPointChange, hitPointChangeSource)
+-- HEALTHCHANGE LOGS
+INSERT INTO HealthChangeLogs (idTurns, hitPointChange, hitPointChangeSource)
 VALUES
-(1, -10, 'Sword slash from Aragorn'),  
-(2, -14, 'Fireball explosion'),         
-(3, -8, 'Orb of Deception'),          
-(4, -7, 'Wind-infused blade'),           
-(5, -12, 'Counterattack wound'),      
-(6, +15, 'Healing Word'),              
-(7, +10, 'Drinking Potion');
+(2, -8, 'Orc Warrior attacks Gandalf for 8 damage'),
+(1, -25, 'Gandalf casts Fireball on Orc Warrior for 25 damage'),
+(1, -12, 'Aragorn strikes Orc Warrior for 12 damage'),
+(5, -18, 'Balrog attacks Ahri for 18 damage'),
+(4, -10, 'Ahri casts Orb of Deception on Balrog for 10 damage'),
+(7, -6, 'Goblin attacks Aragorn for 6 damage'),
+(6, -14, 'Aragorn strikes Goblin for 14 damage');
 
--- Status Effect
-INSERT INTO StatusEffects
-(idTurns, conditionStatus, duration, effectAmount)
+-- STATUS EFFECT
+INSERT INTO StatusEffects (idTurns, conditionStatus, duration, effectAmount)
 VALUES
-(1, 'Poisoned', 2, 3),     
-(2, 'Buffed', 1, 2),         
-(3, 'Stunned', 1, 0),     
-(4, 'Healthy', 1, 0),     
-(5, 'Healthy', 1, 0),     
-(6, 'Buffed', 2, 5); 
+(1, 'Healthy', 1, 0),
+(2, 'Buffed', 1, 2),
+(3, 'Healthy', 1, 0),
+(4, 'Poisoned', 1, 2),
+(5, 'Healthy', 1, 0),
+(6, 'Healthy', 1, 0),
+(7, 'Healthy', 1, 0);
+
 
 SET FOREIGN_KEY_CHECKS = 1;
 COMMIT;
 
 END //
 DELIMITER ;
-
-
