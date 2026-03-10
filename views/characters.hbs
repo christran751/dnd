@@ -78,7 +78,7 @@ html<!-- Generic pattern for any delete form -->
 {{!Our Own Work}}
 <h2>Update Character</h2>
 <form method="POST" action="/characters/update">
-  Name of Character:
+  Select Character to Edit:
   <select name="idCharactersInput" required>
     {{#each characters}}
       <option value="{{idCharacters}}">{{displayName}} (ID: {{idCharacters}})</option>

@@ -46,7 +46,7 @@ The table structure and form structure for read/create/update/delete were adapte
 
 <<h2>Add New Character Encounter</h2>
 <form method="POST" action="/characters_encounters/add">
-  Character:
+  Select Character:
   <select name="idCharacter" required>
     {{#each characters}}
       <option value="{{idCharacters}}">
@@ -55,7 +55,7 @@ The table structure and form structure for read/create/update/delete were adapte
     {{/each}}
   </select>
   <br><br>
-  Encounter:
+  Select Encounter:
   <select name="idEncounter" required>
     {{#each encounters}}
       <option value="{{idEncounters}}">
@@ -73,7 +73,7 @@ The table structure and form structure for read/create/update/delete were adapte
 {{!Our Own Work}}
 <h2>Update Character Encounter</h2>
 <form method="POST" action="/characters_encounters/update">
-  Character Encounter:
+  Select Character Encounter to Edit:
   <select name="idCharacterEncounter" required>
     {{#each characters_encounters}}
       <option value="{{idCharacterEncounter}}">
