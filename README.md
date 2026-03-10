@@ -11,6 +11,122 @@ Notes:
 - Original work (custom routes, logic, database queries) is clearly documented inline.
 ______________________________________________________________________________________________________________________________________________________________________________________
 
+{{!
+Citation for the characters handlebar starter code:
+Date: 02/12/2026
+Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
+Type: Starter code / application
+Author: Oregon State University
+Notes:
+We used this template for reference
+The table structure and form structure for read/create/update/delete were adapted to best match our database, i.e., the delete functionality was adapted to appear as a row-level button within the table instead of a separate form
+}}
+
+{{!Adapted from the provided bsg-people.hbs starter code}}
+______________________________________________________________________________________________________________________________________________________________________________________
+
+{{!
+Citation for the characters_encounters handlebar starter code:
+Date: 02/12/2026
+Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
+Type: Starter code / application
+Author: Oregon State University
+Notes:
+We used this template for reference
+The table structure and form structure for read/create/update/delete were adapted to best match our database, i.e., the delete functionality was adapted to appear as a row-level button within the table instead of a separate form
+}}
+
+{{!Adapted from the provided bsg-people.hbs starter code}}
+______________________________________________________________________________________________________________________________________________________________________________________
+
+{{!
+Citation for the encounters handlebar starter code:
+Date: 02/12/2026
+Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
+Type: Starter code / application
+Author: Oregon State University
+Notes:
+We used this template for reference
+The table structure and form structure for read/create/update/delete were adapted to best match our database, i.e., the delete functionality was adapted to appear as a row-level button within the table instead of a separate form
+}}
+
+{{!Adapted from the provided bsg-people.hbs starter code}}
+
+______________________________________________________________________________________________________________________________________________________________________________________
+
+{{!
+Citation for the health_logs handlebar starter code:
+Date: 02/12/2026
+Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
+Type: Starter code / application
+Author: Oregon State University
+Notes:
+We used this template for reference
+The table structure and form structure for read/create/update/delete were adapted to best match our database, i.e., the delete functionality was adapted to appear as a row-level button within the table instead of a separate form
+}}
+
+{{!Adapted from the provided bsg-people.hbs starter code}}
+
+______________________________________________________________________________________________________________________________________________________________________________________
+
+{{!
+Citation for the index handlebar starter code:
+Date: 02/12/2026
+Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
+Type: Starter code / application
+Author: Oregon State University
+Notes:
+We used this template for reference
+The table structure and form structure for read/create/update/delete were adapted to best match our database, i.e., the delete functionality was adapted to appear as a row-level button within the table instead of a separate form
+}}
+
+______________________________________________________________________________________________________________________________________________________________________________________
+
+{{!
+Citation for the status_effects handlebar starter code:
+Date: 02/12/2026
+Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
+Type: Starter code / application
+Author: Oregon State University
+Notes:
+We used this template for reference
+The table structure and form structure for read/create/update/delete were adapted to best match our database, i.e., the delete functionality was adapted to appear as a row-level button within the table instead of a separate form
+}}
+
+{{!Adapted from the provided bsg-people.hbs starter code}}
+
+______________________________________________________________________________________________________________________________________________________________________________________
+
+{{!
+Citation for the handlebar starter code:
+Date: 02/12/2026
+Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
+Type: Starter code / application
+Author: Oregon State University
+Notes:
+We used this template for reference
+The table structure and form structure for read/create/update/delete were adapted to best match our database, i.e., the delete functionality was adapted to appear as a row-level button within the table instead of a separate form
+}}
+
+{{!Adapted from the provided bsg-people.hbs starter code}}
+
+______________________________________________________________________________________________________________________________________________________________________________________
+
+
+{{!
+Citation for the main handlebar starter code:
+Date: 02/12/2026
+Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
+Type: Starter code / application
+Author: Oregon State University
+Notes:
+We used this template for reference
+}}
+
+{{!Adapted from the provided main.hbs starter code}}
+
+______________________________________________________________________________________________________________________________________________________________________________________
+
 -- Citation for use of AI Tools:
 -- Date: 02/22/2026
 -- Summary of prompts used to help build a stored procedure
