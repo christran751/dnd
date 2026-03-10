@@ -411,9 +411,6 @@ app.get('/turns', async function (req, res) {
 // });
 
 
-
-
-
 // ADD TURNS
 app.post('/turns/add', async (req, res) => {
   try {
@@ -463,7 +460,7 @@ app.post('/turns/delete', async (req, res) => {
     }
 });
 
-
+// HealthLogs
 app.get('/health_logs', async (req, res) => {
   try {
     const [results] = await db.query('CALL get_health_logs()');
@@ -597,9 +594,6 @@ app.post('/status_effects/delete', async function (req, res) {
         res.status(500).send('Error deleting Status Effect.');
     }
 });
-
-
-
 
 // COPIED AND PASTE FROM COURSE MATERIAL
 // ########################################

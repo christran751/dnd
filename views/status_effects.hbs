@@ -31,7 +31,7 @@ The table structure and form structure for read/create/update/delete were adapte
           <td>{{duration}}</td>
           <td>{{effectAmount}}</td>
           <td>
-            <form method="POST" action="/status_effects/delete">
+            <form method="POST" action="/status_effects/delete" onsubmit="return confirm('Are you sure you want to delete this status effect log entry?')">
               <input type="hidden" name="idStatusEffect" value="{{idStatusEffect}}">
               <button type="submit">Delete</button>
             </form>
