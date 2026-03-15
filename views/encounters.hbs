@@ -1,6 +1,5 @@
 {{!
 Citation for the encounters handlebar starter code:
-Date: 02/12/2026
 Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
 Type: Starter code / application
 Author: Oregon State University
@@ -16,59 +15,41 @@ The table structure and form structure for read/create/update/delete were adapte
     <tr>
       <th>Location Name</th>
       <th>Location</th>
-      <th>Remove</th>
+      {{!Our Own Work}}
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
-      {{#each encounters}}
-        <tr>
-          <td>{{nameOfLocation}}</td>
-          <td>{{location}}</td>
-          <td>
-            <form method="POST" action="/encounters/delete" onsubmit="return confirm('Are you sure you want to delete this encounter?')">
-              <input type="hidden" name="idEncountersInput" value="{{idEncounters}}">
-              <button type="submit">Delete</button>
-            </form>
-          </td>
-        </tr>
-      {{/each}}
+    {{#each encounters}}
+      <tr>
+        {{!As suggested, add data-field attributes to the editable cells. Didn't prompt for it though}}
+        {{!Source: https://claude.ai/}}
+        <td class="editable" data-field="nameOfLocationInput">{{nameOfLocation}}</td>
+        <td class="editable" data-field="locationInput">{{location}}</td>
+        <td>
+          {{!Our Own Work to Update}}
+          <input type="hidden" name="idEncountersInput" value="{{idEncounters}}">
+          <button class="edit_button">Edit</button>
+          <button class="save_button" style="display:none;" data-update="/encounters/update"
+            data-idfield="idEncountersInput" data-array='["nameOfLocationInput","locationInput"]'>Save </button>
+          <button class="cancel_button" style="display:none;">Cancel</button>
+          {{!Our Own Work to Delete}}
+          <form method="POST" action="/encounters/delete" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this encounter?')">
+            <input type="hidden" name="idEncountersInput" value="{{idEncounters}}">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    {{/each}}
   </tbody>
 </table>
 
-
 {{!Our Own Work}}
-<h2>Add New Encounter</h2>
-<form method="POST" action="/encounters/add">
-  Name of Encounter:
-  <input type="text" name="nameOfLocationInput" required><br>
-
-  Location:
-  <input type="text" name="locationInput" required><br>
-
+<form method="POST" action="/encounters/add" style="display:flex; gap:10px; align-items:center;">
+  <h2 style="margin:0;">Add New Encounter:</h2>
+  <input type="text" name="nameOfLocationInput" placeholder="Name of Encounter" required>
+  <input type="text" name="locationInput" placeholder="Location" required>
   <button type="submit">Add Encounter</button>
 </form>
 
-
-{{!Our Own Work}}
-<h2>Update Encounter</h2>
-<form method="POST" action="/encounters/update">
-
-  Select Encounter to Edit:
-  <select name="idEncountersInput">
-    {{#each encounters}}
-      <option value="{{idEncounters}}">
-        {{idEncounters}} - {{nameOfLocation}}
-      </option>
-    {{/each}}
-  </select>
-
-  <br><br>
-  New Encounter Name:
-  <input type="text" name="nameOfLocationInput"><br>
-
-  New Location Name:
-  <input type="text" name="locationInput"><br>
-
-  <button type="submit">Update Encounter</button>
-
-</form>
+<script src="/script.js"></script>
