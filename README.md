@@ -1,10 +1,11 @@
 ______________________________________________________________________________________________________________________________________________________________________________________
 Citation for the following app.js starter code:
-Date: 02/09/2026
-Copied from / Adapted from: Starter Code for app.js provided by the course
-Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
-Type: Starter code / application
-Author: Oregon State University and Dr. Michael Curry
+
+Date: 02/09/2026  
+Copied from / Adapted from: Starter Code for app.js provided by the course  
+Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419  
+Type: Starter code / application  
+Author: Oregon State University and Dr. Michael Curry  
 Notes:
 - This file is mainly copied (the Express, Handlebars, and Database setup portions were copied word-for-word), with minor adaptations for project structure and port configuration.
 - The read routes and other route handling logic are primarily our own work, using the starter code as a basis.
