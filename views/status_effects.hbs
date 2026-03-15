@@ -20,25 +20,35 @@ The table structure and form structure for read/create/update/delete were adapte
       <th>Duration</th>
       <th>Effect Amount</th>
       {{!Our Own Work}}
-      <th>Remove</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
-      {{#each status_effects}}
-        <tr>
-          <td>{{displayName}}</td>
-          <td>{{nameOfLocation}}</td>
-          <td>{{conditionStatus}}</td>
-          <td>{{duration}}</td>
-          <td>{{effectAmount}}</td>
-          <td>
-            <form method="POST" action="/status_effects/delete" onsubmit="return confirm('Are you sure you want to delete this status effect log entry?')">
-              <input type="hidden" name="idStatusEffect" value="{{idStatusEffect}}">
-              <button type="submit">Delete</button>
-            </form>
-          </td>
-        </tr>
-      {{/each}}
+    {{#each status_effects}}
+      <tr>
+        <td>{{displayName}}</td>
+        <td>{{nameOfLocation}}</td>
+        {{!As suggested, add data-field attributes to the editable cells so JS will knows
+        which database column each cell belongs to when saving the update
+        See script.js citation for more detail}}
+        <td class="editable" data-field="conditionStatus">{{conditionStatus}}</td>
+        <td class="editable" data-field="duration">{{duration}}</td>
+        <td class="editable" data-field="effectAmount">{{effectAmount}}</td>
+        <td>
+          {{!Update}}
+          <input type="hidden" name="idStatusEffect" value="{{idStatusEffect}}">
+          <button class="edit_button">Edit</button>
+          <button class="save_button" style="display:none;" data-update="/status_effects/update" data-idfield="idStatusEffect"
+            data-array='["conditionStatus","duration","effectAmount"]'> Save </button>
+          <button class="cancel_button" style="display:none;">Cancel</button>
+          {{!Delete}}
+          <form method="POST" action="/status_effects/delete" style="display:inline;">
+            <input type="hidden" name="idStatusEffect" value="{{idStatusEffect}}">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    {{/each}}
   </tbody>
 </table>
 
@@ -55,29 +65,10 @@ The table structure and form structure for read/create/update/delete were adapte
     {{/each}}
   </select>
   <br><br>
-
   Condition Status: <input type="text" name="conditionStatus" required><br>
   Duration: <input type="number" name="duration" required><br>
   Effect Amount: <input type="number" name="effectAmount" required><br>
   <button type="submit">Add Status Effect</button>
 </form>
 
-{{!Our own Work}}
-<h2>Update Status Effect</h2>
-<form method="POST" action="/status_effects/update">
-  Select Status Effect:
-  <select name="idStatusEffect" required>
-    <option value="" disabled selected>Select Status Effect</option>
-    {{#each status_effects}}
-      <option value="{{idStatusEffect}}">
-        {{displayName}} - {{nameOfLocation}} (Status Effect ID: {{idStatusEffect}})
-      </option>
-    {{/each}}
-  </select>
-  <br><br>
-
-  Condition Status: <input type="text" name="conditionStatus" required><br>
-  Duration: <input type="number" name="duration" required><br>
-  Effect Amount: <input type="number" name="effectAmount" required><br>
-  <button type="submit">Update Status Effect</button>
-</form>
+<script src="/script.js"></script>
