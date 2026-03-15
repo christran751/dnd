@@ -11,6 +11,16 @@ Notes:
 - Original work (custom routes, logic, database queries) is clearly documented inline.
 ______________________________________________________________________________________________________________________________________________________________________________________
 
+/*
+Citation for the following db-connector.js code:
+Date: 02/09/2026
+Copied from / Adapted from: Starter Code for app.js provided by the course
+Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
+Type: Starter code / application
+Author: Oregon State University and Dr. Michael Curry
+*/
+______________________________________________________________________________________________________________________________________________________________________________________
+
 {{!
 Citation for the characters handlebar starter code:
 Date: 02/12/2026
@@ -307,3 +317,34 @@ ________________________________________________________________________________
 -- For HealthLog is it better to have a separate dropdown STORED PROCEDURE or have it in get_health_logs?
 -- AI Source URL: https://claude.ai/chat/8e1f2ef6-3168-4bb4-b182-5e0e633eaa5b
 ______________________________________________________________________________________________________________________________________________________________________________________
+
+
+-- Citation for use of AI Tools:
+-- Date: 03/11/2026
+-- Summary of prompts used
+-- Prompt Used: Is there a way to make only the editable rows highlightable?
+-- AI Source URL: https://claude.ai/new
+-- It gave this code template:
+          row.querySelectorAll('selector').forEach(element => {
+              element.contentEditable = 'true'
+              // code to do something with each element
+          });
+______________________________________________________________________________________________________________________________________________________________________________________
+
+-- Citation for use of AI Tools:
+-- Date: 03/11/2026
+-- Summary of prompts used
+-- Prompt Used: I made my update button inline alongside table row, and add javascript for an Edit,Cancel, and Save button, but I cannot save these changes after clicking 'save'.
+-- Can only cancel the attempted update/edit.
+-- Anything wrong with my code (copy and paste both my handlebar form and script.js)
+-- AI Source URL: https://claude.ai/new
+-- Note:
+--    Change up my hbs by addting data-field attributes (data-field="name of column") to each rows with the class=editable
+--    Update my Save handle in script.js to include the editable fields and the row ID
+--    in order to successfully send all updated values to the server so the correct database record can be updated.
+--    Change button to be inline-block from inline.
+______________________________________________________________________________________________________________________________________________________________________________________
+
+______________________________________________________________________________________________________________________________________________________________________________________
+
+
