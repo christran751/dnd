@@ -20,31 +20,39 @@ The table structure and form structure for read/create/update/delete were adapte
       <th>Initiative Roll</th>
       <th>Current HP</th>
       {{!Our Own Work}}
-      <th>Remove</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
-      {{#each characters_encounters}}
-        <tr>
-          <td>{{displayName}}</td>
-          <td>{{nameOfLocation}}</td>
-          <td>{{initiativeOrder}}</td>
-          <td>{{initiativeRoll}}</td>
-          <td>{{currentHitPoint}} / {{maxHitPoint}}</td>
-          <td>
-            <form method="POST" action="/delete-character-encounter">
-              <input type="hidden" name="idCharacterEncounter" value="{{idCharacterEncounter}}">
-              <button type="submit">Delete</button>
-            </form>
-          </td>
-        </tr>
-      {{/each}}
+    {{#each characters_encounters}}
+      <tr>
+        <td>{{displayName}}</td>
+        <td>{{nameOfLocation}}</td>
+        {{!As suggested, add data-field attributes to the editable cells so JS will knows
+        which database column each cell belongs to when saving the update
+        See script.js citation for more detail}}
+        <td class="editable" data-field="initiativeOrder">{{initiativeOrder}}</td>
+        <td class="editable" data-field="initiativeRoll">{{initiativeRoll}}</td>
+        <td>{{currentHitPoint}} / {{maxHitPoint}}</td>
+        <td>
+          {{!Our Own Work Update}}
+          <button class="edit_button">Edit</button>
+          <button class="save_button" style="display:none;" data-update="/characters_encounters/update"
+          data-idfield="idCharacterEncounter" data-array='["initiativeOrder","initiativeRoll"]'> Save </button>
+          <button class="cancel_button" style="display:none;">Cancel</button>
+          {{! Our Own Work - Delete}}
+          <form method="POST" action="/delete-character-encounter" style="display:inline;">
+            <input type="hidden" name="idCharacterEncounter" value="{{idCharacterEncounter}}">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    {{/each}}
   </tbody>
 </table>
 
 {{!Our Own Work}}
-
-<<h2>Add New Character Encounter</h2>
+<h2>Add New Character Encounter</h2>
 <form method="POST" action="/characters_encounters/add">
   Select Character:
   <select name="idCharacter" required>
@@ -69,20 +77,4 @@ The table structure and form structure for read/create/update/delete were adapte
   <button type="submit">Add Character Encounter</button>
 </form>
 
-
-{{!Our Own Work}}
-<h2>Update Character Encounter</h2>
-<form method="POST" action="/characters_encounters/update">
-  Select Character Encounter to Edit:
-  <select name="idCharacterEncounter" required>
-    {{#each characters_encounters}}
-      <option value="{{idCharacterEncounter}}">
-        {{displayName}} at {{nameOfLocation}} (ID: {{idCharacterEncounter}})
-      </option>
-    {{/each}}
-  </select>
-  <br><br>
-  Initiative Order: <input type="number" name="initiativeOrder" required><br>
-  Initiative Roll: <input type="number" name="initiativeRoll" required><br><br>
-  <button type="submit">Update Character Encounter</button>
-</form>
+<script src="/script.js"></script>
