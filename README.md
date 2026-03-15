@@ -209,10 +209,15 @@ AI Source URL: https://claude.ai/chat/69a43844-fd5b-484a-bb44-8be2776eae5d
 From there, it tells me to: 
 
   "Yes! For any READ/SELECT operation the pattern is always:
+  
   app.get('/entity', async function (req, res) {
+  
       try {
+      
           const [rows] = await db.query('CALL get_entity()');  // 1. capture
+          
           const entity = rows[0];                               // 2. unwrap
+          
           res.render('entity', { title: 'Entity', entity });   // 3. render"
           
 ______________________________________________________________________________________________________________________________________________________________________________________
