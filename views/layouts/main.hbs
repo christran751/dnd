@@ -9,6 +9,7 @@ We used this template for reference
 }}
 
 {{!Adapted from the provided main.hbs starter code}}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,25 +18,27 @@ We used this template for reference
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <nav>
-    <a href="/">Home</a>
-    <a href="/characters">Characters</a>
-    <a href="/encounters">Encounters</a>
-    <a href="/characters_encounters">Character Encounters</a>
-    <a href="/turns">Turns</a>
-    <a href="/health_logs">Health Logs</a>
-    <a href="/status_effects">Status Effects</a>
-    <form method="POST" action="/reset-database">
-    <button type="submit">RESET DATABASE</button>
-    </form>
-  </nav>
-
+<nav>
+  {{!-- Source of Emoji used: https://emojidb.org/dnd-emojis --}}
+  <a href="/" class="btn">🏰 Home</a>
+  <a href="/characters" class="btn">🧙‍♂️ Characters</a>
+  <a href="/encounters" class="btn">🎲 Encounters</a>
+  <a href="/characters_encounters" class="btn">⚔️ Character Encounters</a>
+  <a href="/turns" class="btn">🔄 Turns</a>
+  <a href="/health_logs" class="btn">❤️ Health Logs</a>
+  <a href="/status_effects" class="btn">✨ Status Effects</a>
+  <form method="POST" action="/reset-database">
+    <button type="submit" class="reset-btn">🧨 RESET DATABASE</button>
+  </form>
+</nav>
   <hr>
-
   {{{body}}}
-
 </body>
 </html>
+
+
+
+
 
 
 
