@@ -385,6 +385,18 @@ BEGIN
       Encounters.nameOfLocation,
       Characters_Encounters.initiativeOrder,
       Characters_Encounters.initiativeRoll,
+      
+      -- At first tried fixing currentHP not healing starting from 0 with SQL using 
+--       GREATEST(
+--           0,
+--           LEAST(
+--             COALESCE(Characters.maxHitPoint, 0) + COALESCE(SUM(CASE WHEN HealthChangeLogs.hitPointChange < 0 THEN 0 ELSE HealthChangeLogs.hitPointChange END), 0),
+--             COALESCE(Characters.maxHitPoint, 0)
+--           )
+--         ) AS currentHitPoint,
+--         COALESCE(Characters.maxHitPoint, 0) AS maxHitPoint
+	  -- Didn't work. 
+      
       -- Copied from copilot
       GREATEST(
         0,
@@ -778,3 +790,8 @@ BEGIN
   WHERE idHealthChangeLogs = idHealthChangeLogsInput;
 END //
 DELIMITER ;
+
+
+
+      
+
