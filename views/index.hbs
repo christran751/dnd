@@ -1,33 +1,26 @@
-{{!
-Citation for the index handlebar starter code:
-Date: 02/12/2026
-Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
-Type: Starter code / application
-Author: Oregon State University
-Notes:
-We used this template for reference
-The table structure and form structure for read/create/update/delete were adapted to best match our database, i.e., the delete functionality was adapted to appear as a row-level button within the table instead of a separate form
-}}
+<div class="container">
+    <h1 class="title">{{title}}</h1>
 
-<h1>{{title}}</h1>
+    <p class="intro">
+        Welcome to the D&D Dashboard — your command center for managing characters, encounters, turns, and all the chaos of adventuring.
+    </p>
 
-<p>   Welcome to the D&D Dashboard!.</p>
+    <h2>Project Info</h2>
+    <ul>
+        <li><strong>Authors:</strong> Christopher Tran and Tyler Schauermann</li>
+        <li><strong>Description:</strong> A dashboard to track characters, encounters, turns, health changes, and status effects for Dungeons & Dragons campaigns.</li>
+    </ul>
 
-<h2>Project Info</h2>
-<ul>
-  <li><strong>Authors:</strong> Christopher Tran and Tyler Schauermann</li>
-  <li><strong>Description:</strong> A dashboard to track characters, encounters, turns, health changes, and status effects for Dungeons & Dragons campaigns.</li>
-  <li><strong>TO TEST THE RESET FUNCTIONALITY PLEASE GO TO THE characters_encounters PAGE AND PERFORM ANY CRUD OPERATION</strong></li>
+    <h2>Navigate the Realm</h2>
+    <p class="intro-small">Select a page to begin managing your campaign:</p>
 
-</ul>
-
-<h2>Pages</h2>
-<div class="page-buttons">
-    <a href="/" class="btn">Home</a>
-    <a href="/characters" class="btn">Characters</a>
-    <a href="/encounters" class="btn">Encounters</a>
-    <a href="/characters_encounters" class="btn">Character Encounters</a>
-    <a href="/turns" class="btn">Turns</a>
-    <a href="/health_logs" class="btn">Health Logs</a>
-    <a href="/status_effects" class="btn">Status Effects</a>
+    <div class="page-buttons">
+        <a href="/" class="btn">🏰 Home</a>
+        <a href="/characters" class="btn">🧙‍♂️ Characters</a>
+        <a href="/encounters" class="btn">🎲 Encounters</a>
+        <a href="/characters_encounters" class="btn">⚔️ Character Encounters</a>
+        <a href="/turns" class="btn">🔄 Turns</a>
+        <a href="/health_logs" class="btn">❤️ Health Logs</a>
+        <a href="/status_effects" class="btn">✨ Status Effects</a>
+    </div>
 </div>
