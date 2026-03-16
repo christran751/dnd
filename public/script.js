@@ -1,10 +1,16 @@
+// Make -hp change red, and +hp change green
+
 const cells = document.querySelectorAll('td[data-field="hitPointChange"]');
-for (const cell of cells) {
-  const value = parseInt(cell.textContent.trim(), 10);
-  cell.style.color = value < 0 ? "red" : "green";
+
+for (let i = 0; i < cells.length; i++) {
+  const value = parseInt(cells[i].textContent.trim());
+  if (value < 0) {
+    cells[i].style.color = "red";
+  } else {
+    cells[i].style.color = "green";
+  }
 }
 
-// The EDIT BUTTON
 
 // Original Work
 document.querySelectorAll('.edit_button').forEach(btn => {
@@ -51,15 +57,14 @@ document.querySelectorAll('.edit_button').forEach(btn => {
 -- Citation for use of AI Tools:
 -- Date: 03/11/2026
 -- Summary of prompts used
--- Prompt Used: I made my update button inline alongside table row, and add javascript for an Edit,Cancel, and Save button, but I cannot save these changes after clicking 'save'.
+-- Prompt Used: I made my update button inline alongside table row, and add javascript for an Edit, Cancel, and Save button, but I cannot save these changes after clicking 'save'.
 -- Can only cancel the attempted update/edit.
--- Anything wrong with my code (copy and paste both my handlebar form and script.js)
+-- Is there anything wrong with my code (copy and paste both my handlebar form and script.js)
 -- AI Source URL: https://claude.ai/new
 -- From there, it tells me to:
---    Change up my hbs by addting data-field attributes (data-field="name of column") to each rows with the class=editable
---    Update my Save handle in script.js to include the editable fields and the row ID
---    in order to successfully send all updated values to the server so the correct database record can be updated.
---    Change button to be inline-block from inline.
+--    Change up my hbs by adding the data-field attributes (data-field="name of column") to each rows that has the class=editable
+--    Update my Save handle in script.js to include the editable fields and the row ID in order to successfully send all updated values to the server so the correct database record can be updated.
+--    Reccomend that I change the button to be inline-block instead of inline.
 */
 
 
@@ -128,3 +133,4 @@ document.querySelectorAll('.cancel_button').forEach(btn => {
     this.style.display = 'none';
   });
 });
+
