@@ -51,16 +51,14 @@ html<!-- Generic pattern for any delete form -->
         <td class="editable" data-field="armorClassInput">{{armorClass}}</td>
         <td class="editable" data-field="initiativeBonusInput">{{initiativeBonus}}</td>
         <td>
-          {{!Our own work - Update}}
-          <button class="edit_button">Edit</button>
-          <button class="save_button" style="display:none;" data-update="/characters/update" data-idfield="idCharactersInput"
-          data-array='["displayNameInput","raceInput","characterClassInput","characterRoleInput","characterLevelInput","maxHitPointInput","armorClassInput","initiativeBonusInput"]'>
-          Save </button>
+            <button class="edit_button btn-update">Edit</button>
+            <button class="save_button btn-update" style="display:none;" data-update="/characters/update" data-idfield="idCharactersInput"
+            data-array='["displayNameInput","raceInput","characterClassInput","characterRoleInput","characterLevelInput","maxHitPointInput","armorClassInput","initiativeBonusInput"]'>
+            Save </button>
           <button class="cancel_button" style="display:none;">Cancel</button>
-           {{!Our own work - Delete}}
           <form method="POST" action="/characters/delete" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this character?')">
             <input type="hidden" name="idCharactersInput" value="{{idCharacters}}">
-            <button type="submit">Delete</button>
+            <button type="submit" class="btn-delete">Delete</button>
           </form>
         </td>
       </tr>
@@ -70,7 +68,8 @@ html<!-- Generic pattern for any delete form -->
 
 {{!Our Own Work}}
 <h2>Add New Character</h2>
-<form method="POST" action="/characters/add">
+<div class="container">
+<form method="POST" action="/characters/add" class="form-panel">
   Name: <input type="text" name="displayNameInput" required><br>
   Race: <input type="text" name="raceInput"><br>
   Class: <input type="text" name="characterClassInput"><br>
@@ -84,10 +83,15 @@ html<!-- Generic pattern for any delete form -->
   Max HP: <input type="number" name="maxHitPointInput"><br>
   AC: <input type="number" name="armorClassInput"><br>
   Initiative Bonus: <input type="number" name="initiativeBonusInput"><br>
-  <button type="submit">Add Character</button>
+  <button type="submit" class="btn-add">Add Character</button>
 </form>
+</div>
 
 <script src="/script.js"></script>
+
+
+
+
 
 
 
