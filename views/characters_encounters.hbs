@@ -60,13 +60,13 @@ AI Source URL: https://copilot.microsoft.com/chats/p2jGSo6LAdc7cYnQ9LFDi
           <button class="edit_button btn-update">Edit</button>
 
           {{!-- Altered from Copilot --}}
-          <button class="save_button btn-update" style="display:none;" data-update="/characters_encounters/update"
+          <button class="save_button btn-save" style="display:none;" data-update="/characters_encounters/update"
           data-idfield="idCharacterEncounter" data-array='["initiativeOrder","initiativeRoll"]'>
           Save </button>
           {{!--  --}}
 
           {{! Our Own Work }}
-          <button class="cancel_button" style="display:none;">Cancel</button>
+          <button class="cancel_button btn-cancel" style="display:none;">Cancel</button>
           <form method="POST" action="/characters/delete" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this character encounter record?')">
             <input type="hidden" name="idCharacterEncounter" value="{{idCharacterEncounter}}">
             <button type="submit" class="btn-delete">Delete</button>
