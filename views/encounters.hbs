@@ -29,14 +29,14 @@ The table structure and form structure for read/create/update/delete were adapte
         <td>
           {{!Our Own Work to Update}}
           <input type="hidden" name="idEncountersInput" value="{{idEncounters}}">
-          <button class="edit_button">Edit</button>
-          <button class="save_button" style="display:none;" data-update="/encounters/update"
+          <button class="edit_button btn-update">Edit</button>
+          <button class="save_button btn-update" style="display:none;" data-update="/encounters/update"
             data-idfield="idEncountersInput" data-array='["nameOfLocationInput","locationInput"]'>Save </button>
           <button class="cancel_button" style="display:none;">Cancel</button>
           {{!Our Own Work to Delete}}
           <form method="POST" action="/encounters/delete" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this encounter?')">
             <input type="hidden" name="idEncountersInput" value="{{idEncounters}}">
-            <button type="submit">Delete</button>
+            <button type="submit" class="btn-delete">Delete</button>
           </form>
         </td>
       </tr>
@@ -45,11 +45,14 @@ The table structure and form structure for read/create/update/delete were adapte
 </table>
 
 {{!Our Own Work}}
-<form method="POST" action="/encounters/add" style="display:flex; gap:10px; align-items:center;">
-  <h2 style="margin:0;">Add New Encounter:</h2>
-  <input type="text" name="nameOfLocationInput" placeholder="Name of Encounter" required>
-  <input type="text" name="locationInput" placeholder="Location" required>
-  <button type="submit">Add Encounter</button>
-</form>
+<div class="container">
+  <form method="POST" action="/encounters/add" class="form-panel">
+    <h2>Add New Encounter</h2>
+    <input type="text" name="nameOfLocationInput" placeholder="Name of Encounter" required>
+    <input type="text" name="locationInput" placeholder="Location" required>
+    <button type="submit" class="btn-add">Add Encounter</button>
+  </form>
+</div>
 
 <script src="/script.js"></script>
+
