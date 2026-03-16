@@ -62,10 +62,10 @@ AI Source URL: https://copilot.microsoft.com/chats/p2jGSo6LAdc7cYnQ9LFDi
         <td class="editable" data-field="initiativeBonusInput">{{initiativeBonus}}</td>
         <td>
             <button class="edit_button btn-update">Edit</button>
-            <button class="save_button btn-update" style="display:none;" data-update="/characters/update" data-idfield="idCharactersInput"
+            <button class="save_button btn-save" style="display:none;" data-update="/characters/update" data-idfield="idCharactersInput"
             data-array='["displayNameInput","raceInput","characterClassInput","characterRoleInput","characterLevelInput","maxHitPointInput","armorClassInput","initiativeBonusInput"]'>
             Save </button>
-          <button class="cancel_button" style="display:none;">Cancel</button>
+          <button class="cancel_button btn-cancel" style="display:none;">Cancel</button>
           <form method="POST" action="/characters/delete" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this character?')">
             <input type="hidden" name="idCharactersInput" value="{{idCharacters}}">
             <button type="submit" class="btn-delete">Delete</button>
