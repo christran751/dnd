@@ -1,3 +1,23 @@
+/*
+-- Citation for use of AI Tools:
+-- Date: 03/15/2026
+-- Summary of prompts used:
+-- For some reason, there's a weird white border around my RESET DATABASE button. I tried fixing the button and nav element background/border
+-- but that still does nothing. (Copied and paste my HBS and style.css)
+-- AI Source URL: https://copilot.microsoft.com/chats/p2jGSo6LAdc7cYnQ9LFDi
+-- It tells me that the  white border is actually the form, not the button and to add this code
+-- directly under my nav styles:
+      nav form {
+        margin: 0;
+        padding: 0;
+        background: none;
+        box-shadow: none;
+        border: none;
+        display: inline;
+      }
+*/
+
+/* Our own work */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f5f5f5;
@@ -34,25 +54,7 @@ nav .btn {
 nav .btn:hover {
   background-color: #2E6BD6;
 }
-
-/*
--- Citation for use of AI Tools:
--- Date: 03/15/2026
--- Summary of prompts used:
--- For some reason, there's a weird white border around my RESET DATABASE button. I tried fixing the button and nav element background/border
--- but that still does nothing. (Copied and paste my HBS and style.css)
--- AI Source URL: https://copilot.microsoft.com/chats/p2jGSo6LAdc7cYnQ9LFDi
--- It tells me that the  white border is actually the form, not the button and to add this code
--- directly under my nav styles:
-      nav form {
-        margin: 0;
-        padding: 0;
-        background: none;
-        box-shadow: none;
-        border: none;
-        display: inline;
-      }
-*/
+/* End of our own work */
 
 
 /* Copy from CoPilot to get rid of the white border surrounding the RESET BUTTON*/
@@ -68,6 +70,7 @@ nav form {
 /* End of Copy from CoPilot*/
 
 
+/* Our own work */
   .container {
     max-width: 900px;
     margin: 20px auto;
@@ -245,6 +248,9 @@ nav .reset-btn:hover {
   border: 1px solid #ccc;
   border-radius: 6px;
 }
+
+
+
 
 
 
