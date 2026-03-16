@@ -1,4 +1,7 @@
--- Stored Procedure to RESET DDL
+-- ---------------------------------------------------------Stored Procedure to RESET DDL -------------------------------------------------------------
+-- ----------------------------------------------------------------------------------------------------------------------------------------------------------
+-- ----------------------------------------------------------------------------------------------------------------------------------------------------------
+
 -- Citation for use of AI Tools:
 -- Date: 3/01/2026
 -- Prompt Used to Generated Code:
@@ -14,6 +17,13 @@
 -- I also didn't ask, but it recommend that I entire reset in a transaction before disabling FK checks.
 -- START TRANSACTION; SET FOREIGN_KEY_CHECKS = 0;
 -- Source URL: https://copilot.microsoft.com/chats/R3jE5zFxMR1atYZKcZagW
+
+-- Citation for use of AI Tools:
+-- Use to help tweak sample data because before Players, i.e., Aaragorn and Gandalf were attacking each other. 
+-- Date: 3/06/2026
+-- Prompt Used to Generated Code:
+-- Can you update my INSERT schema only to make my data feel more DnD-inspired by adding a few monster NPCs, and make sure players can only attack NPCs, not each other.
+-- Source URL: https://claude.ai/chat/97cc5a49-2ab4-4117-8ab4-fd0fb407fa9c
 
 DROP PROCEDURE IF EXISTS resetDatabaseDND;
 DELIMITER //
@@ -95,13 +105,6 @@ CREATE TABLE HealthChangeLogs (
     FOREIGN KEY (idTurns) REFERENCES Turns(idTurns) ON DELETE CASCADE
 );
 
--- Citation for use of AI Tools:
--- Use to help tweak sample data because before Players, i.e., Aaragorn and Gandalf were attacking each other. 
--- Date: 3/06/2026
--- Prompt Used to Generated Code:
--- Can you update my INSERT schema only to make my data feel more DnD-inspired by adding a few monster NPCs, and make sure players can only attack NPCs, not each other.
--- Source URL: https://claude.ai/chat/97cc5a49-2ab4-4117-8ab4-fd0fb407fa9c
-
 -- Example Inserted Table Data --
 -- Characters
 INSERT INTO Characters (displayName, race, characterClass, characterRole, characterLevel, maxHitPoint, armorClass, initiativeBonus)
@@ -169,7 +172,5 @@ VALUES
 SET FOREIGN_KEY_CHECKS = 1;
 COMMIT;
 
-END //
-DELIMITER ;
 END //
 DELIMITER ;
