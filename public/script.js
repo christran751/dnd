@@ -49,16 +49,13 @@ document.querySelectorAll('.edit_button').forEach(btn => {
 // End of Original Work
     );
 
-
-
-
     // Adapted from the template code provided by Claude AI (see Citation 1)
 
     row.querySelectorAll('.editable').forEach(td => {
       td.contentEditable = 'true';
       // can't think of any color.
-      td.style.backgroundColor = '#FFEFD5';
-      td.style.outline = '2px solid #FF9800';
+      td.style.backgroundColor = '#FFF8E1';
+      td.style.outline = '2px solid #8B6914';
     });
     // End  Claude 1
 
@@ -133,5 +130,7 @@ document.querySelectorAll('.cancel_button').forEach(btn => {
     this.style.display = 'none';
   });
 });
+
+
 
 
