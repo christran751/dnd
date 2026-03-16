@@ -56,9 +56,9 @@ AI Source URL: https://copilot.microsoft.com/chats/p2jGSo6LAdc7cYnQ9LFDi
           {{!Update}}
           <input type="hidden" name="idStatusEffect" value="{{idStatusEffect}}">
           <button class="edit_button btn-update">Edit</button>
-          <button class="save_button btn-update" style="display:none;" data-update="/status_effects/update" data-idfield="idStatusEffect"
+          <button class="save_button btn-save" style="display:none;" data-update="/status_effects/update" data-idfield="idStatusEffect"
             data-array='["conditionStatus","duration","effectAmount"]'> Save </button>
-          <button class="cancel_button" style="display:none;">Cancel</button>
+          <button class="cancel_button btn-cancel" style="display:none;">Cancel</button>
           {{!Delete}}
           <form method="POST" action="/status_effects/delete" style="display:inline;">
             <input type="hidden" name="idStatusEffect" value="{{idStatusEffect}}">
