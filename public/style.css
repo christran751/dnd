@@ -10,7 +10,6 @@ h1, h2 {
   color: #333;
 }
 
-/* ===== NAVIGATION ===== */
 nav {
   background-color: #2c3e50;
   padding: 15px;
@@ -20,39 +19,71 @@ nav {
   flex-wrap: wrap;
 }
 
-nav h2 {
-  color: #ecf0f1;
-  margin: 0;
-  font-size: 1.4em;
-}
-
-nav a {
+nav .btn {
   color: #ecf0f1;
   text-decoration: none;
   font-weight: bold;
-  padding: 6px 10px;
+  padding: 6px 12px;
   border-radius: 4px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
   transition: background 0.3s;
 }
 
-nav a:hover {
-  background-color: #34495e;
+nav .btn:hover {
+  background-color: #2E6BD6;
 }
 
-/* ===== MAIN CONTENT ===== */
-main {
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 0 20px;
-}
+/*
+-- Citation for use of AI Tools:
+-- Date: 03/15/2026
+-- Summary of prompts used:
+-- For some reason, there's a weird white border around my RESET DATABASE button. I tried fixing the button and nav element background/border
+-- but that still does nothing. (Copied and paste my HBS and style.css)
+-- AI Source URL: https://copilot.microsoft.com/chats/p2jGSo6LAdc7cYnQ9LFDi
+-- It tells me that the  white border is actually the form, not the button and to add this code
+-- directly under my nav styles:
+      nav form {
+        margin: 0;
+        padding: 0;
+        background: none;
+        box-shadow: none;
+        border: none;
+        display: inline;
+      }
+*/
 
-/* ===== TABLES ===== */
+
+/* Copy from CoPilot to get rid of the white border surrounding the RESET BUTTON*/
+
+nav form {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  box-shadow: none;
+  display: inline;
+}
+/* End of Copy from CoPilot*/
+
+
+  .container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 35px 45px;
+    background: #fdf7e3;
+    border: 2px solid #d6c7a1;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
 table {
-  width: 100%;
+  width: 95%;
+  margin: 0 auto 20px;
   border-collapse: collapse;
-  margin-bottom: 20px;
-  background-color: #fff;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 th, td {
@@ -75,7 +106,15 @@ tr:hover {
   background-color: #d6eaf8;
 }
 
-/* ===== FORM ELEMENTS ===== */
+table form {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  box-shadow: none;
+  display: inline;
+}
+
 form {
   margin: 20px 0;
   background-color: #fff;
@@ -100,7 +139,7 @@ select {
   border-radius: 4px;
 }
 
-/* ===== BUTTONS ===== */
+
 button {
   padding: 8px 12px;
   margin-top: 10px;
@@ -111,55 +150,51 @@ button {
   transition: background 0.3s;
 }
 
-.btn-delete {
-  background-color: #e74c3c;
-  color: #fff;
+button:focus,
+button:active {
+  outline: none;
 }
 
-.btn-delete:hover {
-  background-color: #c0392b;
+/* Style for reset database button */
+nav .reset-btn {
+  background-color: #2E8B57;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+nav .reset-btn:hover {
+  background-color: #45C98A;
 }
 
 .btn-add {
-  background-color: #27ae60;
+  background-color: #C9A227;
   color: #fff;
 }
-
 .btn-add:hover {
   background-color: #1e8449;
 }
 
 .btn-update {
-  background-color: #f39c12;
+  background-color: #4169E1;
   color: #fff;
 }
 
 .btn-update:hover {
-  background-color: #d68910;
+  background-color: #6FA3FF;
 }
 
-/* ===== STATUS CELLS ===== */
-.status-active {
-  background-color: #2ecc71;
+.btn-delete {
+  background-color: #8B0000;
   color: #fff;
-  font-weight: bold;
-  border-radius: 4px;
-  padding: 2px 6px;
 }
-
-.status-injured {
-  background-color: #e74c3c;
-  color: #fff;
-  font-weight: bold;
-  border-radius: 4px;
-  padding: 2px 6px;
+.btn-delete:hover {
+  background-color: #c0392b;
 }
-
-/* ===== TABLE SECTION WRAPPER ===== */
-.table-section {
-  margin-bottom: 30px;
-}
-
 
 .page-buttons {
   display: flex;
@@ -171,7 +206,7 @@ button {
 
 .page-buttons .btn {
   padding: 10px 20px;
-  background-color: #4CAF50;
+  background-color: #1E4FA1;
   color: white;
   text-decoration: none;
   border-radius: 5px;
@@ -181,5 +216,35 @@ button {
 }
 
 .page-buttons .btn:hover {
-  background-color: #45a049;
+  background-color: #C9A227;
 }
+
+
+.form-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.form-panel label {
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-panel input,
+.form-panel select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+
+
