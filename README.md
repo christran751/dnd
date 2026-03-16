@@ -442,7 +442,31 @@ ________________________________________________________________________________
 --    in order to successfully send all updated values to the server so the correct database record can be updated.
 --    Change button to be inline-block from inline.
 ______________________________________________________________________________________________________________________________________________________________________________________
+/*
+-- Citation for use of AI Tools:
+-- Date: 03/16/2026
+-- Summary of prompts used:
+-- How do I fix currentHitPoint so that healing works correctly when HP is at 0, instead of having it start from a negative value?
+-- For example, if the max HP is 60 and the character takes 80 damage, healing should restore HP properly instead of adding to a negative number.
+-- AI Source URL: https://claude.ai/
+-- From there it tells me:
+-- It's not possible to implement that specific encounter in SQL.
+-- Instead of letting SQL do SUM(hitPointChange) all at once, we fetch each individual log entry
+-- and process them one by one, clamping after each change.
+-- The const [healthLogs], const logsByEncounter, and const data = characters_encounters[0].map were generated with AI assistance.
+*/
 
+/*
+-- At first tried
+    GREATEST(
+    0,
+    LEAST(
+        COALESCE(Characters.maxHitPoint, 0) + COALESCE(SUM(CASE WHEN HealthChangeLogs.hitPointChange < 0 THEN 0 ELSE HealthChangeLogs.hitPointChange END), 0),
+        COALESCE(Characters.maxHitPoint, 0)
+    )
+    ) AS currentHitPoint,
+-- In the SP, but that zeroes out all damage.
+*/
 ______________________________________________________________________________________________________________________________________________________________________________________
 
 
