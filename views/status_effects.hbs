@@ -37,14 +37,14 @@ The table structure and form structure for read/create/update/delete were adapte
         <td>
           {{!Update}}
           <input type="hidden" name="idStatusEffect" value="{{idStatusEffect}}">
-          <button class="edit_button">Edit</button>
-          <button class="save_button" style="display:none;" data-update="/status_effects/update" data-idfield="idStatusEffect"
+          <button class="edit_button btn-update">Edit</button>
+          <button class="save_button btn-update" style="display:none;" data-update="/status_effects/update" data-idfield="idStatusEffect"
             data-array='["conditionStatus","duration","effectAmount"]'> Save </button>
           <button class="cancel_button" style="display:none;">Cancel</button>
           {{!Delete}}
           <form method="POST" action="/status_effects/delete" style="display:inline;">
             <input type="hidden" name="idStatusEffect" value="{{idStatusEffect}}">
-            <button type="submit">Delete</button>
+            <button type="submit" class="btn-delete">Delete</button>
           </form>
         </td>
       </tr>
@@ -54,7 +54,8 @@ The table structure and form structure for read/create/update/delete were adapte
 
 {{!Our own Work}}
 <h2>Add New Status Effect</h2>
-<form method="POST" action="/status_effects/add">
+<div class="container">
+<form method="POST" action="/status_effects/add" class="form-panel">
   Select Turn:
   <select name="idTurns" required>
     <option value="" disabled selected>Select Turn</option>
@@ -68,7 +69,8 @@ The table structure and form structure for read/create/update/delete were adapte
   Condition Status: <input type="text" name="conditionStatus" required><br>
   Duration: <input type="number" name="duration" required><br>
   Effect Amount: <input type="number" name="effectAmount" required><br>
-  <button type="submit">Add Status Effect</button>
+  <button type="submit" class="btn-add">Add Status Effect</button>
 </form>
+</div>
 
 <script src="/script.js"></script>
