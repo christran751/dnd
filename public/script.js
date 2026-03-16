@@ -1,5 +1,32 @@
-// Make -hp change red, and +hp change green
+/*
+-- Citation 1 for use of AI Tools:
+-- Date: 03/11/2026
+-- Summary of prompts used
+-- Prompt Used: Is there a way to make only the editable rows highlightable?
+-- AI Source URL: https://claude.ai/new
+-- It gave this code template:
+      row.querySelectorAll('selector').forEach(element => {
+        element.contentEditable = 'true'
+         // code to do something with each element
+      });
+*/
 
+/*
+-- Citation 2 for use of AI Tools:
+-- Date: 03/11/2026
+-- Summary of prompts used
+-- Prompt Used: I made my update button inline alongside table row, and add javascript for an Edit, Cancel, and Save button, but I cannot save these changes after clicking 'save'.
+-- Can only cancel the attempted update/edit.
+-- Is there anything wrong with my code (copy and paste both my handlebar form and script.js)
+-- AI Source URL: https://claude.ai/new
+-- From there, it tells me to:
+--    Change up my hbs by adding the data-field attributes (data-field="name of column") to each rows that has the class=editable
+--    Update my Save handle in script.js to include the editable fields and the row ID in order to successfully send all updated values to the server so the correct database record can be updated.
+--    Reccomend that I change the button to be inline-block instead of inline.
+*/
+
+
+// Make -hp change red, and +hp change green
 const cells = document.querySelectorAll('td[data-field="hitPointChange"]');
 
 for (let i = 0; i < cells.length; i++) {
@@ -23,20 +50,9 @@ document.querySelectorAll('.edit_button').forEach(btn => {
     );
 
 
-    /*
-    -- Citation for use of AI Tools:
-    -- Date: 03/11/2026
-    -- Summary of prompts used
-    -- Prompt Used: Is there a way to make only the editable rows highlightable?
-    -- AI Source URL: https://claude.ai/new
-    -- It gave this code template:
-              row.querySelectorAll('selector').forEach(element => {
-                  element.contentEditable = 'true'
-                // code to do something with each element
-              });
-    */
 
-    // Adapted from the template code provided by Claude AI
+
+    // Adapted from the template code provided by Claude AI (see Citation 1)
 
     row.querySelectorAll('.editable').forEach(td => {
       td.contentEditable = 'true';
@@ -44,7 +60,7 @@ document.querySelectorAll('.edit_button').forEach(btn => {
       td.style.backgroundColor = '#FFEFD5';
       td.style.outline = '2px solid #FF9800';
     });
-    // End of Adaption from Claude AI
+    // End  Claude 1
 
     this.style.display = 'none';
     row.querySelector('.save_button').style.display = 'inline';   // Change from inline to inline-block as suggested
@@ -52,23 +68,7 @@ document.querySelectorAll('.edit_button').forEach(btn => {
   });
 });
 
-
-/*
--- Citation for use of AI Tools:
--- Date: 03/11/2026
--- Summary of prompts used
--- Prompt Used: I made my update button inline alongside table row, and add javascript for an Edit, Cancel, and Save button, but I cannot save these changes after clicking 'save'.
--- Can only cancel the attempted update/edit.
--- Is there anything wrong with my code (copy and paste both my handlebar form and script.js)
--- AI Source URL: https://claude.ai/new
--- From there, it tells me to:
---    Change up my hbs by adding the data-field attributes (data-field="name of column") to each rows that has the class=editable
---    Update my Save handle in script.js to include the editable fields and the row ID in order to successfully send all updated values to the server so the correct database record can be updated.
---    Reccomend that I change the button to be inline-block instead of inline.
-*/
-
-
-// Save
+// Save (see citation # 2)
 document.querySelectorAll('.save_button').forEach(btn => {
   btn.addEventListener('click', function () {
 
@@ -80,7 +80,7 @@ document.querySelectorAll('.save_button').forEach(btn => {
     form.action = this.dataset.update;
     // End of Original Work
 
-     // Adapted from the template code provided by Claude AI
+     // Adapted from the template code provided by Claude AI (Citation 2)_
     cells.forEach(td => {
       const input = document.createElement('input');
       input.type = 'hidden';
@@ -94,7 +94,7 @@ document.querySelectorAll('.save_button').forEach(btn => {
     idInput.type = 'hidden';
     idInput.name = idFieldName;
     idInput.value = idValue;
-    // End of Adaption from Claude AI
+    // End (Citation 2)
 
     // Original Work
     form.appendChild(idInput);
@@ -133,4 +133,5 @@ document.querySelectorAll('.cancel_button').forEach(btn => {
     this.style.display = 'none';
   });
 });
+
 
