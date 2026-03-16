@@ -1,95 +1,26 @@
-{{!
-Citation for the status_effect handlebar starter code:
-Date: 02/12/2026
-Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
-Type: Starter code / application
-Author: Oregon State University
-Notes:
-We used this template for reference
-The table structure and form structure for read/create/update/delete were adapted to best match our database, i.e., the delete functionality was adapted to appear as a row-level button within the table instead of a separate form
-}}
-
-{{!
-Citation for use of AI Tools:
-Date: 03/09/2026
-Summary of prompts used:
-How to get a prompt that ask if am sure that i would like to delete for all sp
-Generic pattern for any delete form:
-<form method="POST" action="/your-entity/delete" onsubmit="return confirm('Are you sure you
-AI Source URL: https://copilot.microsoft.com/chats/p2jGSo6LAdc7cYnQ9LFDi
-}}
-
-{{!--
-Citation for use of AI Tools:
-Date: 03/11/2026
-Summary of prompts used:
-For some reason my Edit and Save button does not show the color I set in my style.css.
-AI Source URL: https://copilot.microsoft.com/chats/p2jGSo6LAdc7cYnQ9LFDi
---}}
-
-{{!Adapted from the provided bsg-people.hbs starter code}}
-<h1>{{title}}</h1>
-<table border="1" cellpadding="5" cellspacing="0">
-  <thead>
-    <tr>
-      <th>Character</th>
-      <th>Encounter</th>
-      <th>Condition Status</th>
-      <th>Duration</th>
-      <th>Effect Amount</th>
-      {{!Our Own Work}}
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each status_effects}}
-      <tr>
-        <td>{{displayName}}</td>
-        <td>{{nameOfLocation}}</td>
-        {{!As suggested, add data-field attributes to the editable cells so JS will knows
-        which database column each cell belongs to when saving the update
-        See script.js citation for more detail}}
-        <td class="editable" data-field="conditionStatus">{{conditionStatus}}</td>
-        <td class="editable" data-field="duration">{{duration}}</td>
-        <td class="editable" data-field="effectAmount">{{effectAmount}}</td>
-        <td>
-          {{!Update}}
-          <input type="hidden" name="idStatusEffect" value="{{idStatusEffect}}">
-          <button class="edit_button btn-update">Edit</button>
-          <button class="save_button btn-update" style="display:none;" data-update="/status_effects/update" data-idfield="idStatusEffect"
-            data-array='["conditionStatus","duration","effectAmount"]'> Save </button>
-          <button class="cancel_button" style="display:none;">Cancel</button>
-          {{!Delete}}
-          <form method="POST" action="/status_effects/delete" style="display:inline;">
-            <input type="hidden" name="idStatusEffect" value="{{idStatusEffect}}">
-            <button type="submit" class="btn-delete">Delete</button>
-          </form>
-        </td>
-      </tr>
-    {{/each}}
-  </tbody>
-</table>
-
-{{!Our own Work}}
-<h2>Add New Status Effect</h2>
 <div class="container">
-<form method="POST" action="/status_effects/add" class="form-panel">
-  Select Turn:
-  <select name="idTurns" required>
-    <option value="" disabled selected>Select Turn</option>
-    {{#each turnsForDropdown}}
-      <option value="{{idTurns}}">
-        {{displayName}} - {{nameOfLocation}} (Turn ID: {{idTurns}})
-      </option>
-    {{/each}}
-  </select>
-  <br><br>
-  Condition Status: <input type="text" name="conditionStatus" required><br>
-  Duration: <input type="number" name="duration" required><br>
-  Effect Amount: <input type="number" name="effectAmount" required><br>
-  <button type="submit" class="btn-add">Add Status Effect</button>
-</form>
+    <h1 class="title">{{title}}</h1>
+
+    <p class="intro">
+        Welcome to the D&D Dashboard — your command center for managing characters, encounters, turns, and all the chaos of adventuring.
+    </p>
+
+    <h2>Project Info</h2>
+    <ul>
+        <li><strong>Authors:</strong> Christopher Tran and Tyler Schauermann</li>
+        <li><strong>Description:</strong> A dashboard to track characters, encounters, turns, health changes, and status effects for Dungeons & Dragons campaigns.</li>
+    </ul>
+
+    <h2>Navigate the Realm</h2>
+    <p class="intro-small">Select a page to begin managing your campaign:</p>
+
+    <div class="page-buttons">
+        <a href="/" class="btn">🏰 Home</a>
+        <a href="/characters" class="btn">🧙‍♂️ Characters</a>
+        <a href="/encounters" class="btn">🎲 Encounters</a>
+        <a href="/characters_encounters" class="btn">⚔️ Character Encounters</a>
+        <a href="/turns" class="btn">🔄 Turns</a>
+        <a href="/health_logs" class="btn">❤️ Health Logs</a>
+        <a href="/status_effects" class="btn">✨ Status Effects</a>
+    </div>
 </div>
-
-<script src="/script.js"></script>
-
