@@ -17,7 +17,6 @@
       }
 */
 
-/* Our own work */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f5f5f5;
@@ -54,8 +53,6 @@ nav .btn {
 nav .btn:hover {
   background-color: #2E6BD6;
 }
-/* End of our own work */
-
 
 /* Copy from CoPilot to get rid of the white border surrounding the RESET BUTTON*/
 
@@ -70,7 +67,6 @@ nav form {
 /* End of Copy from CoPilot*/
 
 
-/* Our own work */
   .container {
     max-width: 900px;
     margin: 20px auto;
@@ -183,12 +179,21 @@ nav .reset-btn:hover {
 }
 
 .btn-update {
-  background-color: #4169E1;
+  background-color: #C8A84B;
   color: #fff;
 }
 
 .btn-update:hover {
-  background-color: #6FA3FF;
+  background-color: #8B6914;
+}
+
+.btn-save {
+  background-color: #2D6A2D;
+  color: #fff;
+}
+
+.btn-save:hover {
+  background-color: #1A4A1A;
 }
 
 .btn-delete {
@@ -199,6 +204,13 @@ nav .reset-btn:hover {
   background-color: #c0392b;
 }
 
+.btn-cancel {
+    background-color: #9E9E9E;
+}
+
+.btn-cancel:hover {
+    background-color: #757575;
+}
 .page-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -248,6 +260,7 @@ nav .reset-btn:hover {
   border: 1px solid #ccc;
   border-radius: 6px;
 }
+
 
 
 
