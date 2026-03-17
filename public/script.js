@@ -25,8 +25,20 @@
 --    Reccomend that I change the button to be inline-block instead of inline.
 */
 
+/*
+-- Citation 3 for use of AI Tools:
+-- Date: 03/16/2026
+-- Summary of prompts used
+-- Prompt Used: For update can I prompt users to enter either of the options instead of a dropdown? I cannot figure out how to do a dropdown. 
+-- AI Source URL: https://claude.ai/
+-- From there, it told me to use prompt() in the save handler to allow
+-- the user to type a valid conditionStatus if they entered an invalid one, and default to
+-- 'Healthy' if their second entry is also invalid.
+*/
 
-// Make -hp change red, and +hp change green
+
+// The const <> .... querySelectorAll  too loop through hitPointChange and conditionStatus was our own work.
+// The old commented out save, the delete, cancel, and edit/update button were mostly our own work.
 
 const healthCells = document.querySelectorAll('td[data-field="hitPointChange"]');
 
@@ -56,6 +68,8 @@ for (let i = 0; i < statusCells.length; i++) {
   }
 }
 
+// The const <> .... querySelectorAll  too loop through hitPointChange and conditionStatus was our own work.
+
 
 // Original Work
 document.querySelectorAll('.edit_button').forEach(btn => {
@@ -65,6 +79,7 @@ document.querySelectorAll('.edit_button').forEach(btn => {
     row.dataset.original = JSON.stringify(
       [...row.querySelectorAll('.editable')].map(td => td.innerText)
 // End of Original Work
+
     );
 
     // Adapted from the template code provided by Claude AI (see Citation 1)
@@ -114,11 +129,26 @@ document.querySelectorAll('.save_button').forEach(btn => {
     // Original Work
     form.appendChild(idInput);
     document.body.appendChild(form);
+
+
+    // Copied from claude see citation 3
+    const conditionCell = row.querySelector('td[data-field="conditionStatus"]');
+    if (conditionCell) {
+      const validOptions = ['Healthy', 'Buffed', 'Poisoned', 'Stunned', 'Dead'];
+      const entered = conditionCell.innerText.trim();
+      if (!validOptions.includes(entered)) {
+        alert('Invalid condition! Please enter one of: Healthy, Buffed, Poisoned, Stunned, Dead');
+        return;
+      }
+    }
+    // End of copy from claude see citation 3
+
+
     form.submit();
   });
 });
 
-// OLD SAVE
+// OLD SAVE (own work)
 // document.querySelectorAll('.save_button').forEach(btn => {
 //   btn.addEventListener('click', function () {
 //     const row = this.closest('tr');
@@ -132,7 +162,7 @@ document.querySelectorAll('.save_button').forEach(btn => {
 //   });
 // });
 
-// CANCEL BUTTON
+// CANCEL BUTTON (Our own work)
 document.querySelectorAll('.cancel_button').forEach(btn => {
   btn.addEventListener('click', function () {
     const row = this.closest('tr');
@@ -148,6 +178,9 @@ document.querySelectorAll('.cancel_button').forEach(btn => {
     this.style.display = 'none';
   });
 });
+
+
+
 
 
 
