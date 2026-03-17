@@ -634,6 +634,7 @@ app.post('/status_effects/update', async function (req, res) {
     }
 });
 
+
 // DELETE STATUS EFFECT
 app.post('/status_effects/delete', async function (req, res) {
     try {
@@ -654,3 +655,6 @@ app.listen(PORT, function () {
         'Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.'
     );
 });
+
+
+
