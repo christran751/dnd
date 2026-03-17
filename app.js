@@ -145,7 +145,10 @@ app.set('view engine', '.hbs'); // Use handlebars engine for *.hbs files.
 // ########## ROUTE HANDLERS
 
 
-// HOMEPAGE (Our own work)
+// All code seen here is both based on the CS 340 starter code and from AI Citation # 1, 2, 3, 4, and 5) 
+// Used Al to reference how to set up Stored Procedure and set it up and call it in app.js
+
+// Adapted from starter code provided by Oregon State University and Dr. Michael Curry
 app.get('/', async function (req, res) {
     try {
         res.render('index', { title: 'D&D Dashboard' });
@@ -155,7 +158,6 @@ app.get('/', async function (req, res) {
     }
 });
 
-// Adapted from starter code provided by Oregon State University and Dr. Michael Curry
 app.post('/reset-database', async (req, res) => {
     try {
         await db.query('CALL resetDatabaseDND();');
@@ -165,8 +167,6 @@ app.post('/reset-database', async (req, res) => {
         res.status(500).send("An error occurred while executing the PL/SQL.");
     }
 });
-
-// Used both AI and Provided Course Material (Citation # 1, 2, 3, 4, and 5) to Learn on how to set up Stored Procedure and set it up and call it in app.js
 
 // CHRACTER PAGE
 app.get('/characters', async function (req, res) {
@@ -647,7 +647,7 @@ app.post('/status_effects/delete', async function (req, res) {
     }
 });
 
-// COPIED AND PASTE FROM COURSE MATERIAL
+// COPIED AND PASTE FROM COURSE MATERIAL (Citation 1)
 // ########################################
 // ########## LISTENER
 app.listen(PORT, function () {
@@ -655,6 +655,8 @@ app.listen(PORT, function () {
         'Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.'
     );
 });
+
+
 
 
 
