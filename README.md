@@ -242,50 +242,442 @@ ________________________________________________________________________________
             display: inline;
           }
 
+________________________________________________________________________________________________________________________________________________________________________________________
+script.js CITATION 
+________________________________________________________________________________________________________________________________________________________________________________________
+
+Citation 1 for use of AI Tools:
+
+Date: 03/11/2026
+
+Summary of prompts used
+
+Prompt Used: Is there a way to make only the editable rows highlightable?
+
+AI Source URL: https://claude.ai/new
+
+It gave this code template:
+
+      row.querySelectorAll('selector').forEach(element => {
+        element.contentEditable = 'true'
+         // code to do something with each element
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Citation 2 for use of AI Tools:
+
+Date: 03/11/2026
+
+Summary of prompts used
+
+Prompt Used: I made my update button inline alongside table row, and add javascript for an Edit, Cancel, and Save button, but I cannot save these changes after clicking 'save'.  Can only cancel the attempted update/edit. Is there anything wrong with my code (copy and paste both my handlebar form and script.js)
+
+AI Source URL: https://claude.ai/new
+
+From there, it tells me to:
+
+    Change up my hbs by adding the data-field attributes (data-field="name of column") to each rows that has the class=editable
+    
+    Update my Save handle in script.js to include the editable fields and the row ID in order to successfully send all updated values to the server so the correct database record can be        updated.
+        
+    Reccomend that I change the button to be inline-block instead of inline.
 
 ________________________________________________________________________________________________________________________________________________________________________________________
 main.hbs CITATION 
 ________________________________________________________________________________________________________________________________________________________________________________________
 
-{{!
 Citation for the main handlebar starter code:
+
 Date: 02/12/2026
+
 Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
+
 Type: Starter code / application
+
 Author: Oregon State University
+
 Notes:
-We used this template for reference
-}}
 
+    We used this template for reference
 
-Characters_encounters.hbs citations
-{{!
+________________________________________________________________________________________________________________________________________________________________________________________
+Characters_encounters.hbs  CITATION 
+________________________________________________________________________________________________________________________________________________________________________________________
+
 Citation for the characters_encounters handlebar starter code:
+
 Date: 02/12/2026
+
+Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
+
+Type: Starter code / application
+
+Author: Oregon State University
+
+Notes:
+
+    We used this template for reference
+    The table structure and form structure for read/create/update/delete were adapted to best match our database, i.e., the delete functionality was adapted to appear as a row-level button     within the table instead of a separate form
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Citation for use of AI Tools:
+
+Date: 03/09/2026
+
+Summary of prompts used:
+
+How to get a prompt that ask if am sure that i would like to delete for all sp
+
+Generic pattern for any delete form:
+
+    <form method="POST" action="/your-entity/delete" onsubmit="return confirm('Are you sure you
+
+AI Source URL: https://copilot.microsoft.com/chats/p2jGSo6LAdc7cYnQ9LFDi
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Citation for use of AI Tools:
+
+Date: 03/11/2026
+
+Summary of prompts used:
+
+For some reason my Edit and Save button does not show the color I set in my style.css.
+
+AI Source URL: https://copilot.microsoft.com/chats/p2jGSo6LAdc7cYnQ9LFDi
+
+________________________________________________________________________________________________________________________________________________________________________________________
+Characters.hbs  CITATION 
+________________________________________________________________________________________________________________________________________________________________________________________
+
+Citation for the characters handlebar starter code:
+
+Date: 02/12/2026
+
+Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
+
+Type: Starter code / application
+
+Author: Oregon State University
+
+Notes:
+
+    We used this template for reference
+    The table structure and form structure for read/create/update/delete were adapted to best match our database, i.e., the delete functionality was adapted to appear as a row-level button     within the table instead of a separate form
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Citation for use of AI Tools:
+
+Date: 03/09/2026
+
+Summary of prompts used:
+
+How to get a prompt that ask if am sure that i would like to delete for all sp
+
+Generic pattern for any delete form:
+
+    <form method="POST" action="/your-entity/delete" onsubmit="return confirm('Are you sure you
+
+AI Source URL: https://copilot.microsoft.com/chats/p2jGSo6LAdc7cYnQ9LFDi
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Citation for use of AI Tools:
+
+Date: 03/11/2026
+
+Summary of prompts used:
+
+For some reason my Edit and Save button does not show the color I set in my style.css.
+
+AI Source URL: https://copilot.microsoft.com/chats/p2jGSo6LAdc7cYnQ9LFDi
+
+________________________________________________________________________________________________________________________________________________________________________________________
+encounters.hbs  CITATION 
+________________________________________________________________________________________________________________________________________________________________________________________
+
+Citation for the encounters handlebar starter code:
+
+Date: 02/12/2026
+
 Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
 Type: Starter code / application
+
 Author: Oregon State University
+
 Notes:
-We used this template for reference
-The table structure and form structure for read/create/update/delete were adapted to best match our database, i.e., the delete functionality was adapted to appear as a row-level button within the table instead of a separate form
-}}
 
+    We used this template for reference
+    The table structure and form structure for read/create/update/delete were adapted to best match our database, i.e., the delete functionality was adapted to appear as a row-level button     within the table instead of a separate form
 
-{{!
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Citation for use of AI Tools:
+
 Date: 03/09/2026
+
 Summary of prompts used:
+
 How to get a prompt that ask if am sure that i would like to delete for all sp
+
 Generic pattern for any delete form:
-<form method="POST" action="/your-entity/delete" onsubmit="return confirm('Are you sure you
+
+    <form method="POST" action="/your-entity/delete" onsubmit="return confirm('Are you sure you
+    
 AI Source URL: https://copilot.microsoft.com/chats/p2jGSo6LAdc7cYnQ9LFDi
-}}
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-{{!--
 Citation for use of AI Tools:
+
 Date: 03/11/2026
+
 Summary of prompts used:
+
 For some reason my Edit and Save button does not show the color I set in my style.css.
+
 AI Source URL: https://copilot.microsoft.com/chats/p2jGSo6LAdc7cYnQ9LFDi
---}}
+
+________________________________________________________________________________________________________________________________________________________________________________________
+health_logs.hbs  CITATION 
+________________________________________________________________________________________________________________________________________________________________________________________
+
+Citation for the health_logs handlebar starter code:
+
+Date: 02/12/2026
+
+Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
+
+Type: Starter code / application
+
+Author: Oregon State University
+
+Notes:
+
+    We used this template for reference
+    The table structure and form structure for read/create/update/delete were adapted to best match our database, i.e., the delete functionality was adapted to appear as a row-level button     within the table instead of a separate form
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Citation for use of AI Tools:
+
+Date: 03/09/2026
+
+Summary of prompts used:
+
+How to get a prompt that ask if am sure that i would like to delete for all sp
+
+Generic pattern for any delete form:
+
+    <form method="POST" action="/your-entity/delete" onsubmit="return confirm('Are you sure you
+    
+AI Source URL: https://copilot.microsoft.com/chats/p2jGSo6LAdc7cYnQ9LFDi
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Citation for use of AI Tools:
+
+Date: 03/11/2026
+
+Summary of prompts used:
+
+For some reason my Edit and Save button does not show the color I set in my style.css.
+
+AI Source URL: https://copilot.microsoft.com/chats/p2jGSo6LAdc7cYnQ9LFDi
+
+________________________________________________________________________________________________________________________________________________________________________________________
+status_effects.hbs  CITATION 
+________________________________________________________________________________________________________________________________________________________________________________________
+
+Citation for the status_effect handlebar starter code:
+Date: 02/12/2026
+
+Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
+
+
+Type: Starter code / application
+Author: Oregon State University
+
+Notes:
+
+    We used this template for reference
+    The table structure and form structure for read/create/update/delete were adapted to best match our database, i.e., the delete functionality was adapted to appear as a row-level button     within the table instead of a separate form
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Citation for use of AI Tools:
+
+Date: 03/09/2026
+
+Summary of prompts used:
+
+How to get a prompt that ask if am sure that i would like to delete for all sp
+
+Generic pattern for any delete form:
+
+    <form method="POST" action="/your-entity/delete" onsubmit="return confirm('Are you sure you...')
+    
+AI Source URL: https://copilot.microsoft.com/chats/p2jGSo6LAdc7cYnQ9LFDi
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Citation for use of AI Tools:
+
+Date: 03/11/2026
+
+Summary of prompts used:
+
+For some reason my Edit and Save button does not show the color I set in my style.css.
+
+AI Source URL: https://copilot.microsoft.com/chats/p2jGSo6LAdc7cYnQ9LFDi
+
+________________________________________________________________________________________________________________________________________________________________________________________
+turns.hbs  CITATION 
+________________________________________________________________________________________________________________________________________________________________________________________
+
+Citation for the turns handlebar starter code:
+
+Date: 02/12/2026
+
+Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
+
+Type: Starter code / application
+
+Author: Oregon State University
+
+Notes:
+
+We used this template for reference
+
+The table structure and form structure for read/create/update/delete were adapted to best match our database, i.e., the delete functionality was adapted to appear as a row-level button within the table instead of a separate form
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Citation for use of AI Tools:
+
+Date: 03/09/2026
+
+Summary of prompts used:
+
+How to get a prompt that ask if am sure that i would like to delete for all sp
+
+Generic pattern for any delete form:
+
+    <form method="POST" action="/your-entity/delete" onsubmit="return confirm('Are you sure you
+    
+AI Source URL: https://copilot.microsoft.com/chats/p2jGSo6LAdc7cYnQ9LFDi
+    
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Citation for use of AI Tools:
+
+Date: 03/11/2026
+
+Summary of prompts used:
+
+For some reason my Edit and Save button does not show the color I set in my style.css.
+
+AI Source URL: https://copilot.microsoft.com/chats/p2jGSo6LAdc7cYnQ9LFDi
+
+________________________________________________________________________________________________________________________________________________________________________________________
+PL.SQL  CITATION 
+________________________________________________________________________________________________________________________________________________________________________________________
+
+-- Citation 1 for use of AI Tools:
+
+-- Date: 02/22/2026
+
+-- Summary of prompts used to help build a stored procedure
+
+-- What is the general syntax of a stored procedure
+
+-- AI Source URL: https://claude.ai/chat/8e1f2ef6-3168-4bb4-b182-5e0e633eaa5b
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- Citation 2 for use of AI Tools:
+
+-- Date: 02/22/2026
+
+-- Summary of prompts used to generate PL/SQL
+
+-- How to convert my old app.get (that is commented below) for Turns into a Stored Procedure and then later call it in app.js?
+
+-- AI Source URL: https://copilot.microsoft.com/
+
+-- From there it provided a basic template for the getTurns Stored Procedure
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Citation 3 for use of AI Tools:
+
+Date: 2/24/2026
+
+Prompt Used to Generated Code
+
+Whenever I updated HealthChangeLog, is there a way for it to automatically update the currentHitPoint attribute in Character_Encounter? Also how to ensure that current hit point will not get out of bound, i.e., go above maxHp and not go below 0. It gave me two options:
+
+    Option A is to use a trigger (which is something, I'm not familiar with), therefore, I chose the latter.
+    
+    Option Two is to first get rid of the currentHitPoint Column from Chracter_Encounter and to instead computed it
+
+Copied from /OR/ Adapted from /OR/ Based on (Explain degree of originality)
+
+The select portion, the app.get, the dropdown, and render portion I did on my own, but for the part below:
+              GREATEST(
+                0,
+                LEAST(
+                  COALESCE(Characters.maxHitPoint, 0) + COALESCE(SUM(HealthChangeLogs.hitPointChange), 0),
+                 COALESCE(Characters.maxHitPoint, 0)
+                )
+              ) AS currentHitPoint,
+              
+This portion that is used to calculate the character’s current HP while making sure it stays within valid limits,  I had copied it exactly from copilot.
+
+At the time, did not know what GREATEST, LEAST, or even COALESCE did. Had to Google it.
+
+It also recommended me to use LEFT JOIN because I needed to include all character encounters, even if they don’t have any turns or health logs yet
+
+Source URL: https://copilot.microsoft.com/chats/EKZr5BAnjAV8nsu99jsMW
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Citation 4 for use of AI Tools:
+
+Date: 2/24/2026
+
+Prompted Used: How do I make it so that update or adding new log to The Character_Encounters table will also automatically update or affect the Turns table
+
+From there, it simply suggested that I either used a Trigger, or to insert or update related rows in Turns in a stored procedure.
+
+Copied from /OR/ Adapted from /OR/ Based on (Explain degree of originality)
+
+It gave me the following code template (to which I used entirely):
+
+	SET newCharacterEncounterID = LAST_INSERT_ID();
+		INSERT INTO Turns (idCharacterEncounter, actionOrderInRound, roundNumber, actionTaken)
+		VALUES (
+			newCharacterEncounterID,
+			initiativeOrderInput,
+			1,
+			'No action yet'
+		);
+        
+From there, I had to play around with it to see where to put it. It worked best when I put it into the same stored procedure as the character_encounter add and update; as opposed to making a separate store procedure (in which I initially tried doing but with no luck).
+
+Source URL: https://copilot.microsoft.com/chats/VUesq1DBGfUqM7muhFjjE
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Citation 5 for use of AI Tools:
+
+Date: 03/09/2026
+
+Summary of prompts used to help build a stored procedure for get health log entry
+
+For HealthLog is it better to have a separate dropdown STORED PROCEDURE or have it in get_health_logs?
+
+It prompt that its better to just have it within my own SP and not create a new SP since only health log will be using it.
+
+AI Source URL: https://claude.ai/chat/8e1f2ef6-3168-4bb4-b182-5e0e633eaa5b
