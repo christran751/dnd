@@ -10,7 +10,7 @@
 -- 1. StatusEffects
 -- 2. HealthChangeLogs
 -- 3. Turns
--- 4. Characters_Encounters
+-- 4. CharactersEncounters
 -- 5. Encounters
 -- 6. Characters
 -- This order respects all foreign‑key dependencies.
@@ -37,7 +37,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS StatusEffects;
 DROP TABLE IF EXISTS HealthChangeLogs;
 DROP TABLE IF EXISTS Turns;
-DROP TABLE IF EXISTS Characters_Encounters;
+DROP TABLE IF EXISTS CharactersEncounters;
 DROP TABLE IF EXISTS Encounters;
 DROP TABLE IF EXISTS Characters;
 
@@ -63,7 +63,7 @@ CREATE TABLE Encounters (
 	PRIMARY KEY (idEncounters)
 );
 
-CREATE TABLE Characters_Encounters (
+CREATE TABLE CharactersEncounters (
     idCharacterEncounter INT NOT NULL AUTO_INCREMENT,
     idCharacters INT NOT NULL,
     idEncounters INT NOT NULL,
@@ -82,7 +82,7 @@ CREATE TABLE Turns (
 	roundNumber INT DEFAULT 1,
 	actionTaken VARCHAR(100) NOT NULL,
 	PRIMARY KEY (idTurns),
-    FOREIGN KEY (idCharacterEncounter) REFERENCES Characters_Encounters(idCharacterEncounter) ON DELETE CASCADE
+    FOREIGN KEY (idCharacterEncounter) REFERENCES CharactersEncounters(idCharacterEncounter) ON DELETE CASCADE
 );
 
 -- Made a new entity because old set up had redunancy and so I had to remove one relationship. Need this to meet the requirment of 4.
@@ -124,7 +124,7 @@ VALUES
 ('Siege of Shiganshina', 'Wall Maria');
 
 -- CHARACTER_ENCOUNTER
-INSERT INTO Characters_Encounters (idCharacters, idEncounters, initiativeOrder, initiativeRoll)
+INSERT INTO CharactersEncounters (idCharacters, idEncounters, initiativeOrder, initiativeRoll)
 VALUES
 (1, 1, 2, 14),  
 (2, 1, 3, 16),  
@@ -167,7 +167,6 @@ VALUES
 (5, 'Healthy', 1, 0),
 (6, 'Healthy', 1, 0),
 (7, 'Healthy', 1, 0);
-
 
 SET FOREIGN_KEY_CHECKS = 1;
 COMMIT;
