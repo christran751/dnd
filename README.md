@@ -282,6 +282,21 @@ From there, it tells me to:
     Update my Save handle in script.js to include the editable fields and the row ID in order to successfully send all updated values to the server so the correct database record can be        updated.
         
     Reccomend that I change the button to be inline-block instead of inline.
+	
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- Citation 3 for use of AI Tools:
+
+-- Date: 03/16/2026
+
+-- Summary of prompts used
+
+-- Prompt Used: For update can I prompt users to enter either of the options instead of a dropdown? I cannot figure out how to do a dropdown. 
+
+-- AI Source URL: https://claude.ai/
+
+-- From there, it told me to use prompt() in the save handler to allow the user to type a valid conditionStatus if they entered an invalid one.
+
 
 ________________________________________________________________________________________________________________________________________________________________________________________
 main.hbs CITATION 
