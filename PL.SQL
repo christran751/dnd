@@ -1,4 +1,4 @@
--- Citation for use of AI Tools:
+-- Citation 1 for use of AI Tools:
 -- Date: 02/22/2026
 -- Summary of prompts used to help build a stored procedure
 -- What is the general syntax of a stored procedure and is it all the same for CRUD operations and can you show me an example?
@@ -15,14 +15,14 @@
 -- NOTE:
 	-- We used the genereal syntax and eexample given to us as a model to create a store procedure for all of our CRUD operations.
 
--- Citation for use of AI Tools:
+-- Citation 2 for use of AI Tools:
 -- Date: 02/22/2026
 -- Summary of prompts used to generate PL/SQL
 -- How to convert my old app.get (that is commented below) for Turns into a Stored Procedure and then later call it in app.js?
 -- AI Source URL: https://copilot.microsoft.com/
 -- From there it provided a basic template for the getTurns Stored Procedure
 
--- Citation for use of AI Tools:
+-- Citation 3 for use of AI Tools:
 -- Date: 2/24/2026
 -- Prompt Used to Generated Code
 -- Whenever I updated HealthChangeLog, is there a way for it to automatically update the currentHitPoint attribute in Character_Encounter? Also how to
@@ -44,7 +44,7 @@
 -- It also recommended me to use LEFT JOIN because I needed to include all character encounters, even if they don’t have any turns or health logs yet
 -- Source URL: https://copilot.microsoft.com/chats/EKZr5BAnjAV8nsu99jsMW
 
-/* Citation for use of AI Tools:
+/* Citation 4 for use of AI Tools:
 Date: 2/24/2026
 Prompted Used: How do I make it so that update or adding new log to The Character_Encounters table will also automatically update or affect the Turns table
 From there, it simply suggested that I either used a Trigger, or to insert or update related rows in Turns in a stored procedure.
@@ -62,17 +62,21 @@ From there, I had to play around with it to see where to put it. It worked best 
 Source URL: https://copilot.microsoft.com/chats/VUesq1DBGfUqM7muhFjjE
 */
 
--- Citation for use of AI Tools:
+-- Citation 5 for use of AI Tools:
 -- Date: 03/09/2026
 -- Summary of prompts used to help build a stored procedure for get health log entry
 -- For HealthLog is it better to have a separate dropdown STORED PROCEDURE or have it in get_health_logs?
 -- It prompt that its better to just have it within my own SP and not create a new SP since only health log will be using it.
 -- AI Source URL: https://claude.ai/chat/8e1f2ef6-3168-4bb4-b182-5e0e633eaa5b
 
+-- All code (SP) written here is based or referenced using AI from Claude, chatgpt, and Copilot 
+
+
 
 -- |============================================================ Characters Stored Procedure ===================================================================================|
 -- |============================================================================================================================================================================|
 
+-- Based on Citation # 1
 DROP PROCEDURE IF EXISTS get_characters;
 DELIMITER //
 CREATE PROCEDURE get_characters()
@@ -140,6 +144,7 @@ DELETE FROM Characters
 WHERE idCharacters = idCharactersInput;
 //
 DELIMITER ;
+-- End of Citation 1
 
 -- |======================================================= END OF Characters Stored Procedures ===============================================================|
 -- |===========================================================================================================================================================|
@@ -149,6 +154,7 @@ DELIMITER ;
 -- |============================================================ Encounters Stored Procedure ===================================================================================|
 -- |============================================================================================================================================================================|
 
+-- Citation 1
 DROP PROCEDURE IF EXISTS get_encounters;
 DELIMITER //
 CREATE PROCEDURE get_encounters()
@@ -198,6 +204,7 @@ BEGIN
     WHERE idEncounters = idEncountersInput;
 END //
 DELIMITER ;
+-- End of Citation 1
 
 -- |======================================================= END OF Encounters Stored Procedures ===============================================================|
 -- |===========================================================================================================================================================|
@@ -207,6 +214,7 @@ DELIMITER ;
 -- |============================================================ Turns Stored Procedure ===================================================================================|
 -- |============================================================================================================================================================================|
 
+-- Citations 1 & 2
 DROP PROCEDURE IF EXISTS getTurns;
 DELIMITER //
 CREATE PROCEDURE getTurns()
@@ -283,6 +291,7 @@ BEGIN
     WHERE idTurns = idTurnsInput;
 END //
 DELIMITER ;
+-- End of Citations 1 & 2
 
 -- |======================================================= END OF Turns Stored Procedures ====================================================================|
 -- |===========================================================================================================================================================|
@@ -292,6 +301,7 @@ DELIMITER ;
 -- |============================================= CharactersEncounters Stored Procedure ======================================================================|
 -- |===========================================================================================================================================================|
 
+-- Citation 1
 DROP PROCEDURE IF EXISTS getCharacterEncounters;
 DELIMITER //
 CREATE PROCEDURE getCharacterEncounters()
@@ -315,7 +325,7 @@ BEGIN
 --         COALESCE(Characters.maxHitPoint, 0) AS maxHitPoint
 	  -- Didn't work. 
       
-      -- Copied from copilot
+      -- Copied from copilot Citation 3
       GREATEST(
         0,
         LEAST(
@@ -324,7 +334,7 @@ BEGIN
         )
       ) AS currentHitPoint,
       COALESCE(Characters.maxHitPoint, 0) AS maxHitPoint
-      -- end of copy.
+      -- end of copy from copilot Citation 3.
     FROM CharactersEncounters
     JOIN Characters ON CharactersEncounters.idCharacters = Characters.idCharacters
     JOIN Encounters ON CharactersEncounters.idEncounters = Encounters.idEncounters
@@ -388,6 +398,7 @@ BEGIN
         (idCharacters, idEncounters, initiativeOrder, initiativeRoll)
     VALUES
         (idCharacterInput, idEncounterInput, initiativeOrderInput, initiativeRollInput);
+	-- Copied from AI citation # 4
     SET newCharacterEncounterID = LAST_INSERT_ID();
     INSERT INTO Turns (idCharacterEncounter, actionOrderInRound, roundNumber, actionTaken)
     VALUES (
@@ -396,10 +407,12 @@ BEGIN
         1,
         'No Action Taken'
     );
-    -- END OF COPY
+    -- END OF COPY citation 4
     COMMIT;
 END //
 DELIMITER ;
+-- End of citation 1
+
 
 -- Stored Procedure to Update Chracter_Encounters
 DROP PROCEDURE IF EXISTS updateCharacterEncounter;
@@ -575,6 +588,3 @@ DELIMITER ;
 -- |===========================================================================================================================================================|
 -- |===========================================================================================================================================================|
 -- |===========================================================================================================================================================|
-      
-
-
