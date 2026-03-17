@@ -21,155 +21,257 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f5f5;
+  background-image: url('/images/dnd_background.png'); /* your wallpaper path */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   margin: 0;
   padding: 0;
+  color: #cfcfcf;
 }
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.60);
+  z-index: -1;
+}
+
+/* ===========================
+   HEADINGS
+   =========================== */
 
 h1, h2 {
   text-align: center;
-  color: #333;
+  color: #e0b85c;
+  text-shadow: 0 0 10px #000;
+  font-family: 'MedievalSharp', serif;
+  position: relative;
 }
 
+/* 🔥 Glowing rune animation under headings */
+h1::after, h2::after {
+  content: "ᚠᛇᚻᛟᚾᚱᛉᛞ";
+  display: block;
+  font-size: 0.6em;
+  margin-top: 5px;
+  letter-spacing: 6px;
+  color: rgba(255, 215, 100, 0.6);
+  text-shadow: 0 0 8px #c9a227;
+  animation: runeGlow 3s infinite alternate;
+}
+
+@keyframes runeGlow {
+  from { opacity: 0.4; text-shadow: 0 0 4px #c9a227; }
+  to   { opacity: 1;   text-shadow: 0 0 12px #ffdd77; }
+}
+
+/* ===========================
+   NAVIGATION BAR
+   =========================== */
+
 nav {
-  background-color: #2c3e50;
+  background-color: rgba(15, 15, 15, 0.85);
   padding: 15px;
   display: flex;
   align-items: center;
   gap: 20px;
   flex-wrap: wrap;
+  border-bottom: 3px solid #7a5a22;
+  box-shadow: 0 0 15px #000;
 }
 
 nav .btn {
-  color: #ecf0f1;
+  color: #f0e6d2;
   text-decoration: none;
   font-weight: bold;
-  padding: 6px 12px;
-  border-radius: 4px;
-  background: transparent;
-  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  background: rgba(60, 60, 60, 0.4);
+  border: 1px solid #7a5a22;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: 0.3s;
+  box-shadow: 0 0 6px rgba(122, 90, 34, 0.6);
 }
 
+/* 🎲 Dice-roll hover animation */
 nav .btn:hover {
-  background-color: #2E6BD6;
+  background-color: #c9a227;
+  color: #000;
+  box-shadow: 0 0 14px #c9a227;
+  transform: rotate(2deg) scale(1.05);
 }
 
-/* Copy from CoPilot to get rid of the white border surrounding the RESET BUTTON*/
+/* Reset button */
+nav .reset-btn {
+  background-color: #2E8B57;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: bold;
+  border: 1px solid #1f5d3a;
+  transition: 0.3s;
+}
+
+nav .reset-btn:hover {
+  background-color: #45C98A;
+  box-shadow: 0 0 12px #45C98A;
+  transform: scale(1.05);
+}
 
 nav form {
   margin: 0;
   padding: 0;
   background: none;
   border: none;
-  box-shadow: none;
   display: inline;
 }
-/* End of Copy from CoPilot*/
 
+/* ===========================
+   MAIN CONTENT CONTAINER
+   =========================== */
 
-  .container {
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 35px 45px;
-    background: #fdf7e3;
-    border: 2px solid #d6c7a1;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  }
+.container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 40px 50px;
+  background: rgba(245, 235, 200, 0.92);
+  border: 2px solid #a48c5a;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.6);
+  color: #1c1c1c;
+  position: relative;
+}
+
+/* 🐉 Dragon-themed burnt parchment edges */
+.container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  pointer-events: none;
+  background-image: url('/images/burnt_edges.png'); /* optional custom asset */
+  background-size: cover;
+  opacity: 0.35;
+}
+
+/* ===========================
+   PAGE BUTTONS
+   =========================== */
+
+.page-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.page-buttons .btn {
+  padding: 12px 22px;
+  background-color: #1E4FA1;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: 0.3s;
+  box-shadow: 0 0 10px rgba(30, 79, 161, 0.7);
+}
+
+/* 🎲 Dice-roll hover animation */
+.page-buttons .btn:hover {
+  background-color: #C9A227;
+  color: #000;
+  box-shadow: 0 0 14px #C9A227;
+  transform: rotate(-2deg) scale(1.05);
+}
+
+/* ===========================
+   TABLES
+   =========================== */
 
 table {
   width: 95%;
-  margin: 0 auto 20px;
+  margin: 0 auto 25px;
   border-collapse: collapse;
-  background-color: #ffffff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  box-shadow: 0 0 12px rgba(0,0,0,0.4);
 }
 
 th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
+  border: 1px solid #aaa;
+  padding: 10px;
   text-align: center;
+  color: #222;
 }
 
 th {
-  background-color: #2980b9;
+  background-color: #7a5a22;
   color: #fff;
   font-weight: bold;
 }
 
 tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #f3e7c5;
 }
 
 tr:hover {
-  background-color: #d6eaf8;
+  background-color: #e2d3a1;
+  transform: scale(1.01);
 }
 
-table form {
-  margin: 0;
-  padding: 0;
-  background: none;
-  border: none;
-  box-shadow: none;
-  display: inline;
-}
+/* ===========================
+   FORMS
+   =========================== */
 
 form {
   margin: 20px 0;
   background-color: #fff;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.3);
+  color: #1c1c1c;
 }
 
 label {
   display: block;
   margin-bottom: 10px;
   font-weight: bold;
+  color: #222;
 }
 
 input[type="number"],
 select {
-  padding: 6px;
+  padding: 8px;
   margin-top: 4px;
   width: 100%;
-  max-width: 200px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  max-width: 220px;
+  border: 1px solid #888;
+  border-radius: 6px;
+  color: #222;
 }
 
+/* ===========================
+   BUTTONS (CRUD)
+   =========================== */
 
 button {
-  padding: 8px 12px;
+  padding: 10px 14px;
   margin-top: 10px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
-  transition: background 0.3s;
+  transition: 0.3s;
 }
 
-button:focus,
-button:active {
-  outline: none;
-}
-
-/* Style for reset database button */
-nav .reset-btn {
-  background-color: #2E8B57;
-  color: #fff;
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-nav .reset-btn:hover {
-  background-color: #45C98A;
+button:hover {
+  transform: scale(1.05);
 }
 
 .btn-add {
@@ -177,14 +279,13 @@ nav .reset-btn:hover {
   color: #fff;
 }
 .btn-add:hover {
-  background-color: #1e8449;
+  background-color: #8B6914;
 }
 
 .btn-update {
   background-color: #C8A84B;
   color: #fff;
 }
-
 .btn-update:hover {
   background-color: #8B6914;
 }
@@ -193,7 +294,6 @@ nav .reset-btn:hover {
   background-color: #2D6A2D;
   color: #fff;
 }
-
 .btn-save:hover {
   background-color: #1A4A1A;
 }
@@ -207,65 +307,22 @@ nav .reset-btn:hover {
 }
 
 .btn-cancel {
-    background-color: #9E9E9E;
+  background-color: #9E9E9E;
 }
-
 .btn-cancel:hover {
-    background-color: #757575;
-}
-.page-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 15px;
+  background-color: #757575;
 }
 
-.page-buttons .btn {
-  padding: 10px 20px;
-  background-color: #1E4FA1;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-  text-align: center;
-  font-weight: bold;
-  transition: background 0.3s;
+/* ===========================
+   FLICKERING CANDLELIGHT EFFECT
+   =========================== */
+
+@keyframes candleFlicker {
+  0% { opacity: 0.95; }
+  50% { opacity: 0.75; }
+  100% { opacity: 1; }
 }
 
-.page-buttons .btn:hover {
-  background-color: #C9A227;
+.flicker {
+  animation: candleFlicker 2s infinite ease-in-out;
 }
-
-
-.form-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  max-width: 800px;
-  margin: 20px auto;
-  background-color: #fff;
-  padding: 20px 25px;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-}
-
-.form-panel label {
-  font-weight: bold;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.form-panel input,
-.form-panel select {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-
-
-
-
-
-

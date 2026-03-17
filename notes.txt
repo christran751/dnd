@@ -1,0 +1,27 @@
+Step 1 — Create the database
+
+Open MySQL Workbench, connect to your local server, and run:
+
+    CREATE DATABASE dnd_tracker;
+
+    USE dnd_tracker;
+
+Step 2 — Run your DDL and Stored Procedures
+
+In MySQL Workbench, make sure you're using the right database by running:
+
+    USE dnd_tracker;
+
+Open your SQL files in MySQL Workbench — go to File → Open SQL Script and open each of your SQL files one by one and run them in this order:
+
+    Your DDL file (the one with CREATE TABLE and resetDatabaseDND)
+    Your stored procedures file
+
+Once you clone your repo:
+
+Open a terminal in your project folder
+Run:
+
+    npm install
+
+
