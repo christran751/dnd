@@ -1,8 +1,19 @@
 -- Citation for use of AI Tools:
 -- Date: 02/22/2026
 -- Summary of prompts used to help build a stored procedure
--- What is the general syntax of a stored procedure
+-- What is the general syntax of a stored procedure and is it all the same for CRUD operations and can you show me an example?
+-- Example Provided by AI:
+		-- CREATE PROCEDURE AddEmployee(
+		--     IN p_name VARCHAR(50),
+		--     IN p_salary DECIMAL(10,2)
+		-- )
+		-- BEGIN
+		--     INSERT INTO Employees (Name, Salary)
+		--     VALUES (p_name, p_salary);
+		-- END;
 -- AI Source URL: https://claude.ai/chat/8e1f2ef6-3168-4bb4-b182-5e0e633eaa5b
+-- NOTE:
+	-- We used the genereal syntax and eexample given to us as a model to create a store procedure for all of our CRUD operations.
 
 -- Citation for use of AI Tools:
 -- Date: 02/22/2026
@@ -208,12 +219,12 @@ BEGIN
         Characters.displayName,
         Encounters.nameOfLocation
     FROM Turns
-    JOIN Characters_Encounters
-        ON Turns.idCharacterEncounter = Characters_Encounters.idCharacterEncounter
+    JOIN CharactersEncounters
+        ON Turns.idCharacterEncounter = CharactersEncounters.idCharacterEncounter
     JOIN Characters
-        ON Characters_Encounters.idCharacters = Characters.idCharacters
+        ON CharactersEncounters.idCharacters = Characters.idCharacters
     JOIN Encounters
-        ON Characters_Encounters.idEncounters = Encounters.idEncounters
+        ON CharactersEncounters.idEncounters = Encounters.idEncounters
     ORDER BY Turns.idCharacterEncounter ASC, Turns.roundNumber ASC, Turns.actionOrderInRound ASC;
 END //
 DELIMITER ;
@@ -278,7 +289,7 @@ DELIMITER ;
 -- |===========================================================================================================================================================|
 
 
--- |============================================= Characters_Encounters Stored Procedure ======================================================================|
+-- |============================================= CharactersEncounters Stored Procedure ======================================================================|
 -- |===========================================================================================================================================================|
 
 DROP PROCEDURE IF EXISTS getCharacterEncounters;
@@ -286,11 +297,11 @@ DELIMITER //
 CREATE PROCEDURE getCharacterEncounters()
 BEGIN
     SELECT
-      Characters_Encounters.idCharacterEncounter,
+      CharactersEncounters.idCharacterEncounter,
       Characters.displayName,
       Encounters.nameOfLocation,
-      Characters_Encounters.initiativeOrder,
-      Characters_Encounters.initiativeRoll,
+      CharactersEncounters.initiativeOrder,
+      CharactersEncounters.initiativeRoll,
       
       -- See script.js citation # 8
       -- At first tried fixing currentHP not healing starting from 0 with SQL using 
@@ -314,19 +325,19 @@ BEGIN
       ) AS currentHitPoint,
       COALESCE(Characters.maxHitPoint, 0) AS maxHitPoint
       -- end of copy.
-    FROM Characters_Encounters
-    JOIN Characters ON Characters_Encounters.idCharacters = Characters.idCharacters
-    JOIN Encounters ON Characters_Encounters.idEncounters = Encounters.idEncounters
-    LEFT JOIN Turns ON Characters_Encounters.idCharacterEncounter = Turns.idCharacterEncounter
+    FROM CharactersEncounters
+    JOIN Characters ON CharactersEncounters.idCharacters = Characters.idCharacters
+    JOIN Encounters ON CharactersEncounters.idEncounters = Encounters.idEncounters
+    LEFT JOIN Turns ON CharactersEncounters.idCharacterEncounter = Turns.idCharacterEncounter
     LEFT JOIN HealthChangeLogs ON HealthChangeLogs.idTurns = Turns.idTurns
     GROUP BY
-      Characters_Encounters.idCharacterEncounter,
+      CharactersEncounters.idCharacterEncounter,
       Characters.displayName,
       Encounters.nameOfLocation,
-      Characters_Encounters.initiativeOrder,
-      Characters_Encounters.initiativeRoll,
+      CharactersEncounters.initiativeOrder,
+      CharactersEncounters.initiativeRoll,
       Characters.maxHitPoint
-    ORDER BY Characters_Encounters.idEncounters, Characters_Encounters.initiativeOrder;
+    ORDER BY CharactersEncounters.idEncounters, CharactersEncounters.initiativeOrder;
 END //
 DELIMITER ;
 
@@ -337,11 +348,11 @@ DELIMITER ;
 --   const { idCharacterEncounter } = req.body;
 
 --   await db.query(
---     `DELETE FROM Characters_Encounters WHERE idCharacterEncounter = ?`,
+--     `DELETE FROM CharactersEncounters WHERE idCharacterEncounter = ?`,
 --     [idCharacterEncounter]
 --   );
 
---   res.redirect('/characters_encounters');
+--   res.redirect('/CharactersEncounters');
 -- });
 
 -- Stored Procedure to DELETE Chracter_Encounters
@@ -349,7 +360,7 @@ DROP PROCEDURE IF EXISTS deleteCharacterEncounter;
 DELIMITER //
 CREATE PROCEDURE deleteCharacterEncounter(IN idCharacterEncounterInput INT)
 BEGIN
-    DELETE FROM Characters_Encounters
+    DELETE FROM CharactersEncounters
     WHERE idCharacterEncounter = idCharacterEncounterInput;
 END //
 DELIMITER ;
@@ -373,7 +384,7 @@ BEGIN
     START TRANSACTION;
 
     -- Since we are inserting into different TWO tables, we need to use a transaction
-    INSERT INTO Characters_Encounters
+    INSERT INTO CharactersEncounters
         (idCharacters, idEncounters, initiativeOrder, initiativeRoll)
     VALUES
         (idCharacterInput, idEncounterInput, initiativeOrderInput, initiativeRollInput);
@@ -399,7 +410,7 @@ CREATE PROCEDURE updateCharacterEncounter(
     IN initiativeRollInput INT
 )
 BEGIN
-    UPDATE Characters_Encounters
+    UPDATE CharactersEncounters
     SET
         initiativeOrder = initiativeOrderInput,
         initiativeRoll = initiativeRollInput
@@ -407,7 +418,7 @@ BEGIN
 END //
 DELIMITER ;
 
--- |================================================== END OF Characters_Encounters Stored Procedures =========================================================|
+-- |================================================== END OF CharactersEncounters Stored Procedures =========================================================|
 -- |===========================================================================================================================================================|
 -- |===========================================================================================================================================================|
 
@@ -428,9 +439,9 @@ BEGIN
         Encounters.nameOfLocation
     FROM StatusEffects
     JOIN Turns ON StatusEffects.idTurns = Turns.idTurns
-    JOIN Characters_Encounters ON Turns.idCharacterEncounter = Characters_Encounters.idCharacterEncounter
-    JOIN Characters ON Characters_Encounters.idCharacters = Characters.idCharacters
-    JOIN Encounters ON Characters_Encounters.idEncounters = Encounters.idEncounters
+    JOIN CharactersEncounters ON Turns.idCharacterEncounter = CharactersEncounters.idCharacterEncounter
+    JOIN Characters ON CharactersEncounters.idCharacters = Characters.idCharacters
+    JOIN Encounters ON CharactersEncounters.idEncounters = Encounters.idEncounters
     ORDER BY StatusEffects.idStatusEffect;
 END //
 DELIMITER ;
@@ -502,9 +513,9 @@ BEGIN
     HealthChangeLogs.hitPointChangeSource
   FROM HealthChangeLogs
   JOIN Turns ON HealthChangeLogs.idTurns = Turns.idTurns
-  JOIN Characters_Encounters ON Turns.idCharacterEncounter = Characters_Encounters.idCharacterEncounter
-  JOIN Characters ON Characters_Encounters.idCharacters = Characters.idCharacters
-  JOIN Encounters ON Characters_Encounters.idEncounters = Encounters.idEncounters
+  JOIN CharactersEncounters ON Turns.idCharacterEncounter = CharactersEncounters.idCharacterEncounter
+  JOIN Characters ON CharactersEncounters.idCharacters = Characters.idCharacters
+  JOIN Encounters ON CharactersEncounters.idEncounters = Encounters.idEncounters
   ORDER BY HealthChangeLogs.idHealthChangeLogs;
 
   SELECT
@@ -512,9 +523,9 @@ BEGIN
     Characters.displayName,
     Encounters.nameOfLocation
   FROM Turns
-  JOIN Characters_Encounters ON Turns.idCharacterEncounter = Characters_Encounters.idCharacterEncounter
-  JOIN Characters ON Characters_Encounters.idCharacters = Characters.idCharacters
-  JOIN Encounters ON Characters_Encounters.idEncounters = Encounters.idEncounters
+  JOIN CharactersEncounters ON Turns.idCharacterEncounter = CharactersEncounters.idCharacterEncounter
+  JOIN Characters ON CharactersEncounters.idCharacters = Characters.idCharacters
+  JOIN Encounters ON CharactersEncounters.idEncounters = Encounters.idEncounters
   ORDER BY Turns.idTurns;
 END //
 
@@ -563,6 +574,5 @@ DELIMITER ;
 -- |===========================================================================================================================================================|
 -- |===========================================================================================================================================================|
 -- |===========================================================================================================================================================|
-
       
 
