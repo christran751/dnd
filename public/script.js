@@ -27,16 +27,35 @@
 
 
 // Make -hp change red, and +hp change green
-const cells = document.querySelectorAll('td[data-field="hitPointChange"]');
 
-for (let i = 0; i < cells.length; i++) {
-  const value = parseInt(cells[i].textContent.trim());
+const healthCells = document.querySelectorAll('td[data-field="hitPointChange"]');
+
+for (let i = 0; i < healthCells.length; i++) {
+  const value = parseInt(healthCells[i].textContent.trim());
   if (value < 0) {
-    cells[i].style.color = "red";
+    healthCells[i].style.color = "red";
   } else {
-    cells[i].style.color = "green";
+    healthCells[i].style.color = "green";
   }
 }
+
+const statusCells = document.querySelectorAll('td[data-field="conditionStatus"]');
+
+for (let i = 0; i < statusCells.length; i++) {
+  const value = statusCells[i].textContent.trim();
+  if (value === 'Healthy') {
+    statusCells[i].style.color = 'green';
+  } else if (value === 'Buffed') {
+    statusCells[i].style.color = 'blue';
+  } else if (value === 'Poisoned') {
+    statusCells[i].style.color = 'purple';
+  } else if (value === 'Stunned') {
+    statusCells[i].style.color = 'goldenrod';
+  } else if (value === 'Dead') {
+    statusCells[i].style.color = 'red';
+  }
+}
+
 
 
 // Original Work
@@ -130,6 +149,10 @@ document.querySelectorAll('.cancel_button').forEach(btn => {
     this.style.display = 'none';
   });
 });
+
+
+
+
 
 
 
