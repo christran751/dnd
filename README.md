@@ -172,6 +172,48 @@ At first I tried:
           
 In the SP, but that this just zero out all the damage.
 
+________________________________________________________________________________________________________________________________________________________________________________________
+DDL.SQL Citations
+________________________________________________________________________________________________________________________________________________________________________________________
+
+Citation for use of AI Tools:
+
+-- Date: 3/01/2026
+
+-- Prompt Used to Generated Code:
+
+-- Given my DDL I just pasted, for my DDL and Stored Procedure, is my order of drop tables correct, since I have some parent and child table.
+
+-- The correct order it gave me is this:
+
+-- 1. StatusEffects
+
+-- 2. HealthChangeLogs
+
+-- 3. Turns
+
+-- 4. Characters_Encounters
+
+-- 5. Encounters
+
+-- 6. Characters
+
+    -- This order respects all foreign‑key dependencies.
+    -- I also didn't ask, but it recommend that I entire reset in a transaction before disabling FK checks.
+    -- START TRANSACTION; SET FOREIGN_KEY_CHECKS = 0;
+    -- Source URL: https://copilot.microsoft.com/chats/R3jE5zFxMR1atYZKcZagW
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+-- Citation for use of AI Tools:
+
+-- Use to help tweak sample data because before Players, i.e., Aaragorn and Gandalf were attacking each other.
+
+-- Date: 3/06/2026
+
+-- Prompt Used to Generated Code:
+
+-- Can you update my INSERT schema only to make my data feel more DnD-inspired by adding a few monster NPCs, and make sure players can only attack NPCs, not each other.
+
+-- Source URL: https://claude.ai/chat/97cc5a49-2ab4-4117-8ab4-fd0fb407fa9c
 
