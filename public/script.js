@@ -32,8 +32,7 @@
 -- Prompt Used: For update can I prompt users to enter either of the options instead of a dropdown? I cannot figure out how to do a dropdown. 
 -- AI Source URL: https://claude.ai/
 -- From there, it told me to use prompt() in the save handler to allow
--- the user to type a valid conditionStatus if they entered an invalid one, and default to
--- 'Healthy' if their second entry is also invalid.
+-- the user to type a valid conditionStatus if they entered an invalid one.
 */
 
 
