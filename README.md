@@ -217,3 +217,75 @@ Citation for use of AI Tools:
 
 -- Source URL: https://claude.ai/chat/97cc5a49-2ab4-4117-8ab4-fd0fb407fa9c
 
+________________________________________________________________________________________________________________________________________________________________________________________
+STYLE.CSS CITATION 
+________________________________________________________________________________________________________________________________________________________________________________________
+
+-- Citation for use of AI Tools:
+
+-- Date: 03/15/2026
+
+-- Summary of prompts used:
+
+-- For some reason, there's a weird white border around my RESET DATABASE button. I tried fixing the button and nav element background/border but that still does nothing. (Copied and paste my HBS and style.css)
+
+-- AI Source URL: https://copilot.microsoft.com/chats/p2jGSo6LAdc7cYnQ9LFDi
+
+-- It tells me that the  white border is actually the form, not the button and to add this codebdirectly under my nav styles:
+
+          nav form {
+            margin: 0;
+            padding: 0;
+            background: none;
+            box-shadow: none;
+            border: none;
+            display: inline;
+          }
+
+
+________________________________________________________________________________________________________________________________________________________________________________________
+main.hbs CITATION 
+________________________________________________________________________________________________________________________________________________________________________________________
+
+{{!
+Citation for the main handlebar starter code:
+Date: 02/12/2026
+Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
+Type: Starter code / application
+Author: Oregon State University
+Notes:
+We used this template for reference
+}}
+
+
+Characters_encounters.hbs citations
+{{!
+Citation for the characters_encounters handlebar starter code:
+Date: 02/12/2026
+Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
+Type: Starter code / application
+Author: Oregon State University
+Notes:
+We used this template for reference
+The table structure and form structure for read/create/update/delete were adapted to best match our database, i.e., the delete functionality was adapted to appear as a row-level button within the table instead of a separate form
+}}
+
+
+{{!
+Citation for use of AI Tools:
+Date: 03/09/2026
+Summary of prompts used:
+How to get a prompt that ask if am sure that i would like to delete for all sp
+Generic pattern for any delete form:
+<form method="POST" action="/your-entity/delete" onsubmit="return confirm('Are you sure you
+AI Source URL: https://copilot.microsoft.com/chats/p2jGSo6LAdc7cYnQ9LFDi
+}}
+
+
+{{!--
+Citation for use of AI Tools:
+Date: 03/11/2026
+Summary of prompts used:
+For some reason my Edit and Save button does not show the color I set in my style.css.
+AI Source URL: https://copilot.microsoft.com/chats/p2jGSo6LAdc7cYnQ9LFDi
+--}}
