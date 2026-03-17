@@ -1,28 +1,17 @@
--- Citation for use of AI Tools:
+-- Citation 1 for use of AI Tools:
 -- Date: 02/22/2026
 -- Summary of prompts used to help build a stored procedure
--- What is the general syntax of a stored procedure and is it all the same for CRUD operations and can you show me an example?
--- Example Provided by AI:
-		-- CREATE PROCEDURE AddEmployee(
-		--     IN p_name VARCHAR(50),
-		--     IN p_salary DECIMAL(10,2)
-		-- )
-		-- BEGIN
-		--     INSERT INTO Employees (Name, Salary)
-		--     VALUES (p_name, p_salary);
-		-- END;
+-- What is the general syntax of a stored procedure
 -- AI Source URL: https://claude.ai/chat/8e1f2ef6-3168-4bb4-b182-5e0e633eaa5b
--- NOTE:
-	-- We used the genereal syntax and eexample given to us as a model to create a store procedure for all of our CRUD operations.
 
--- Citation for use of AI Tools:
+-- Citation 2 for use of AI Tools:
 -- Date: 02/22/2026
 -- Summary of prompts used to generate PL/SQL
 -- How to convert my old app.get (that is commented below) for Turns into a Stored Procedure and then later call it in app.js?
 -- AI Source URL: https://copilot.microsoft.com/
 -- From there it provided a basic template for the getTurns Stored Procedure
 
--- Citation for use of AI Tools:
+-- Citation 3 for use of AI Tools:
 -- Date: 2/24/2026
 -- Prompt Used to Generated Code
 -- Whenever I updated HealthChangeLog, is there a way for it to automatically update the currentHitPoint attribute in Character_Encounter? Also how to
@@ -44,7 +33,7 @@
 -- It also recommended me to use LEFT JOIN because I needed to include all character encounters, even if they don’t have any turns or health logs yet
 -- Source URL: https://copilot.microsoft.com/chats/EKZr5BAnjAV8nsu99jsMW
 
-/* Citation for use of AI Tools:
+/* Citation 4 for use of AI Tools:
 Date: 2/24/2026
 Prompted Used: How do I make it so that update or adding new log to The Character_Encounters table will also automatically update or affect the Turns table
 From there, it simply suggested that I either used a Trigger, or to insert or update related rows in Turns in a stored procedure.
@@ -62,13 +51,16 @@ From there, I had to play around with it to see where to put it. It worked best 
 Source URL: https://copilot.microsoft.com/chats/VUesq1DBGfUqM7muhFjjE
 */
 
--- Citation for use of AI Tools:
+-- Citation 5 for use of AI Tools:
 -- Date: 03/09/2026
 -- Summary of prompts used to help build a stored procedure for get health log entry
 -- For HealthLog is it better to have a separate dropdown STORED PROCEDURE or have it in get_health_logs?
 -- It prompt that its better to just have it within my own SP and not create a new SP since only health log will be using it.
 -- AI Source URL: https://claude.ai/chat/8e1f2ef6-3168-4bb4-b182-5e0e633eaa5b
 
+
+
+-- Citations 1 and 2 was used as a template to help create all the store procedure seen here 
 
 -- |============================================================ Characters Stored Procedure ===================================================================================|
 -- |============================================================================================================================================================================|
@@ -219,12 +211,12 @@ BEGIN
         Characters.displayName,
         Encounters.nameOfLocation
     FROM Turns
-    JOIN CharactersEncounters
-        ON Turns.idCharacterEncounter = CharactersEncounters.idCharacterEncounter
+    JOIN Characters_Encounters
+        ON Turns.idCharacterEncounter = Characters_Encounters.idCharacterEncounter
     JOIN Characters
-        ON CharactersEncounters.idCharacters = Characters.idCharacters
+        ON Characters_Encounters.idCharacters = Characters.idCharacters
     JOIN Encounters
-        ON CharactersEncounters.idEncounters = Encounters.idEncounters
+        ON Characters_Encounters.idEncounters = Encounters.idEncounters
     ORDER BY Turns.idCharacterEncounter ASC, Turns.roundNumber ASC, Turns.actionOrderInRound ASC;
 END //
 DELIMITER ;
@@ -289,7 +281,7 @@ DELIMITER ;
 -- |===========================================================================================================================================================|
 
 
--- |============================================= CharactersEncounters Stored Procedure ======================================================================|
+-- |============================================= Characters_Encounters Stored Procedure ======================================================================|
 -- |===========================================================================================================================================================|
 
 DROP PROCEDURE IF EXISTS getCharacterEncounters;
@@ -297,11 +289,11 @@ DELIMITER //
 CREATE PROCEDURE getCharacterEncounters()
 BEGIN
     SELECT
-      CharactersEncounters.idCharacterEncounter,
+      Characters_Encounters.idCharacterEncounter,
       Characters.displayName,
       Encounters.nameOfLocation,
-      CharactersEncounters.initiativeOrder,
-      CharactersEncounters.initiativeRoll,
+      Characters_Encounters.initiativeOrder,
+      Characters_Encounters.initiativeRoll,
       
       -- See script.js citation # 8
       -- At first tried fixing currentHP not healing starting from 0 with SQL using 
@@ -315,7 +307,7 @@ BEGIN
 --         COALESCE(Characters.maxHitPoint, 0) AS maxHitPoint
 	  -- Didn't work. 
       
-      -- Copied from copilot
+      -- Copied from copilot (Citation 3)
       GREATEST(
         0,
         LEAST(
@@ -325,19 +317,19 @@ BEGIN
       ) AS currentHitPoint,
       COALESCE(Characters.maxHitPoint, 0) AS maxHitPoint
       -- end of copy.
-    FROM CharactersEncounters
-    JOIN Characters ON CharactersEncounters.idCharacters = Characters.idCharacters
-    JOIN Encounters ON CharactersEncounters.idEncounters = Encounters.idEncounters
-    LEFT JOIN Turns ON CharactersEncounters.idCharacterEncounter = Turns.idCharacterEncounter
+    FROM Characters_Encounters
+    JOIN Characters ON Characters_Encounters.idCharacters = Characters.idCharacters
+    JOIN Encounters ON Characters_Encounters.idEncounters = Encounters.idEncounters
+    LEFT JOIN Turns ON Characters_Encounters.idCharacterEncounter = Turns.idCharacterEncounter
     LEFT JOIN HealthChangeLogs ON HealthChangeLogs.idTurns = Turns.idTurns
     GROUP BY
-      CharactersEncounters.idCharacterEncounter,
+      Characters_Encounters.idCharacterEncounter,
       Characters.displayName,
       Encounters.nameOfLocation,
-      CharactersEncounters.initiativeOrder,
-      CharactersEncounters.initiativeRoll,
+      Characters_Encounters.initiativeOrder,
+      Characters_Encounters.initiativeRoll,
       Characters.maxHitPoint
-    ORDER BY CharactersEncounters.idEncounters, CharactersEncounters.initiativeOrder;
+    ORDER BY Characters_Encounters.idEncounters, Characters_Encounters.initiativeOrder;
 END //
 DELIMITER ;
 
@@ -348,11 +340,11 @@ DELIMITER ;
 --   const { idCharacterEncounter } = req.body;
 
 --   await db.query(
---     `DELETE FROM CharactersEncounters WHERE idCharacterEncounter = ?`,
+--     `DELETE FROM Characters_Encounters WHERE idCharacterEncounter = ?`,
 --     [idCharacterEncounter]
 --   );
 
---   res.redirect('/CharactersEncounters');
+--   res.redirect('/characters_encounters');
 -- });
 
 -- Stored Procedure to DELETE Chracter_Encounters
@@ -360,7 +352,7 @@ DROP PROCEDURE IF EXISTS deleteCharacterEncounter;
 DELIMITER //
 CREATE PROCEDURE deleteCharacterEncounter(IN idCharacterEncounterInput INT)
 BEGIN
-    DELETE FROM CharactersEncounters
+    DELETE FROM Characters_Encounters
     WHERE idCharacterEncounter = idCharacterEncounterInput;
 END //
 DELIMITER ;
@@ -384,10 +376,11 @@ BEGIN
     START TRANSACTION;
 
     -- Since we are inserting into different TWO tables, we need to use a transaction
-    INSERT INTO CharactersEncounters
+    INSERT INTO Characters_Encounters
         (idCharacters, idEncounters, initiativeOrder, initiativeRoll)
     VALUES
         (idCharacterInput, idEncounterInput, initiativeOrderInput, initiativeRollInput);
+    -- Copied from Citation 4
     SET newCharacterEncounterID = LAST_INSERT_ID();
     INSERT INTO Turns (idCharacterEncounter, actionOrderInRound, roundNumber, actionTaken)
     VALUES (
@@ -410,7 +403,7 @@ CREATE PROCEDURE updateCharacterEncounter(
     IN initiativeRollInput INT
 )
 BEGIN
-    UPDATE CharactersEncounters
+    UPDATE Characters_Encounters
     SET
         initiativeOrder = initiativeOrderInput,
         initiativeRoll = initiativeRollInput
@@ -418,7 +411,7 @@ BEGIN
 END //
 DELIMITER ;
 
--- |================================================== END OF CharactersEncounters Stored Procedures =========================================================|
+-- |================================================== END OF Characters_Encounters Stored Procedures =========================================================|
 -- |===========================================================================================================================================================|
 -- |===========================================================================================================================================================|
 
@@ -439,9 +432,9 @@ BEGIN
         Encounters.nameOfLocation
     FROM StatusEffects
     JOIN Turns ON StatusEffects.idTurns = Turns.idTurns
-    JOIN CharactersEncounters ON Turns.idCharacterEncounter = CharactersEncounters.idCharacterEncounter
-    JOIN Characters ON CharactersEncounters.idCharacters = Characters.idCharacters
-    JOIN Encounters ON CharactersEncounters.idEncounters = Encounters.idEncounters
+    JOIN Characters_Encounters ON Turns.idCharacterEncounter = Characters_Encounters.idCharacterEncounter
+    JOIN Characters ON Characters_Encounters.idCharacters = Characters.idCharacters
+    JOIN Encounters ON Characters_Encounters.idEncounters = Encounters.idEncounters
     ORDER BY StatusEffects.idStatusEffect;
 END //
 DELIMITER ;
@@ -513,20 +506,24 @@ BEGIN
     HealthChangeLogs.hitPointChangeSource
   FROM HealthChangeLogs
   JOIN Turns ON HealthChangeLogs.idTurns = Turns.idTurns
-  JOIN CharactersEncounters ON Turns.idCharacterEncounter = CharactersEncounters.idCharacterEncounter
-  JOIN Characters ON CharactersEncounters.idCharacters = Characters.idCharacters
-  JOIN Encounters ON CharactersEncounters.idEncounters = Encounters.idEncounters
+  JOIN Characters_Encounters ON Turns.idCharacterEncounter = Characters_Encounters.idCharacterEncounter
+  JOIN Characters ON Characters_Encounters.idCharacters = Characters.idCharacters
+  JOIN Encounters ON Characters_Encounters.idEncounters = Encounters.idEncounters
   ORDER BY HealthChangeLogs.idHealthChangeLogs;
 
+
+    -- ALTERED FROM CITATION 5.
   SELECT
     Turns.idTurns,
     Characters.displayName,
     Encounters.nameOfLocation
   FROM Turns
-  JOIN CharactersEncounters ON Turns.idCharacterEncounter = CharactersEncounters.idCharacterEncounter
-  JOIN Characters ON CharactersEncounters.idCharacters = Characters.idCharacters
-  JOIN Encounters ON CharactersEncounters.idEncounters = Encounters.idEncounters
+  JOIN Characters_Encounters ON Turns.idCharacterEncounter = Characters_Encounters.idCharacterEncounter
+  JOIN Characters ON Characters_Encounters.idCharacters = Characters.idCharacters
+  JOIN Encounters ON Characters_Encounters.idEncounters = Encounters.idEncounters
   ORDER BY Turns.idTurns;
+  -- end of altered from citation 5
+  
 END //
 
 DELIMITER ;
@@ -574,5 +571,7 @@ DELIMITER ;
 -- |===========================================================================================================================================================|
 -- |===========================================================================================================================================================|
 -- |===========================================================================================================================================================|
+
       
+
 
