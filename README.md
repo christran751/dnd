@@ -3,61 +3,94 @@ APP.JS CITATIONS
 ________________________________________________________________________________________________________________________________________________________________________________________
 
 Citation 1 for the following app.js starter code:
+
 Date: 02/09/2026
 Copied from / Adapted from: Starter Code for app.js provided by the course
+
 Source URL: https://canvas.oregonstate.edu/courses/2031764/pages/exploration-web-application-technology-2?module_item_id=26243419
+
 Type: Starter code / application
+
 Author: Oregon State University and Dr. Michael Curry
+
 Notes:
+
 This file is mainly copied (the Express, Handlebars, and Database setup portions were copied word-for-word), with minor adaptations for project structure and port configuration.
 The read routes and other route handling logic are primarily our own work, using the starter code as a basis.
 Original work (custom routes, logic, database queries) is clearly documented inline.
 
 
 Citation 2 for use of AI Tools:
+
 Date: 02/22/2026
+
 Summary of prompts used to generate route for SELECT or READ:
+
 To route in app.js for READ or SELECT operation do I need to capture and then render
+
 AI Source URL: https://claude.ai/chat/69a43844-fd5b-484a-bb44-8be2776eae5d
+
 From there, it tells me:
+
 Yes! For any READ/SELECT operation the pattern is always:
-app.get('/entity', async function (req, res) {
-try {
-const [rows] = await db.query('CALL get_entity()');  // 1. capture
-const entity = rows[0];                               // 2. unwrap
-res.render('entity', { title: 'Entity', entity });   // 3. render
+
+    app.get('/entity', async function (req, res) {
+    try {
+    const [rows] = await db.query('CALL get_entity()');  // 1. capture
+    const entity = rows[0];                               // 2. unwrap
+    res.render('entity', { title: 'Entity', entity });   // 3. render
 
 
 Citation 3 for the following app.get Turns code:
+
 Date: 2/22/2026
+
 Copied and Adapted from: Project Step 4 Draft Version: Add RESET stored procedure (SP)
+
 Source URL: 
+
 https://canvas.oregonstate.edu/courses/2031764/assignments/10323339?module_item_id=26243440
+
 Type: Starter code / application
+
 Author: Oregon State University and Dr. Michael Curry
+
 Notes:
-Added const [charEncounters] to fetch the data that will populate the dropdowns
-Used Node.js with Express, and res.render() to take a template file, fill it with data from our DND server.
-Everything else was copied from source.
+
+    Added const [charEncounters] to fetch the data that will populate the dropdowns
+    Used Node.js with Express, and res.render() to take a template file, fill it with data from our DND server.
+    Everything else was copied from source.
 
 
 Citation 4 for use of AI Tools:
+
 Date: 02/22/2026
+
 Summary of prompts used to generate PL/SQL
+
 How to convert my old app.get (that is commented below) for Turns into a Stored Procedure and then later call it in app.js?
+
 AI Source URL: https://copilot.microsoft.com/
+
 From there it provided a basic template for the getTurns Stored Procedure
 
 
 Citation 5 for the following app.get CHARACTERS_ENCOUNTERS code:
+
 Date: 2/24/2026
+
 Copied and Adapted from: Project Step 4 Draft Version: Add RESET stored procedure (SP)
+
 Source URL: https://canvas.oregonstate.edu/courses/2031764/assignments/10323339?module_item_id=26243440
+
 Type: Starter code / application
+
 Author: Oregon State University and Dr. Michael Curry
+
 Notes:
-Added const [characters] and const [encounters] to fetch the data that will populate the dropdowns
-Used Node.js with Express, and res.render() to take a template file, fill it with data from our DND server.
+
+    Added const [characters] and const [encounters] to fetch the data that will populate the dropdowns
+    Used Node.js with Express, and res.render() to take a template file, fill it with data from our DND server.
 
 Citation 6 for the following app.get RESET-DATABASE starter code:
 Date: 03/01/2026
