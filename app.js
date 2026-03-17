@@ -588,16 +588,16 @@ app.get('/status_effects', async function (req, res) {
         const [turnRows] = await db.query(`
             SELECT Turns.idTurns, Characters.displayName, Encounters.nameOfLocation
             FROM Turns
-            JOIN Characters_Encounters ON Turns.idCharacterEncounter = Characters_Encounters.idCharacterEncounter
-            JOIN Characters ON Characters_Encounters.idCharacters = Characters.idCharacters
-            JOIN Encounters ON Characters_Encounters.idEncounters = Encounters.idEncounters
+            JOIN CharactersEncounters ON Turns.idCharacterEncounter = CharactersEncounters.idCharacterEncounter
+            JOIN Characters ON CharactersEncounters.idCharacters = Characters.idCharacters
+            JOIN Encounters ON CharactersEncounters.idEncounters = Encounters.idEncounters
             ORDER BY Turns.idTurns
         `);
 
         res.render('status_effects', {
             title: 'Status Effects',
             status_effects: status_effects || [],
-            turnsForDropdown: turnRows  // this is what the dropdown needs
+            turnsForDropdown: turnRows
         });
 
     } catch (error) {
@@ -654,6 +654,3 @@ app.listen(PORT, function () {
         'Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.'
     );
 });
-
-
-
