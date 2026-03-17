@@ -57,7 +57,6 @@ for (let i = 0; i < statusCells.length; i++) {
 }
 
 
-
 // Original Work
 document.querySelectorAll('.edit_button').forEach(btn => {
   btn.addEventListener('click', function () {
@@ -149,8 +148,6 @@ document.querySelectorAll('.cancel_button').forEach(btn => {
     this.style.display = 'none';
   });
 });
-
-
 
 
 
