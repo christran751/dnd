@@ -84,7 +84,15 @@ AI Source URL: https://copilot.microsoft.com/chats/p2jGSo6LAdc7cYnQ9LFDi
     {{/each}}
   </select>
   <br><br>
-  Condition Status: <input type="text" name="conditionStatus" required><br>
+  Condition Status:
+  <select name="conditionStatus" required>
+  <option value="" disabled selected>Select Condition</option>
+  <option value="Healthy">Healthy</option>
+  <option value="Buffed">Buffed</option>
+  <option value="Poisoned">Poisoned</option>
+  <option value="Stunned">Stunned</option>
+  <option value="Dead">Dead</option>
+  </select>
   Duration: <input type="number" name="duration" required><br>
   Effect Amount: <input type="number" name="effectAmount" required><br>
   <button type="submit" class="btn-add">Add Status Effect</button>
