@@ -21,7 +21,7 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-image: url('/images/dnd_background.png'); /* your wallpaper path */
+  background-image: url('/images/dnd_background.png'); 
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -42,10 +42,6 @@ body::before {
   z-index: -1;
 }
 
-/* ===========================
-   HEADINGS
-   =========================== */
-
 h1, h2 {
   text-align: center;
   color: #e0b85c;
@@ -54,7 +50,6 @@ h1, h2 {
   position: relative;
 }
 
-/* 🔥 Glowing rune animation under headings */
 h1::after, h2::after {
   content: "ᚠᛇᚻᛟᚾᚱᛉᛞ";
   display: block;
@@ -70,10 +65,6 @@ h1::after, h2::after {
   from { opacity: 0.4; text-shadow: 0 0 4px #c9a227; }
   to   { opacity: 1;   text-shadow: 0 0 12px #ffdd77; }
 }
-
-/* ===========================
-   NAVIGATION BAR
-   =========================== */
 
 nav {
   background-color: rgba(15, 15, 15, 0.85);
@@ -99,7 +90,6 @@ nav .btn {
   box-shadow: 0 0 6px rgba(122, 90, 34, 0.6);
 }
 
-/* 🎲 Dice-roll hover animation */
 nav .btn:hover {
   background-color: #c9a227;
   color: #000;
@@ -132,10 +122,6 @@ nav form {
   display: inline;
 }
 
-/* ===========================
-   MAIN CONTENT CONTAINER
-   =========================== */
-
 .container {
   max-width: 900px;
   margin: 30px auto;
@@ -148,7 +134,6 @@ nav form {
   position: relative;
 }
 
-/* 🐉 Dragon-themed burnt parchment edges */
 .container::before {
   content: "";
   position: absolute;
@@ -159,10 +144,6 @@ nav form {
   background-size: cover;
   opacity: 0.35;
 }
-
-/* ===========================
-   PAGE BUTTONS
-   =========================== */
 
 .page-buttons {
   display: flex;
@@ -183,17 +164,12 @@ nav form {
   box-shadow: 0 0 10px rgba(30, 79, 161, 0.7);
 }
 
-/* 🎲 Dice-roll hover animation */
 .page-buttons .btn:hover {
   background-color: #C9A227;
   color: #000;
   box-shadow: 0 0 14px #C9A227;
   transform: rotate(-2deg) scale(1.05);
 }
-
-/* ===========================
-   TABLES
-   =========================== */
 
 table {
   width: 95%;
@@ -225,10 +201,6 @@ tr:hover {
   transform: scale(1.01);
 }
 
-/* ===========================
-   FORMS
-   =========================== */
-
 form {
   margin: 20px 0;
   background-color: #fff;
@@ -255,10 +227,6 @@ select {
   border-radius: 6px;
   color: #222;
 }
-
-/* ===========================
-   BUTTONS (CRUD)
-   =========================== */
 
 button {
   padding: 10px 14px;
@@ -312,10 +280,6 @@ button:hover {
 .btn-cancel:hover {
   background-color: #757575;
 }
-
-/* ===========================
-   FLICKERING CANDLELIGHT EFFECT
-   =========================== */
 
 @keyframes candleFlicker {
   0% { opacity: 0.95; }
